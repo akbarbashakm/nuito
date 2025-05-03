@@ -4,7 +4,6 @@ import Image from 'next/image';
 import React, { useRef } from 'react';
 import Button from './Button';
 import VideoSection from './VideoSection';
-import Header from './Header';
 import { useModal } from '@/context/ModalContext';
 
 const ShopSection = () => {
@@ -18,10 +17,9 @@ const ShopSection = () => {
 
     return (
         <main className="w-full overflow-x-hidden">
-            <Header maxWidthClass='lg:max-w-[806px]' />
             <div
                 ref={infoSectionRef}
-                className="space-y-10 p-6 max-w-2xl mx-auto lg:max-w-[806px]"
+                className="space-y-10 p-8 max-w-2xl mx-auto lg:max-w-[806px]"
                 style={{ background: '#eaeadb' }}
             >
                 <h2 className="text-[34px] text-black text-center">Drop 01</h2>

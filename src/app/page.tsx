@@ -1,8 +1,8 @@
 import Header from "@/component/Header";
 import VideoSection from "@/component/VideoSection";
-import TypingText from "@/component/TypingText";
-import Footer from "@/component/Footer";
 import ShopSection from "@/component/Shop";
+import Footer from "@/component/Footer";
+import TypingText from "@/component/TypingText";
 
 export default function Home() {
   return (
