@@ -3,7 +3,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 
-const VideoSection = () => {
+interface VideoSectionProps {
+  src: string;
+  showArrow?: boolean;
+}
+
+const VideoSection = ({ src, showArrow = true }: VideoSectionProps) => {
   const [isArrowVisible, setIsArrowVisible] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
@@ -42,15 +47,10 @@ const VideoSection = () => {
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
       >
-        <source src="/dress-shop-ad.mov" type="video/mp4" />
-        Your browser does not support the video tag.
+        <source src={src} type="video/mp4" />
       </video>
       <div className="relative z-20 h-full flex flex-col items-center justify-center">
-        <div className="text-center text-white max-w-4xl px-4">
-          <h1 className="text-4xl md:text-6xl font-nuito mb-6">Summer Collection 2024</h1>
-          <p className="text-lg md:text-xl font-nuito mb-8">Discover the latest trends in fashion</p>
-        </div>
-        {isArrowVisible && (
+      {showArrow && isArrowVisible && (
           <div className="absolute bottom-10 animate-bounce">
             <Image
               src="/down-arrow.svg"

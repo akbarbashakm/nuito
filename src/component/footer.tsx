@@ -8,7 +8,7 @@ const Footer = () => {
     const currentYear = new Date().getFullYear(); // Get the current year dynamically
 
     return (
-        <div className="flex flex-wrap justify-between items-center px-6 py-8">
+        <div className="flex flex-wrap justify-between items-center px-0 py-8 w-full">
             {/* Logo */}
             <div className="flex justify-center w-full md:w-auto mb-6 md:mb-0">
                 <Image src="/logo-black.svg" width={200} height={200} alt="footer-logo" />
