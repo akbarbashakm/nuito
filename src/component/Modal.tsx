@@ -7,10 +7,52 @@ import Footer from "@/component/Footer";
 import { useRouter } from "next/navigation";
 import Button from "./Button";
 
+// Google Sheets integration function
+const sendToGoogleSheets = async (formData: any) => {
+    try {
+        // Replace with your actual Google Sheets API endpoint (from Google Apps Script)
+        const response = await fetch('https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec', {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        
+        if (!response.ok) {
+            throw new Error('Failed to submit form data');
+        }
+        
+        return await response.json();
+    } catch (error) {
+        console.error('Error submitting to Google Sheets:', error);
+        throw error;
+    }
+};
+
+// Email validation regex
+const isValidEmail = (email: string) => {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+};
+
+// Phone number validation - accepts digits, spaces, dashes, parentheses, plus sign
+const isValidPhone = (phone: string) => {
+    // Remove all non-digits for checking length
+    const digitsOnly = phone.replace(/\D/g, '');
+    // Check if it's at least 7 digits and not more than 15 digits (international standard)
+    const validLength = digitsOnly.length >= 7 && digitsOnly.length <= 15;
+    // Check if it starts with a valid pattern
+    const validPattern = /^[\d\s\-+()]+$/.test(phone);
+    
+    return validLength && validPattern;
+};
+
 const BottomSheetModal: React.FC = () => {
     const { isOpen, close } = useModal();
     const modalRef = useRef<HTMLDivElement>(null);
     const router = useRouter();
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const [form, setForm] = useState({
         name: "",
@@ -40,11 +82,18 @@ const BottomSheetModal: React.FC = () => {
     }, [isOpen, close]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        
+        // Mobile field should only allow numbers and special phone characters
+        if (name === 'mobile' && !/^[\d\s\-+()]*$/.test(value)) {
+            return;
+        }
+        
+        setForm({ ...form, [name]: value });
 
         // Clear error when user types
-        if (errors[e.target.name as keyof typeof errors]) {
-            setErrors((prev) => ({ ...prev, [e.target.name]: "" }));
+        if (errors[name as keyof typeof errors]) {
+            setErrors((prev) => ({ ...prev, [name]: "" }));
         }
     };
 
@@ -54,13 +103,22 @@ const BottomSheetModal: React.FC = () => {
             setErrors((prev) => ({ ...prev, size: "" }));
         }
     };
-
-    const handleSubmit = (e: React.FormEvent) => {
+    
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        router.push("/thank-you");
         const newErrors = {
-            name: form.name ? "" : "Name is required",
-            email: form.email ? "" : "Email is required",
-            mobile: form.mobile ? "" : "Mobile is required",
+            name: form.name.trim() ? "" : "Name is required",
+            email: !form.email.trim() 
+                ? "Email is required" 
+                : !isValidEmail(form.email) 
+                ? "Please enter a valid email" 
+                : "",
+            mobile: !form.mobile.trim() 
+                ? "Mobile is required" 
+                : !isValidPhone(form.mobile) 
+                ? "Please enter a valid phone number" 
+                : "",
             size: form.size ? "" : "Size is required",
         };
 
@@ -69,9 +127,26 @@ const BottomSheetModal: React.FC = () => {
         const hasError = Object.values(newErrors).some((err) => err !== "");
         if (hasError) return;
 
-        setIsSubmitted(true);
-        close();
-        router.push("/thank-you");
+        try {
+            setIsSubmitting(true);
+            
+            // Submit data to Google Sheets
+            await sendToGoogleSheets({
+                name: form.name,
+                email: form.email,
+                mobile: form.mobile,
+                size: form.size,
+                timestamp: new Date().toISOString()
+            });
+            
+            setIsSubmitted(true);
+            close();
+        } catch (error) {
+            alert("Failed to submit form. Please try again.");
+            console.error("Form submission error:", error);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     useEffect(() => {
@@ -153,6 +228,7 @@ const BottomSheetModal: React.FC = () => {
                                 className={`w-full border p-2 rounded text-black placeholder:text-black ${errors.email ? "border-red-500" : "border-[#868686]"
                                     }`}
                                 placeholder="Email"
+                                type="email"
                                 name="email"
                                 value={form.email}
                                 onChange={handleChange}
@@ -197,8 +273,8 @@ const BottomSheetModal: React.FC = () => {
                         </div>
 
                         {/* Submit Button */}
-                        <Button type="submit">
-                            SUBMIT
+                        <Button type="submit" disabled={isSubmitting}>
+                            {isSubmitting ? "SUBMITTING..." : "SUBMIT"}
                         </Button>
                     </form>
                 </div>

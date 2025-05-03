@@ -1,70 +1,90 @@
-"use client";
-
 import React, { useRef, useEffect } from "react";
 import Image from "next/image";
+import gsap from "gsap";
 
-interface ImageMarquee {
+interface ImageMarqueeSectionProps {
   images: string[];
-  speed?: number; // seconds for one loop
+  speed?: number;
 }
 
-const ImageMarqueeSection: React.FC<ImageMarquee> = ({
-  images,
-  speed = 20,
-}) => {
+const ImageMarqueeSection: React.FC<ImageMarqueeSectionProps> = ({ images, speed = 20 }) => {
   const marqueeRef = useRef<HTMLDivElement | null>(null);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const autoScrollTween = useRef<gsap.core.Tween | null>(null);
+  const mouseTween = useRef<gsap.core.Tween | null>(null);
+  const autoScrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
-  // Pause animation on hover or scroll, resume on mouse leave
+  // Auto-scroll logic
   useEffect(() => {
     const marquee = marqueeRef.current;
-    if (!marquee) return;
+    const section = sectionRef.current;
+    if (!marquee || !section) return;
 
-    const handleMouseEnter = () => marquee.style.animationPlayState = "paused";
-    const handleMouseLeave = () => marquee.style.animationPlayState = "running";
-    const handleScroll = () => marquee.style.animationPlayState = "paused";
+    // Reset position
+    gsap.set(marquee, { x: 0 });
 
-    marquee.addEventListener("mouseenter", handleMouseEnter);
-    marquee.addEventListener("mouseleave", handleMouseLeave);
-    marquee.addEventListener("scroll", handleScroll);
+    // Auto-scroll function
+    const startAutoScroll = () => {
+      const maxScroll = -(marquee.scrollWidth - section.offsetWidth);
+      autoScrollTween.current = gsap.to(marquee, {
+        x: maxScroll,
+        duration: speed,
+        ease: "none",
+        repeat: -1,
+        modifiers: {
+          x: gsap.utils.unitize(x => {
+            // Looping effect
+            const max = Math.abs(maxScroll);
+            let val = parseFloat(x);
+            if (val < -max) val = 0;
+            return val;
+          })
+        }
+      });
+    };
+
+    startAutoScroll();
+
+    // Mouse move logic
+    const handleMouseMove = (e: MouseEvent) => {
+      if (autoScrollTween.current) autoScrollTween.current.pause();
+      if (autoScrollTimeout.current) clearTimeout(autoScrollTimeout.current);
+
+      const rect = section.getBoundingClientRect();
+      const percent = (e.clientX - rect.left) / rect.width;
+      const maxScroll = -(marquee.scrollWidth - rect.width);
+      const targetX = maxScroll * percent;
+
+      if (mouseTween.current) mouseTween.current.kill();
+      mouseTween.current = gsap.to(marquee, {
+        x: targetX,
+        duration: 1.2,
+        ease: "power3.out"
+      });
+
+      // Resume auto-scroll after 2s of no mouse move
+      autoScrollTimeout.current = setTimeout(() => {
+        if (autoScrollTween.current) autoScrollTween.current.resume();
+      }, 2000);
+    };
+
+    section.addEventListener("mousemove", handleMouseMove);
 
     return () => {
-      marquee.removeEventListener("mouseenter", handleMouseEnter);
-      marquee.removeEventListener("mouseleave", handleMouseLeave);
-      marquee.removeEventListener("scroll", handleScroll);
+      section.removeEventListener("mousemove", handleMouseMove);
+      if (autoScrollTween.current) autoScrollTween.current.kill();
+      if (mouseTween.current) mouseTween.current.kill();
+      if (autoScrollTimeout.current) clearTimeout(autoScrollTimeout.current);
     };
-  }, []);
-
-  // Optional: Snap to start if user scrolls to end (for extra smoothness)
-  useEffect(() => {
-    const marquee = marqueeRef.current;
-    if (!marquee) return;
-    const handleScroll = () => {
-      // If user scrolls to end, reset scrollLeft to start (seamless loop)
-      if (marquee.scrollLeft >= marquee.scrollWidth / 2) {
-        marquee.scrollLeft = 0;
-      }
-      // If user scrolls to start (negative), jump to middle
-      if (marquee.scrollLeft === 0) {
-        // (Optional: Uncomment if you want to allow reverse seamless loop)
-        // marquee.scrollLeft = marquee.scrollWidth / 2;
-      }
-    };
-    marquee.addEventListener("scroll", handleScroll);
-    return () => marquee.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [images, speed]);
 
   return (
-    <section className="w-full py-8 bg-lightbeige overflow-hidden">
+    <section ref={sectionRef} className="w-full py-8 bg-lightbeige overflow-hidden cursor-pointer">
       <div className="w-full">
         <div
           ref={marqueeRef}
-          className="flex gap-4 animate-marquee overflow-x-auto scrollbar-hide min-w-max"
-          style={{
-            animationDuration: `${speed}s`,
-          }}
-          tabIndex={0}
+          className="flex gap-4 min-w-max"
         >
-          {/* Duplicate images for seamless loop */}
           {[...images, ...images].map((img, idx) => (
             <div key={idx} className="flex-shrink-0">
               <Image
@@ -78,24 +98,6 @@ const ImageMarqueeSection: React.FC<ImageMarquee> = ({
           ))}
         </div>
       </div>
-      <style jsx global>{`
-        @keyframes marquee {
-          0% { transform: translateX(10%); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-          animation-name: marquee;
-          animation-timing-function: linear;
-          animation-iteration-count: infinite;
-        }
-        .scrollbar-hide {
-          scrollbar-width: none;
-          -ms-overflow-style: none;
-        }
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
     </section>
   );
 };

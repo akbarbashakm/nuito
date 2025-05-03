@@ -5,10 +5,11 @@ import Image from 'next/image';
 
 interface VideoSectionProps {
   src: string;
+  heightClass?: string; // add this
   showArrow?: boolean;
 }
 
-const VideoSection = ({ src, showArrow = true }: VideoSectionProps) => {
+const VideoSection = ({ src, showArrow = true, heightClass }: VideoSectionProps) => {
   const [isArrowVisible, setIsArrowVisible] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
@@ -37,7 +38,10 @@ const VideoSection = ({ src, showArrow = true }: VideoSectionProps) => {
   }, []);
 
   return (
-    <section className="w-full h-screen relative overflow-hidden">
+    <section
+    className="w-full relative overflow-hidden"
+    style={heightClass ? { height: heightClass } : { height: '100vh' }}
+  >
       <div className="absolute inset-0 bg-black/30 z-10" />
       <video
         ref={videoRef}

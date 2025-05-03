@@ -8,10 +8,12 @@ const Footer = () => {
     const currentYear = new Date().getFullYear(); // Get the current year dynamically
 
     return (
-        <div className="flex flex-wrap justify-between items-center px-0 py-8 w-full">
+        <div className="flex flex-wrap justify-between items-center px-0 py-12 w-full">
             {/* Logo */}
             <div className="flex justify-center w-full md:w-auto mb-6 md:mb-0">
-                <Image src="/logo-black.svg" width={200} height={200} alt="footer-logo" />
+                <Link href="/">
+                    <Image src="/logo-black.svg" width={200} height={200} alt="footer-logo" />
+                </Link>
             </div>
 
             {/* Footer content */}
@@ -22,7 +24,9 @@ const Footer = () => {
 
                 {/* Links */}
                 <div className="flex items-center gap-2 mb-4">
-                    <Image src="/instagram.svg" width={20} height={20} alt="instagram" />
+                    <Link href="/about">
+                        <Image src="/instagram.svg" width={20} height={20} alt="instagram" />
+                    </Link>
                     <Link href="/about" className="text-black text-sm hover:underline">
                         About Us
                     </Link>

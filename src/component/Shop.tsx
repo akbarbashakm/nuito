@@ -3,17 +3,11 @@
 import Image from 'next/image';
 import React, { useRef } from 'react';
 import Button from './Button';
-import VideoSection from './VideoSection';
-import { useModal } from '@/context/ModalContext';
+import { useRouter } from 'next/navigation'; // Correct import for Next.js 13+ App Router
 
 const ShopSection = () => {
-    const { open } = useModal();
     const infoSectionRef = useRef<HTMLDivElement>(null);
-
-    // Video end aana scroll trigger
-    const handleVideoEnd = () => {
-        infoSectionRef.current?.scrollIntoView({ behavior: "smooth" });
-    };
+    const router = useRouter();
 
     return (
         <main className="w-full overflow-x-hidden">
@@ -32,11 +26,11 @@ const ShopSection = () => {
                     alt="t-shirt"
                     className="w-[348px] sm:w-[500px] max-w-full h-auto mx-auto"
                 />
-                <div className="grid grid-cols-2 text-center">
+                <div className="grid grid-cols-2 text-center md:px-12">
                     {/* Left Tee */}
                     <div>
                         <p className="font-medium" style={{ color: "#060606" }}>Black Crew Tee</p>
-                        <Button>
+                        <Button onClick={() => router.push('/shop')}>
                             Shop for HIM
                         </Button>
                         <p className="mt-2 text-sm text-gray-700" style={{ color: "#060606" }}>Structured. Refined. Essential.</p>

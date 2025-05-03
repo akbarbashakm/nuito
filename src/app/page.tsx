@@ -24,6 +24,7 @@ export default function Home() {
             { type: "p", text: "Only pieces designed to remain relevant forever." },
             { type: "h2", text: "The NU ITO WAY" },
             { type: "p", text: "Every Nu ITO piece begins with intent —fabric that feels like second skin, fits that honour real bodies, and design stripped of noise. Quiet, deliberate, and made to stay — season after season, wear after wear." },
+            { type: "divider" },
           ]}
         />
         <ShopSection />

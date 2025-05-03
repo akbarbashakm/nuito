@@ -60,7 +60,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
     return (
         <div
             ref={containerRef}
-            className={`w-full border-b border-[#868686] max-w-[654px] mx-auto bg-lightbeige py-8 px-4 flex flex-col items-center ${className ?? ""}`}
+            className={`w-full border-[#868686] max-w-[654px] mx-auto bg-lightbeige py-8 px-4 flex flex-col items-center ${className ?? ""}`}
         >
             {content.map((item, idx) => {
                 if (item.type === "divider") {
