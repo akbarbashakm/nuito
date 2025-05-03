@@ -19,7 +19,6 @@ const ShopSection = () => {
     return (
         <main className="w-full overflow-x-hidden">
             <Header maxWidthClass='lg:max-w-[806px]' />
-            <VideoSection src="/dress-shop-ad.mov" showArrow={false} />
             <div
                 ref={infoSectionRef}
                 className="space-y-10 p-6 max-w-2xl mx-auto lg:max-w-[806px]"

@@ -26,9 +26,9 @@ export default function Home() {
             { type: "p", text: "Every Nu ITO piece begins with intent —fabric that feels like second skin, fits that honour real bodies, and design stripped of noise. Quiet, deliberate, and made to stay — season after season, wear after wear." },
           ]}
         />
-      </div>
-      <ShopSection />
-      <Footer />
+        <ShopSection />
+        <Footer />
+      </div>      
     </main>
   );
 }
