@@ -39,7 +39,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             return {
                 lineIndex,
                 isHtml: false,
-                parts: parts.map((part, i) => {
+                parts: parts.map((part) => {
                     if (part.startsWith('*') && part.endsWith('*')) {
                         return { type: 'strong', content: part.slice(1, -1) };
                     }
@@ -55,7 +55,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
         const isMobile = window.innerWidth <= 768;
         const scrollEnd = isMobile ? "+=1000" : "+=700";
 
-        let tl = gsap.timeline({
+        const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: containerRef.current,
                 scrub: 0.5,
@@ -88,7 +88,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                 element.appendChild(container);
 
                 // Process each line
-                lines.forEach((line, lineIndex) => {
+                lines.forEach((line) => {
                     const lineDiv = document.createElement('div');
                     lineDiv.className = 'mb-4'; // Increased margin between lines
                     
@@ -124,7 +124,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                         // Create and append spans for each character in the line
                         line.parts?.forEach(part => {
                             const chars = part.content.split('');
-                            chars.forEach((char, charIndex) => {
+                            chars.forEach((char) => {
                                 const span = document.createElement('span');
                                 span.textContent = char;
                                 span.style.opacity = '0.4';
@@ -157,7 +157,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
 
                 // Animate each character with staggered timing
                 const letterSpans = Array.from(element.querySelectorAll('span, p'));
-                letterSpans.forEach((span, i) => {
+                letterSpans.forEach((span) => {
                     tl.to(span, {
                         opacity: 1,
                         duration: 0.05,

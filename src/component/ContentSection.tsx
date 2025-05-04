@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const ContentSection = () => {
   const [currentSection, setCurrentSection] = useState(0);
@@ -33,6 +33,7 @@ const ContentSection = () => {
         setIsTyping(false);
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [displayText, isTyping, currentSection]);
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {

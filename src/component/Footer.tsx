@@ -5,8 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Footer = () => {
-    const currentYear = new Date().getFullYear(); // Get the current year dynamically
-
     return (
         <div className="flex flex-wrap justify-between items-center px-0 py-14 w-full">
             {/* Logo */}

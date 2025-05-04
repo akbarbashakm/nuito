@@ -19,7 +19,7 @@ type TypingTextProps = {
 };
 
 
-const TypingText: React.FC<TypingTextProps> = ({ text, doneTyping, onTypingComplete }) => {
+const TypingText: React.FC<TypingTextProps> = ({ text, onTypingComplete }) => {
   const [displayedText, setDisplayedText] = useState('');
 
   useEffect(() => {

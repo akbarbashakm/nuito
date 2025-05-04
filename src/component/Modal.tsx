@@ -1,14 +1,11 @@
 "use client";
 import { useModal } from "@/context/ModalContext";
 import React, { useRef, useEffect, useState } from "react";
-import Image from "next/image";
-import Header from "@/component/Header";
-import Footer from "@/component/Footer";
 import { useRouter } from "next/navigation";
 import Button from "./Button";
 
 // Google Sheets integration function
-const sendToGoogleSheets = async (formData: any) => {
+const sendToGoogleSheets = async (formData: unknown) => {
     try {
         // Replace with your actual Google Sheets API endpoint (from Google Apps Script)
         const response = await fetch('https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec', {
@@ -68,6 +65,7 @@ const BottomSheetModal: React.FC = () => {
         size: "",
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [isSubmitted, setIsSubmitted] = useState(false);
 
     // Close on outside click
