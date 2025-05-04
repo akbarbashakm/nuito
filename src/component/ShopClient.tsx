@@ -25,11 +25,11 @@ export default function ShopClient() {
                 <h1
                     className="
                         text-black
+                        font-metrophobic
                         tracking-wide
                         text-[32px]
                         font-normal
                         leading-[39.5px]
-                        font-[var(--Nuito---Font-01,Metrophobic)]
                         pb-2
                     "
                 >
@@ -41,7 +41,7 @@ export default function ShopClient() {
                         text-[18px]
                         font-normal
                         leading-[23.2px]
-                        font-[var(--Nuito---Font-01,Metrophobic)]
+                        font-metrophobic
                         ">₹1999</div>
             </div>
             <Button position='fixed' className="bottom-55 left-1/2 -translate-x-1/2 z-50"
@@ -58,7 +58,7 @@ export default function ShopClient() {
 
                 <InfoSection
                     title="Fabric"
-                    content="[A precise blend of bamboo, charcoal, Supima cotton, and spandex] creates a fabric that's not only breathable and stretchy but also features exceptional moisture-wicking and antibacterial properties. [This ensures you stay fresh and comfortable all day.]"
+                    content="[A precise blend of bamboo, charcoal, Supima cotton, and spandex] creates a fabric that's not only breathable and stretchy but also features exceptional moisture-wicking and antibacterial properties. [* [This ensures you stay fresh and comfortable all day.]"
                     image="/fabric-asset.png"
                     icon={'/thread_1.svg'}
                     reverse

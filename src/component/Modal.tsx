@@ -18,11 +18,11 @@ const sendToGoogleSheets = async (formData: any) => {
                 'Content-Type': 'application/json',
             },
         });
-        
+
         if (!response.ok) {
             throw new Error('Failed to submit form data');
         }
-        
+
         return await response.json();
     } catch (error) {
         console.error('Error submitting to Google Sheets:', error);
@@ -44,7 +44,7 @@ const isValidPhone = (phone: string) => {
     const validLength = digitsOnly.length >= 7 && digitsOnly.length <= 15;
     // Check if it starts with a valid pattern
     const validPattern = /^[\d\s\-+()]+$/.test(phone);
-    
+
     return validLength && validPattern;
 };
 
@@ -83,12 +83,12 @@ const BottomSheetModal: React.FC = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        
+
         // Mobile field should only allow numbers and special phone characters
         if (name === 'mobile' && !/^[\d\s\-+()]*$/.test(value)) {
             return;
         }
-        
+
         setForm({ ...form, [name]: value });
 
         // Clear error when user types
@@ -103,22 +103,22 @@ const BottomSheetModal: React.FC = () => {
             setErrors((prev) => ({ ...prev, size: "" }));
         }
     };
-    
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         router.push("/thank-you");
         const newErrors = {
             name: form.name.trim() ? "" : "Name is required",
-            email: !form.email.trim() 
-                ? "Email is required" 
-                : !isValidEmail(form.email) 
-                ? "Please enter a valid email" 
-                : "",
-            mobile: !form.mobile.trim() 
-                ? "Mobile is required" 
-                : !isValidPhone(form.mobile) 
-                ? "Please enter a valid phone number" 
-                : "",
+            email: !form.email.trim()
+                ? "Email is required"
+                : !isValidEmail(form.email)
+                    ? "Please enter a valid email"
+                    : "",
+            mobile: !form.mobile.trim()
+                ? "Mobile is required"
+                : !isValidPhone(form.mobile)
+                    ? "Please enter a valid phone number"
+                    : "",
             size: form.size ? "" : "Size is required",
         };
 
@@ -129,7 +129,7 @@ const BottomSheetModal: React.FC = () => {
 
         try {
             setIsSubmitting(true);
-            
+
             // Submit data to Google Sheets
             await sendToGoogleSheets({
                 name: form.name,
@@ -138,7 +138,7 @@ const BottomSheetModal: React.FC = () => {
                 size: form.size,
                 timestamp: new Date().toISOString()
             });
-            
+
             setIsSubmitted(true);
             close();
         } catch (error) {
@@ -192,27 +192,27 @@ const BottomSheetModal: React.FC = () => {
         `}
                 style={{ maxWidth: 600, margin: "0 auto" }}
             >
-                <div className="p-6">
-                    <div className="flex justify-between items-center border-b pb-2">
-                        <div className="font-semibold text-lg text-black">Black Crew Tee | Him</div>
-                        <div className="font-semibold text-lg text-black">₹ 1999</div>
+                <div className="">
+                    <div className="flex justify-between p-4 px-6 items-center border-b">
+                        <div className="font-normal font-metrophobic text-[18px] text-black">Black Crew Tee | Him</div>
+                        <div className="font-normal font-metrophobic text-[18px] text-black">₹ 1999</div>
                     </div>
 
-                    <div className="py-4 border-b">
-                        <div className="font-medium mb-2 text-black">Register your interest below</div>
-                        <ol className="text-sm text-gray-600 list-decimal pl-4 text-black">
-                            <li>Your intent will help us guide you through our FIT consultation service</li>
-                            <li>After that select 50 will get a special invite to make a purchase of the Tee.</li>
+                    <div className="py-4 px-6 border-b">
+                        <div className="font-normal font-metrophobic text-[18px] mb-2 text-black">Register your interest below</div>
+                        <ol className="font-normal font-metrophobic text-[18px] list-decimal pl-4 py-2 text-[#060606]">
+                            <li className="py-2">Your intent will help us guide you through our FIT consultation service</li>
+                            <li className="py-2">After that select 50 will get a special invite to make a purchase of the Tee.</li>
                         </ol>
                     </div>
 
                     <form className="pt-4 flex flex-col gap-4" onSubmit={handleSubmit}>
-                        <div className="font-medium mb-2 text-black">Please fill this form for us</div>
+                        <div className="font-normal font-metrophobic text-[18px] mb-2 px-6 text-black">Please fill this form for us</div>
 
                         {/* Name */}
-                        <div>
+                        <div className="px-6">
                             <input
-                                className={`w-full border p-2 rounded text-black placeholder:text-black ${errors.name ? "border-red-500" : "border-[#868686]"
+                                className={`w-full border p-2 rounded text-black font-avenir text-[14px] font-normal placeholder:text-black ${errors.name ? "border-red-500" : "border-[#868686]"
                                     }`}
                                 placeholder="Name"
                                 name="name"
@@ -223,9 +223,9 @@ const BottomSheetModal: React.FC = () => {
                         </div>
 
                         {/* Email */}
-                        <div>
+                        <div className="px-6">
                             <input
-                                className={`w-full border p-2 rounded text-black placeholder:text-black ${errors.email ? "border-red-500" : "border-[#868686]"
+                                className={`w-full border p-2 rounded font-avenir text-[14px] font-normal text-black placeholder:text-black ${errors.email ? "border-red-500" : "border-[#868686]"
                                     }`}
                                 placeholder="Email"
                                 type="email"
@@ -237,9 +237,9 @@ const BottomSheetModal: React.FC = () => {
                         </div>
 
                         {/* Mobile */}
-                        <div>
+                        <div className="px-6">
                             <input
-                                className={`w-full border p-2 rounded text-black placeholder:text-black ${errors.mobile ? "border-red-500" : "border-[#868686]"
+                                className={`w-full border p-2 rounded text-black font-avenir text-[14px] font-normal placeholder:text-black ${errors.mobile ? "border-red-500" : "border-[#868686]"
                                     }`}
                                 placeholder="Mobile"
                                 name="mobile"
@@ -250,17 +250,17 @@ const BottomSheetModal: React.FC = () => {
                         </div>
 
                         {/* Size */}
-                        <div>
-                            <div className="mb-1 text-black">Size</div>
+                        <div className="px-6 flex gap-6 items-center">
+                            <div className="text-black font-avenir text-[14px] font-normal">Size</div>
                             <div className="flex gap-2">
                                 {["S", "M", "L"].map((size) => (
                                     <button
                                         type="button"
                                         key={size}
-                                        className={`w-10 h-10 border rounded cursor-pointer transition-all duration-200
+                                        className={`w-8 h-8 border rounded-[4px] cursor-pointer transition-all duration-200
                         ${form.size === size
-                                                ? "bg-black text-white border-black"
-                                                : "bg-white text-black border-[#868686]"
+                                                ? "bg-black font-avenir text-[14px] font-normal text-white border-black"
+                                                : "bg-white font-avenir text-[14px] font-normal text-black border-[#868686]"
                                             }
                       `}
                                         onClick={() => handleSize(size)}
@@ -271,11 +271,12 @@ const BottomSheetModal: React.FC = () => {
                             </div>
                             {errors.size && <p className="text-red-500 text-sm mt-1">{errors.size}</p>}
                         </div>
-
-                        {/* Submit Button */}
-                        <Button type="submit" disabled={isSubmitting}>
-                            {isSubmitting ? "SUBMITTING..." : "SUBMIT"}
-                        </Button>
+                        <div className="p-6 pt-0 w-full">
+                            {/* Submit Button */}
+                            <Button className="w-full rounded-[8px]" type="submit" disabled={isSubmitting}>
+                                {isSubmitting ? "SUBMITTING..." : "SUBMIT"}
+                            </Button>
+                        </div>
                     </form>
                 </div>
             </div>

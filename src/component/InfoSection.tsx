@@ -54,14 +54,14 @@ const InfoSection: React.FC<InfoSectionProps> = ({
     const contentAnim = contentVisible
         ? "opacity-100 translate-x-0"
         : reverse
-        ? "opacity-0 translate-x-16"
-        : "opacity-0 -translate-x-16";
+            ? "opacity-0 translate-x-16"
+            : "opacity-0 -translate-x-16";
 
     const imageAnim = imageVisible
         ? "opacity-100 translate-x-0"
         : reverse
-        ? "opacity-0 -translate-x-16"
-        : "opacity-0 translate-x-16";
+            ? "opacity-0 -translate-x-16"
+            : "opacity-0 translate-x-16";
 
     return (
         <section
@@ -74,11 +74,11 @@ const InfoSection: React.FC<InfoSectionProps> = ({
             <div
                 ref={contentRef}
                 className={`
-                    flex-1 px-6 md:px-12 transition-all duration-700
+                    flex-1 md:px-12 transition-all duration-700
                     ${contentAnim}
                 `}
             >
-                <h2 className="text-3xl text-black md:text-[32px] font-nuito mb-4 uppercase flex items-center">
+                <h2 className="text-3xl text-black/64 md:text-[32px] font-metrophobic mb-4 uppercase flex items-center">
                     {icon && (
                         <Image
                             src={icon}
@@ -90,25 +90,31 @@ const InfoSection: React.FC<InfoSectionProps> = ({
                     )}
                     {title}
                 </h2>
-                <p className="text-[18px] md:text-[18px] text-[#212121]">
-                    {content.split(/(\[.*?\])/g).map((part, index) => {
-                        if (part.startsWith('[') && part.endsWith(']')) {
-                            const text = part.slice(1, -1);
-                            return (
-                                <span key={index} className="font-bold text-black">
-                                    {text}
-                                </span>
-                            );
-                        } else {
-                            return part;
-                        }
-                    })}
+                <p className="text-[18px] font-m font-metrophobic md:text-[18px] text-black/64">
+                    {content.split('[*').map((line, lineIndex) => (
+                        <React.Fragment key={lineIndex}>
+                            {lineIndex > 0 && <br />}
+                            {line.split(/(\[.*?\])/g).map((part, index) => {
+                                if (part.startsWith('[') && part.endsWith(']')) {
+                                    const text = part.slice(1, -1);
+                                    return (
+                                        <span key={index} className="font-medium text-[#212121]">
+                                            {text}
+                                        </span>
+                                    );
+                                } else {
+                                    return <span key={index} className="font-medium text-[#212121]/60">{part}</span>;
+                                }
+                            })}
+                            {lineIndex < content.split('[*').length - 1 && <br />}
+                        </React.Fragment>
+                    ))}
                 </p>
             </div>
             <div
                 ref={imageRef}
                 className={`
-                    flex-1 flex justify-center items-center px-6 md:px-12 transition-all duration-700
+                    flex-1 flex justify-center items-center md:px-12 transition-all duration-700
                     ${imageAnim}
                 `}
             >

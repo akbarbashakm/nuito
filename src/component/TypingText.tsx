@@ -8,7 +8,7 @@ import { TextPlugin } from "gsap/TextPlugin";
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
 type ContentItem = {
-    type: "h2" | "p" | "divider";
+    type: "h2" | "h3" | "p" | "divider";
     text?: string;
 };
 
@@ -21,46 +21,112 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const lineRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
+    const processText = (text: string | undefined) => {
+        if (!text) return [];
+        // Split by [* *] to handle line breaks
+        const lines = text.split('[* *]');
+        return lines.map((line, lineIndex) => {
+            // Then split by * for strong text within each line
+            const parts = line.split(/(\*.*?\*)/);
+            return {
+                lineIndex,
+                parts: parts.map((part, i) => {
+                    if (part.startsWith('*') && part.endsWith('*')) {
+                        return { type: 'strong', content: part.slice(1, -1) };
+                    }
+                    return { type: 'normal', content: part };
+                })
+            };
+        });
+    };
+
     useEffect(() => {
         if (!containerRef.current) return;
-    
+
         const isMobile = window.innerWidth <= 768;
-        const scrollEnd = isMobile ? "+=800" : "+=500";
-    
+        const scrollEnd = isMobile ? "+=1000" : "+=700";
+
         let tl = gsap.timeline({
             scrollTrigger: {
                 trigger: containerRef.current,
-                scrub: isMobile ? 2 : 1, // smoother/slower on mobile
+                scrub: 0.5,
                 start: "top center",
                 end: scrollEnd,
                 pinSpacing: false,
+                fastScrollEnd: true,
+                anticipatePin: 1,
+                onUpdate: (self) => {
+                    if (self.direction === 1) {
+                        tl.timeScale(1.5);
+                    } else {
+                        tl.timeScale(1);
+                    }
+                }
             },
         });
-    
+
         content.forEach((item, idx) => {
             if (item.type !== "divider" && lineRefs.current[idx]) {
-                tl.to(
-                    lineRefs.current[idx],
-                    {
-                        text: { value: item.text ?? "" },
-                        duration: 1,
-                        ease: "none",
-                    },
-                    "+=0.2"
-                );
+                const element = lineRefs.current[idx];
+                const lines = processText(item.text);
+                
+                // Clear existing content
+                element.innerHTML = '';
+                
+                // Create a container for all lines
+                const container = document.createElement('div');
+                container.className = 'flex flex-col';
+                element.appendChild(container);
+
+                // Process each line
+                lines.forEach((line, lineIndex) => {
+                    const lineDiv = document.createElement('div');
+                    lineDiv.className = 'mb-4'; // Increased margin between lines
+                    
+                    // Create and append spans for each character in the line
+                    line.parts.forEach(part => {
+                        const chars = part.content.split('');
+                        chars.forEach((char, charIndex) => {
+                            const span = document.createElement('span');
+                            span.textContent = char;
+                            span.style.opacity = '0.4';
+                            span.style.display = 'inline-block';
+                            if (char === ' ') {
+                                span.style.marginRight = '0.25em';
+                            }
+                            if (part.type === 'strong') {
+                                span.style.fontWeight = '700';
+                                span.style.color = '#000000';
+                            }
+                            lineDiv.appendChild(span);
+                        });
+                    });
+                    
+                    container.appendChild(lineDiv);
+                });
+
+                // Animate each character with staggered timing
+                const letterSpans = Array.from(element.querySelectorAll('span'));
+                letterSpans.forEach((span, i) => {
+                    tl.to(span, {
+                        opacity: 1,
+                        duration: 0.05,
+                        ease: "power1.out",
+                    }, `+=${0.01}`);
+                });
             }
         });
-    
+
         return () => {
             tl.kill();
             ScrollTrigger.getAll().forEach(trigger => trigger.kill());
         };
     }, [content]);
-    
+
     return (
         <div
             ref={containerRef}
-            className={`w-full border-[#868686] max-w-[654px] mx-auto bg-lightbeige py-8 px-4 flex flex-col items-center ${className ?? ""}`}
+            className={`w-full border-[#868686] max-w-[654px] mx-auto bg-lightbeige pt-8 pb-4 px-4 flex flex-col items-center ${className ?? ""}`}
         >
             {content.map((item, idx) => {
                 if (item.type === "divider") {
@@ -74,17 +140,28 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                     return (
                         <h2
                             key={idx}
-                            className="text-2xl py-4 md:text-3xl font-nuito font-normal text-center mb-4 typing_text-heading text-black"
+                            className="text-[32px] py-8 md:text-3xl font-avenir font-normal text-center mb-4 typing_text-heading text-black/64"
                         >
                             <span ref={el => { lineRefs.current[idx] = el; }} className="typing_text" />
                             <span className="cursor"></span>
                         </h2>
                     );
                 }
+                if (item.type === "h3") {
+                    return (
+                        <h3
+                            key={idx}
+                            className="text-[18px] font-avenir py-8 font-medium leading-[29.6px] tracking-[0.252px] text-center mb-4 typing_text-heading text-black"
+                        >
+                            <span ref={el => { lineRefs.current[idx] = el; }} className="typing_text" />
+                            <span className="cursor"></span>
+                        </h3>
+                    );
+                }
                 return (
                     <p
                         key={idx}
-                        className="text-lg py-4 md:text-xl font-nuito text-center mb-4 typing_text-heading text-black"
+                        className="text-[18px] font-avenir font-medium leading-[29.6px] tracking-[0.252px] text-center mb-4 typing_text-heading text-black/64"
                     >
                         <span ref={el => { lineRefs.current[idx] = el; }} className="typing_text" />
                         <span className="cursor"></span>
@@ -92,18 +169,18 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                 );
             })}
             <style jsx>{`
-        .typing_text-heading {
-          margin: 0;
-          font-weight: 400;
-        }
-        .cursor {
-        //   animation: cursorBlink 0.5s alternate infinite;
-        }
-        @keyframes cursorBlink {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-      `}</style>
+                .typing_text-heading {
+                    margin: 0;
+                    font-weight: 500;
+                }
+                .cursor {
+                    animation: cursorBlink 0.5s alternate infinite;
+                }
+                @keyframes cursorBlink {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+            `}</style>
         </div>
     );
 };

@@ -64,7 +64,7 @@ const Header: React.FC<HeaderProps> = ({
                 >
                     <Link
                         href="#"
-                        className="relative text-[14px] sm:text-[16px] md:text-[18px] font-nuito
+                        className="relative font-avenir text-[14px] sm:text-[16px] md:text-[18px] font-nuito
                             after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-black
                             after:w-0 hover:after:w-full after:transition-all after:duration-300"
                     >
@@ -72,7 +72,7 @@ const Header: React.FC<HeaderProps> = ({
                     </Link>
                     <Link
                         href="#"
-                        className="relative text-[14px] sm:text-[16px] md:text-[18px] font-nuito
+                        className="relative font-avenir text-[14px] sm:text-[16px] md:text-[18px] font-nuito
                             after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-black
                             after:w-0 hover:after:w-full after:transition-all after:duration-300"
                     >

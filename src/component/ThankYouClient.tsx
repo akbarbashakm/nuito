@@ -25,7 +25,7 @@ export default function ThankYouPage() {
       <Header scrolledEffect={false} />
       <main className="lg:max-w-[726px] mx-auto flex-1 flex flex-col items-center justify-center pt-30">
         <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-3xl mb-8">
-          <div className="flex-1 flex flex-col items-center justify-center">
+          <div className="py-28 flex-1 flex flex-col items-center justify-center">
           <div className="relative md:right-[60px] md:translate-x-1 md:transform bg-green-400 rounded-full w-24 h-24 flex items-center justify-center mb-6">
               <svg
                 ref={tickRef}
@@ -56,22 +56,22 @@ export default function ThankYouPage() {
   before:h-full before:w-px before:bg-[#868686]
   before:content-['']"
 >
-  <div className="text-2xl pt-4 pb-6 font-nuito font-normal text-black mb-2">
+  <h2 className="text-[32px] px-6 font-normal font-metrophobic pt-4 pb-6 text-black mb-2">
     Thank you for your interest in
-  </div>
+  </h2>
 
   <div className="flex items-center gap-4 mb-2">
     <Image src="/t-black.png" alt="Black Tee" width={116} height={167} className="rounded" />
     <div>
-      <div className="font-medium text-left text-black text-[18px]">The perfect black tee</div>
-      <div className="text-black text-left text-[18px] pt-2">₹ 1999</div>
+      <p className="font-normal font-metrophobic text-left text-black text-[18px]">Black Crew Tee  |  Him</p>
+      <p className="font-normal font-metrophobic text-left text-black text-[18px] pt-2">₹ 1999</p>
     </div>
   </div>
 
-  <div className="text-gray-700 text-sm mt-2 pt-8 p-4">
+  <p className="font-normal font-metrophobic text-black text-[18px] mt-2 pt-8 p-4">
     We will be in touch with you shortly.<br />
     Our fit consultant will call you and explain to you about our fit and then we will ship the product within 2 working days.
-  </div>
+  </p>
 </div>
 
         </div>
