@@ -49,7 +49,7 @@ export default function Home() {
       />
       <div 
         ref={contentRef}
-        className="max-w-[654px] mx-auto snap-y snap-mandatory overflow-y-scroll" 
+        className="max-w-[654px] mx-auto snap-y snap-mandatory" 
         style={{ background: '#eaeadb' }}
       >
         <TypingText
