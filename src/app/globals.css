@@ -3,8 +3,7 @@
 
 @font-face {
   font-family: 'Avenir Next';
-  src: url('/fonts/AvenirNext-Regular.woff2') format('woff2'),
-       url('/fonts/AvenirNext-Regular.woff') format('woff');
+  src: url('/fonts/AvenirNext-Regular.otf') format('otf');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -12,8 +11,7 @@
 
 @font-face {
   font-family: 'Avenir Next';
-  src: url('/fonts/AvenirNext-Medium.woff2') format('woff2'),
-       url('/fonts/AvenirNext-Medium.woff') format('woff');
+  src: url('/fonts/AvenirNext-Medium.otf') format('otf');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -21,8 +19,7 @@
 
 @font-face {
   font-family: 'Avenir Next';
-  src: url('/fonts/AvenirNext-Bold.woff2') format('woff2'),
-       url('/fonts/AvenirNext-Bold.woff') format('woff');
+  src: url('/fonts/AvenirNext-Bold.otf') format('otf');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
