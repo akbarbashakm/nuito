@@ -22,7 +22,7 @@ const Button: React.FC<ButtonProps> = ({
     onClick={onClick}
     disabled={disabled}
     className={`
-      ${position} inline-block font-avenir text-[16px] leading-normal bg-[#e7cd4b] text-black font-semibold py-2 px-4 rounded mt-2
+      ${position} inline-block font-avenir text-[16px] leading-normal bg-[#e7cd4b] text-black font-normal py-2 px-4 rounded mt-2
       border-2 border-transparent hover:bg-[#e7cd4b] hover:border-[#e7cd4b] hover:text-[#fff]
       cursor-pointer transition-all duration-300
       ${disabled ? 'opacity-70 cursor-not-allowed' : ''}

@@ -1,15 +1,53 @@
+"use client";
+
 import Header from "@/component/Header";
 import VideoSection from "@/component/VideoSection";
 import ShopSection from "@/component/Shop";
 import Footer from "@/component/Footer";
 import TypingText from "@/component/TypingText";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!contentRef.current) return;
+
+    const videoSection = document.querySelector(".video-section");
+    if (!videoSection) return;
+
+    ScrollTrigger.create({
+      trigger: videoSection,
+      start: "top top",
+      end: "bottom 70%",
+      onLeave: () => {
+        if (contentRef.current) {
+          contentRef.current.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+        }
+      }
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
+
   return (
     <main>
       <Header />
       <VideoSection src="/dress-shop-ad.mov" />
-      <div className="max-w-[654px] mx-auto" style={{ background: '#eaeadb' }}>
+      <div 
+        ref={contentRef}
+        className="max-w-[654px] mx-auto snap-y snap-mandatory" 
+        style={{ background: '#eaeadb' }}
+      >
         <TypingText
           content={[
             { type: "h2", text: "*nu ito •* [nwi.toʊ] *•* (noun)" },

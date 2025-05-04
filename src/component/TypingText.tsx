@@ -26,10 +26,19 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
         // Split by [* *] to handle line breaks
         const lines = text.split('[* *]');
         return lines.map((line, lineIndex) => {
+            // Check for HTML tags
+            if (line.includes('<p>')) {
+                return {
+                    lineIndex,
+                    isHtml: true,
+                    content: line
+                };
+            }
             // Then split by * for strong text within each line
             const parts = line.split(/(\*.*?\*)/);
             return {
                 lineIndex,
+                isHtml: false,
                 parts: parts.map((part, i) => {
                     if (part.startsWith('*') && part.endsWith('*')) {
                         return { type: 'strong', content: part.slice(1, -1) };
@@ -83,30 +92,71 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                     const lineDiv = document.createElement('div');
                     lineDiv.className = 'mb-4'; // Increased margin between lines
                     
-                    // Create and append spans for each character in the line
-                    line.parts.forEach(part => {
-                        const chars = part.content.split('');
-                        chars.forEach((char, charIndex) => {
-                            const span = document.createElement('span');
-                            span.textContent = char;
-                            span.style.opacity = '0.4';
-                            span.style.display = 'inline-block';
-                            if (char === ' ') {
-                                span.style.marginRight = '0.25em';
-                            }
-                            if (part.type === 'strong') {
-                                span.style.fontWeight = '700';
-                                span.style.color = '#000000';
-                            }
-                            lineDiv.appendChild(span);
+                    if (line.isHtml) {
+                        // Handle HTML content
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = line.content || '';
+                        const pElement = tempDiv.querySelector('p');
+                        if (pElement) {
+                            // Process strong text within p tag
+                            const text = pElement.innerHTML;
+                            const parts = text.split(/(\*.*?\*)/);
+                            pElement.innerHTML = '';
+                            
+                            parts.forEach(part => {
+                                if (part.startsWith('*') && part.endsWith('*')) {
+                                    const strong = document.createElement('strong');
+                                    strong.textContent = part.slice(1, -1);
+                                    strong.style.fontWeight = '700';
+                                    strong.style.color = '#000000';
+                                    pElement.appendChild(strong);
+                                } else {
+                                    pElement.appendChild(document.createTextNode(part));
+                                }
+                            });
+
+                            pElement.style.fontSize = '18px';
+                            pElement.style.display = 'inline-block';
+                            pElement.style.margin = '0 0.25em';
+                            lineDiv.appendChild(pElement);
+                        }
+                    } else {
+                        // Create and append spans for each character in the line
+                        line.parts?.forEach(part => {
+                            const chars = part.content.split('');
+                            chars.forEach((char, charIndex) => {
+                                const span = document.createElement('span');
+                                span.textContent = char;
+                                span.style.opacity = '0.4';
+                                span.style.display = 'inline-block';
+                                
+                                // Check if this is phonetic text (contains [])
+                                if (part.content.includes('[') && part.content.includes(']') || part.content.includes('(') && part.content.includes(')')) {
+                                    span.style.fontSize = '18px';
+                                }
+                                
+                                // Set font size for bullet point
+                                if (char === '•') {
+                                    span.style.fontSize = '22px';
+                                }
+                                
+                                if (char === ' ') {
+                                    span.style.marginRight = '0.25em';
+                                }
+                                if (part.type === 'strong') {
+                                    span.style.fontWeight = '700';
+                                    span.style.color = '#000000';
+                                }
+                                lineDiv.appendChild(span);
+                            });
                         });
-                    });
+                    }
                     
                     container.appendChild(lineDiv);
                 });
 
                 // Animate each character with staggered timing
-                const letterSpans = Array.from(element.querySelectorAll('span'));
+                const letterSpans = Array.from(element.querySelectorAll('span, p'));
                 letterSpans.forEach((span, i) => {
                     tl.to(span, {
                         opacity: 1,
@@ -151,7 +201,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                     return (
                         <h3
                             key={idx}
-                            className="text-[18px] font-avenir py-8 font-medium leading-[29.6px] tracking-[0.252px] text-center mb-4 typing_text-heading text-black"
+                            className="text-[18px] font-avenir pb-8 font-medium leading-[29.6px] tracking-[0.252px] text-center mb-4 typing_text-heading text-black"
                         >
                             <span ref={el => { lineRefs.current[idx] = el; }} className="typing_text" />
                             <span className="cursor"></span>
