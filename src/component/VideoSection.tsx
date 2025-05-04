@@ -79,6 +79,7 @@ const VideoSection = ({ src, showArrow = true, heightClass }: VideoSectionProps)
         muted
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
+        loop
       >
         <source src={src} type="video/mp4" />
       </video>
