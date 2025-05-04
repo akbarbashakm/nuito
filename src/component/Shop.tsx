@@ -26,7 +26,7 @@ const ShopSection = () => {
                     alt="t-shirt"
                     className="w-full px-4 sm:w-[500px] max-w-full h-auto mx-auto"
                 />
-                <div className="grid grid-cols-2 text-center md:px-12 sm:px-2">
+                <div className="grid grid-cols-2 px-2 text-center sm:px-2 md:px-12">
                     {/* Left Tee */}
                     <div>
                     <p className="text-sm leading-[20px] font-normal font-avenir text-[#060606]">Black Crew Tee</p>
@@ -39,7 +39,7 @@ const ShopSection = () => {
                     {/* Right Tee */}
                     <div>
                     <p className="text-sm leading-[20px] font-normal font-avenir text-[#060606]">White Drape Tee</p>
-                        <Button>
+                        <Button onClick={() => router.push('/shop')}>
                             Shop for HER
                         </Button>
                         <p className="text-sm pt-2 leading-[20px] font-normal font-avenir text-[#060606]">Fluid. Feminine. Essential.</p>

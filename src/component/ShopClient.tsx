@@ -21,7 +21,7 @@ export default function ShopClient() {
                 heightClass='calc(100vh - 175px)'
             />
             {/* Product Title - mobile-le first viewport-le visible-a irukkanum */}
-            <div className="block text-center pt-4 pb-2 bg-[#eaeadb]">
+            <div className="block text-center pt-5 pb-2 bg-[#eaeadb] product-section" id="product-section">
                 <h1
                     className="
                         text-black
@@ -44,9 +44,9 @@ export default function ShopClient() {
                         font-metrophobic
                         ">₹1999</div>
             </div>
-            <Button position='fixed' className="bottom-55 left-1/2 -translate-x-1/2 z-50"
-                    onClick={open}
->
+            <Button position='fixed' className="top-[calc(100vh-245px)] left-1/2 -translate-x-1/2 z-50"
+                onClick={open}
+            >
                 I am Interested
             </Button>
             <div className="space-y-10 p-6 max-w-2xl mx-auto lg:max-w-[806px]" style={{ background: '#eaeadb' }}>

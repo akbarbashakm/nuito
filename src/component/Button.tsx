@@ -22,12 +22,15 @@ const Button: React.FC<ButtonProps> = ({
     onClick={onClick}
     disabled={disabled}
     className={`
-      ${position} inline-block font-avenir text-[16px] leading-normal bg-[#e7cd4b] text-black font-normal py-2 px-4 rounded mt-2
-      border-2 border-transparent hover:bg-[#e7cd4b] hover:border-[#e7cd4b] hover:text-[#fff]
-      cursor-pointer transition-all duration-300
+      ${position} inline-block font-avenir text-[16px] leading-normal
+      text-black font-medium py-2 px-4 rounded-[8px] mt-2
+      border border-[#868686] bg-[#e7cd4b]
+      hover:bg-[#d6bc3f] hover:border-[#d6bc3f] hover:text-white
+      hover:shadow-md hover:scale-[1.02]
+      cursor-pointer transition-all duration-300 ease-in-out
       ${disabled ? 'opacity-70 cursor-not-allowed' : ''}
       ${className}
-    `}
+    `}    
     style={{ position }}
   >
     {children}

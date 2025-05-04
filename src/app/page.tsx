@@ -42,10 +42,14 @@ export default function Home() {
   return (
     <main>
       <Header />
-      <VideoSection src="/dress-shop-ad.mov" />
+      <VideoSection
+        src="/dress-shop-ad.mov"
+        showArrow={true}
+        heightClass='calc(100vh)'
+      />
       <div 
         ref={contentRef}
-        className="max-w-[654px] mx-auto snap-y snap-mandatory" 
+        className="max-w-[654px] mx-auto snap-y snap-mandatory overflow-y-scroll" 
         style={{ background: '#eaeadb' }}
       >
         <TypingText
@@ -61,7 +65,7 @@ export default function Home() {
             { type: "p", text: "*We're crafting a capsule wardrobe* that grows with intention—one essential at a time. No seasonal cycles. No fleeting trends." },
             { type: "h3", text: "Only pieces designed to remain relevant forever." },
             { type: "h2", text: "The NU ITO WAY" },
-            { type: "p", text: "*Every Nu ITO piece begins with intent — *fabric that feels like second skin, fits that honour real bodies, and design stripped of noise. Quiet, deliberate, and made to stay — season after season, wear after wear." },
+            { type: "p", text: "*Every Nu ITO piece begins with intent — *fabric that feels like second skin, fits that honour real bodies, and design stripped of noise. Quiet, deliberate, and made to stay" },
             { type: "h3", text: "— season after season, wear after wear." },
             { type: "divider" },
           ]}

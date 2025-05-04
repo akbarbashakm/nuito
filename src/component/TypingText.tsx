@@ -190,9 +190,10 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                     return (
                         <h2
                             key={idx}
-                            className="text-[32px] py-8 md:text-3xl font-avenir font-normal text-center mb-4 typing_text-heading text-black/64"
+                            className="text-[32px] py-8 md:text-3xl font-metrophobic font-normal text-center mb-4 typing_text-heading text-black/64"
+                            style={{ fontFamily: 'Avenir, sans-serif' }}
                         >
-                            <span ref={el => { lineRefs.current[idx] = el; }} className="typing_text" />
+                            <span ref={el => { lineRefs.current[idx] = el; }} className="typing_text font-metrophobic" />
                             <span className="cursor"></span>
                         </h2>
                     );
@@ -202,6 +203,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                         <h3
                             key={idx}
                             className="text-[18px] font-avenir pb-8 font-medium leading-[29.6px] tracking-[0.252px] text-center mb-4 typing_text-heading text-black"
+                            style={{ fontFamily: 'Avenir, sans-serif' }}
                         >
                             <span ref={el => { lineRefs.current[idx] = el; }} className="typing_text" />
                             <span className="cursor"></span>
@@ -212,6 +214,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                     <p
                         key={idx}
                         className="text-[18px] font-avenir font-medium leading-[29.6px] tracking-[0.252px] text-center mb-4 typing_text-heading text-black/64"
+                        style={{ fontFamily: 'Avenir, sans-serif' }}
                     >
                         <span ref={el => { lineRefs.current[idx] = el; }} className="typing_text" />
                         <span className="cursor"></span>

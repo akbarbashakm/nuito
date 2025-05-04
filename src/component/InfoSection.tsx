@@ -67,18 +67,18 @@ const InfoSection: React.FC<InfoSectionProps> = ({
         <section
             className={`
                 w-full flex flex-col md:flex-row items-end justify-between
-                gap-10 py-10 transition-all duration-700 bg-lightbeige
+                gap-10 md:gap-0 py-10 transition-all duration-700 bg-lightbeige
                 ${reverse ? "md:flex-row-reverse" : ""}
             `}
         >
             <div
                 ref={contentRef}
                 className={`
-                    flex-1 md:px-12 transition-all duration-700
+                    flex-1 md:px-0 transition-all duration-700
                     ${contentAnim}
                 `}
             >
-                <h2 className="text-3xl text-black/64 md:text-[32px] font-metrophobic mb-4 uppercase flex items-center">
+                <h2 className="text-3xl text-black/64 md:text-[31px] font-metrophobic mb-4 uppercase flex items-center">
                     {icon && (
                         <Image
                             src={icon}

@@ -59,12 +59,12 @@ const Header: React.FC<HeaderProps> = ({
                 </div>
                 {/* Menu */}
                 <nav
-                    className={`flex gap-4 text-gray-800 font-medium transition-all duration-500 ${effectiveScrolled ? "block visible" : "hidden"
+                    className={`flex gap-[12px] transition-all duration-500 ${effectiveScrolled ? "block visible" : "hidden"
                         }`}
                 >
                     <Link
                         href="#"
-                        className="relative font-avenir text-[14px] sm:text-[16px] md:text-[18px] font-nuito
+                        className="relative text-black/64 font-avenir text-[14px] sm:text-[16px] md:text-[18px]
                             after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-black
                             after:w-0 hover:after:w-full after:transition-all after:duration-300"
                     >
@@ -72,7 +72,7 @@ const Header: React.FC<HeaderProps> = ({
                     </Link>
                     <Link
                         href="#"
-                        className="relative font-avenir text-[14px] sm:text-[16px] md:text-[18px] font-nuito
+                        className="relative text-black/64 font-avenir text-[14px] sm:text-[16px] md:text-[18px]
                             after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-black
                             after:w-0 hover:after:w-full after:transition-all after:duration-300"
                     >
