@@ -117,7 +117,7 @@ export default function ShopClient() {
                     "/styling-asset-4.png",
                     "/styling-asset-5.png",
                 ]}
-                speed={50}
+                speed={200}
             />
             <div className="space-y-10 p-6 max-w-2xl mx-auto lg:max-w-[806px]" style={{ background: '#eaeadb' }}>
                 <Footer />
