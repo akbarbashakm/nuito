@@ -1,12 +1,8 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface InfoSectionProps {
     title: string;
@@ -15,6 +11,7 @@ interface InfoSectionProps {
     image: string;
     reverse?: boolean;
     icon?: string | StaticImport;
+    id?: string;
 }
 
 const InfoSection: React.FC<InfoSectionProps> = ({
@@ -22,62 +19,45 @@ const InfoSection: React.FC<InfoSectionProps> = ({
     content,
     image,
     reverse = false,
-    icon
+    icon,
+    id
 }) => {
-    const contentRef = useRef<HTMLDivElement | null>(null);
-    const imageRef = useRef<HTMLDivElement | null>(null);
-    const [contentVisible, setContentVisible] = useState(false);
-    const [imageVisible, setImageVisible] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        const contentObserver = new window.IntersectionObserver(
-            ([entry]) => {
-                setContentVisible(entry.isIntersecting);
-            },
-            { threshold: 0.3 }
-        );
-        const imageObserver = new window.IntersectionObserver(
-            ([entry]) => {
-                setImageVisible(entry.isIntersecting);
-            },
-            { threshold: 0.3 }
-        );
-        if (contentRef.current) contentObserver.observe(contentRef.current);
-        if (imageRef.current) imageObserver.observe(imageRef.current);
-        return () => {
-            contentObserver.disconnect();
-            imageObserver.disconnect();
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
         };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
     }, []);
-
-    // Animation classes
-    const contentAnim = contentVisible
-        ? "opacity-100 translate-x-0"
-        : reverse
-            ? "opacity-0 translate-x-16"
-            : "opacity-0 -translate-x-16";
-
-    const imageAnim = imageVisible
-        ? "opacity-100 translate-x-0"
-        : reverse
-            ? "opacity-0 -translate-x-16"
-            : "opacity-0 translate-x-16";
 
     return (
         <section
+            id={id}
             className={`
                 w-full flex flex-col md:flex-row items-end justify-between
                 gap-10 md:gap-0 py-10 transition-all duration-700 bg-lightbeige
                 ${reverse ? "md:flex-row-reverse" : ""}
+                overflow-hidden
             `}
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            data-aos-easing="ease-out-cubic"
+            data-aos-offset="120"
         >
             <div
-                ref={contentRef}
                 className={`
                     flex-1 md:px-0 transition-all duration-700
-                    ${contentAnim}
+                    opacity-0 translate-y-8
                 `}
-            >
+                data-aos={isMobile ? "fade-up" : (reverse ? "fade-left" : "fade-right")}
+                data-aos-duration="800"
+                data-aos-easing="ease-out-cubic"
+                data-aos-offset="120"
+                data-aos-delay="200"
+                >
                 <h2 className="text-3xl text-black/64 md:text-[31px] font-metrophobic mb-4 uppercase flex items-center">
                     {icon && (
                         <Image
@@ -112,12 +92,16 @@ const InfoSection: React.FC<InfoSectionProps> = ({
                 </p>
             </div>
             <div
-                ref={imageRef}
                 className={`
                     flex-1 flex justify-center items-center md:px-12 transition-all duration-700
-                    ${imageAnim}
+                    opacity-0 translate-y-8
                 `}
-            >
+                data-aos={isMobile ? "fade-up" : (reverse ? "fade-right" : "fade-left")}
+                data-aos-duration="800"
+                data-aos-easing="ease-out-cubic"
+                data-aos-offset="120"
+                data-aos-delay="200"
+                >
                 <Image
                     src={image}
                     alt={title}

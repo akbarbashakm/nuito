@@ -176,7 +176,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
     return (
         <div
             ref={containerRef}
-            className={`w-full border-[#868686] max-w-[654px] mx-auto bg-lightbeige pt-8 pb-4 px-4 flex flex-col items-center ${className ?? ""}`}
+            className={`w-full border-[#868686] max-w-[654px] mx-auto bg-lightbeige pt-0 pb-4 px-4 flex flex-col items-center ${className ?? ""}`}
         >
             {content.map((item, idx) => {
                 if (item.type === "divider") {
@@ -190,7 +190,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                     return (
                         <h2
                             key={idx}
-                            className="text-[32px] py-8 md:text-3xl font-metrophobic font-normal text-center mb-4 typing_text-heading text-black/64"
+                            className="text-[32px] py-2 md:text-3xl font-metrophobic font-normal text-center mb-0 typing_text-heading text-black/64"
                             style={{ fontFamily: 'Avenir, sans-serif' }}
                         >
                             <span ref={el => { lineRefs.current[idx] = el; }} className="typing_text font-metrophobic" />

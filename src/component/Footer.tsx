@@ -4,9 +4,9 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const Footer = () => {
+const Footer = ({ className }: { className?: string }) => {
     return (
-        <div className="flex flex-wrap justify-between items-center px-0 py-14 w-full">
+        <div className={`${className} flex flex-wrap justify-between items-center px-0 py-14 w-full`}>
             {/* Logo */}
             <div className="flex justify-center w-full md:w-auto md:mb-0">
                 <Link href="/">

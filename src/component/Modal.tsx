@@ -217,7 +217,7 @@ const BottomSheetModal: React.FC = () => {
                                 value={form.name}
                                 onChange={handleChange}
                             />
-                            {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+                            {errors.name && <p className="text-red-500 font-avenir text-[14px] font-normal text-sm mt-1">{errors.name}</p>}
                         </div>
 
                         {/* Email */}
@@ -231,7 +231,7 @@ const BottomSheetModal: React.FC = () => {
                                 value={form.email}
                                 onChange={handleChange}
                             />
-                            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                            {errors.email && <p className="text-red-500 font-avenir text-sm mt-1">{errors.email}</p>}
                         </div>
 
                         {/* Mobile */}
@@ -244,7 +244,7 @@ const BottomSheetModal: React.FC = () => {
                                 value={form.mobile}
                                 onChange={handleChange}
                             />
-                            {errors.mobile && <p className="text-red-500 text-sm mt-1">{errors.mobile}</p>}
+                            {errors.mobile && <p className="text-red-500 font-avenirv text-sm mt-1">{errors.mobile}</p>}
                         </div>
 
                         {/* Size */}
@@ -267,7 +267,7 @@ const BottomSheetModal: React.FC = () => {
                                     </button>
                                 ))}
                             </div>
-                            {errors.size && <p className="text-red-500 text-sm mt-1">{errors.size}</p>}
+                            {errors.size && <p className="text-red-500 font-avenir text-sm mt-1">{errors.size}</p>}
                         </div>
                         <div className="p-6 pt-0 w-full">
                             {/* Submit Button */}
