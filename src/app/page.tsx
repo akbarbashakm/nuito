@@ -18,11 +18,16 @@ export default function Home() {
   const shopSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!contentRef.current || !storySectionRef.current || !typingTextRef.current || !shopSectionRef.current) return;
+    if (!contentRef.current || !storySectionRef.current || !shopSectionRef.current || !typingTextRef.current) return;
 
     const storySection = storySectionRef.current;
     const shopSection = shopSectionRef.current;
+    const typingText = typingTextRef.current;
 
+    let typingTimeline: gsap.core.Timeline | null = null;
+    let typingTimeout: ReturnType<typeof setTimeout> | null = null;
+
+    // Sticky ScrollTrigger
     ScrollTrigger.create({
       trigger: storySection,
       start: "top top",
@@ -31,17 +36,33 @@ export default function Home() {
       pinSpacing: true,
       anticipatePin: 1,
       pinType: window.innerWidth < 768 ? "fixed" : "transform",
-      onRefresh: () => {
-        // recalculate on resize
+      onEnter: () => {
+        // 1 sec delay, then start TypingText animation
+        typingTimeout = setTimeout(() => {
+          if (typingTimeline) typingTimeline.kill();
+          typingTimeline = gsap.timeline();
+          typingTimeline.fromTo(
+            typingText.querySelectorAll(".typing-text-animate"),
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, stagger: 0.1, duration: 0.6, ease: "power2.out" }
+          );
+        }, 1000);
+      },
+      onLeaveBack: () => {
+        // Reset animation if needed
+        if (typingTimeline) typingTimeline.kill();
+        gsap.set(typingText.querySelectorAll(".typing-text-animate"), { opacity: 0, y: 30 });
+        if (typingTimeout) clearTimeout(typingTimeout);
       }
     });
 
+    // Video section scroll behavior (ok)
     const videoSection = document.querySelector(".video-section");
     if (videoSection) {
       ScrollTrigger.create({
         trigger: videoSection,
         start: "top top",
-        end: "bottom 70%",
+        end: "bottom bottom",
         onLeave: () => {
           if (contentRef.current) {
             contentRef.current.scrollTo({
@@ -53,16 +74,17 @@ export default function Home() {
       });
     }
 
-    // Refresh on resize for mobile
-    window.addEventListener("resize", () => {
-      ScrollTrigger.refresh();
-    });
+    // Refresh on resize & orientationchange for mobile
+    const refresh = () => ScrollTrigger.refresh();
+    window.addEventListener("resize", refresh);
+    window.addEventListener("orientationchange", refresh);
 
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-      window.removeEventListener("resize", () => {
-        ScrollTrigger.refresh();
-      });
+      window.removeEventListener("resize", refresh);
+      window.removeEventListener("orientationchange", refresh);
+      if (typingTimeline) typingTimeline.kill();
+      if (typingTimeout) clearTimeout(typingTimeout);
     };
   }, []);
 
@@ -81,10 +103,7 @@ export default function Home() {
       >
         <div 
           ref={storySectionRef}
-          className="snap-center sticky top-0 min-h-[80vh] z-10 bg-[#eaeadb] py-8" 
-          data-aos="fade-up" 
-          data-aos-duration="800" 
-          id="story-section"
+          className="snap-center sticky top-0 z-10 bg-[#eaeadb] py-8"
         >
           <div ref={typingTextRef} className="py-4">
             <TypingText
@@ -109,7 +128,7 @@ export default function Home() {
         </div>
         <div ref={shopSectionRef} className="min-h-screen pt-10">
           <ShopSection id="chapter-1"/>
-          <Footer className="pt-10"/>
+          <Footer className="pt-10" />
         </div>
       </div>      
     </main>
