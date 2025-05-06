@@ -14,6 +14,7 @@ interface ImageMarqueeSectionProps {
 const ImageMarqueeSection: React.FC<ImageMarqueeSectionProps> = ({ id, images, speed = 20 }) => {
   const marqueeRef = useRef<HTMLDivElement | null>(null);
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isDragging, setIsDragging] = useState(false);
   const autoScrollTween = useRef<gsap.core.Tween | null>(null);
 

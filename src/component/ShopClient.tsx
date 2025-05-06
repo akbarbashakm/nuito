@@ -12,6 +12,7 @@ import { useModal } from '@/context/ModalContext';
 export default function ShopClient() {
     const { open } = useModal();
     const [buttonPosition, setButtonPosition] = useState('bottom-48');
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [buttonOpacity, setButtonOpacity] = useState(1);
 
     useEffect(() => {
