@@ -14,14 +14,12 @@ export default function ClientLayout({
   useEffect(() => {
     AOS.init({
       duration: 1000,
-      easing: "ease-out-cubic",
       once: false,
-      mirror: false,
-      offset: 120,
+      offset: 220,
       delay: 0,
-      anchorPlacement: "top-bottom",
+      anchorPlacement: "top-top",
       startEvent: "DOMContentLoaded",
-      throttleDelay: 99,
+      throttleDelay: 999,
       debounceDelay: 50
     });
 

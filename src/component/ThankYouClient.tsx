@@ -36,6 +36,24 @@ export default function ThankYouPage() {
   }, []);
 
   useEffect(() => {
+    // Add wave animation styles
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes wave {
+        0% { transform: translateY(0) rotate(0deg); }
+        25% { transform: translateY(-8px) rotate(2deg); }
+        50% { transform: translateY(0) rotate(0deg); }
+        75% { transform: translateY(8px) rotate(-2deg); }
+        100% { transform: translateY(0) rotate(0deg); }
+      }
+    `;
+    document.head.appendChild(style);
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
+  useEffect(() => {
     // Tick animation
     const path = tickRef.current?.querySelector("path");
     if (path) {
@@ -122,8 +140,8 @@ export default function ThankYouPage() {
             <div className="relative md:right-[60px] md:translate-x-1 md:transform bg-green-400 rounded-full w-24 h-24 flex items-center justify-center mb-6">
               <svg
                 ref={tickRef}
-                width="48"
-                height="48"
+                width="75"
+                height="75"
                 viewBox="0 0 24 24"
                 fill="none"
               >
@@ -151,7 +169,29 @@ export default function ThankYouPage() {
             before:content-['']"
           >
             <h2 ref={titleRef} className="text-[32px] px-6 font-normal font-metrophobic tracking-[1px] pt-4 pb-6 text-black mb-2">
-              Thank you for your interest in
+              {"Thank you for your".split("").map((letter, index) => (
+                <span
+                  key={index}
+                  className="inline-block"
+                  style={{
+                    animation: `wave 1.2s ease-in-out ${index * 0.08}s forwards`
+                  }}
+                >
+                  {letter === " " ? "\u00A0" : letter}
+                </span>
+              ))}
+              <br />
+              {"interest in".split("").map((letter, index) => (
+                <span
+                  key={`interest-${index}`}
+                  className="inline-block"
+                  style={{
+                    animation: `wave 1.2s ease-in-out ${(index + "Thank you for your".length) * 0.08}s forwards`
+                  }}
+                >
+                  {letter === " " ? "\u00A0" : letter}
+                </span>
+              ))}
             </h2>
 
             <div ref={productRef} className="flex items-center gap-4 mb-2">

@@ -8,6 +8,41 @@ import InfoSection from '@/component/InfoSection';
 import VideoSection from '@/component/VideoSection';
 import Button from '@/component/Button';
 import { useModal } from '@/context/ModalContext';
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+const infoSections = [
+    {
+        id: "story-section",
+        title: "OUR STORY",
+        content: "We are a team of passionate individuals who believe in creating timeless pieces that transcend trends. Our journey began with a simple idea: to create clothing that is both stylish and comfortable, while being mindful of our impact on the environment.",
+        image: "/story-asset.png",
+        
+    },
+    {
+        id: "fabric-section",
+        title: "FABRIC",
+        content: "We use only the finest quality fabrics that are not only comfortable but also sustainable. Our fabrics are carefully selected to ensure they meet our high standards of quality and environmental responsibility.",
+        image: "/fabric-asset.png",
+        icon: "/thread_1.svg",
+        reverse: true
+    },
+    {
+        id: "fit-section",
+        title: "FIT",
+        content: "Our garments are designed to fit perfectly, with attention to every detail. We believe that the right fit can make all the difference in how you feel and look in your clothes.",
+        image: "/fit-asset.png",
+        icon: "/ruler.svg"
+    },
+    {
+        id: "design-section",
+        title: "TIMELESS DESIGN",
+        content: "A piece of timeless design that you own, that will be ubiquitous anytime, anywhere on anyone. This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to.",
+        image: "/design-asset.png",
+        icon: "/clock.svg",
+        reverse: true
+    }
+];
 
 export default function ShopClient() {
     const { open } = useModal();
@@ -29,6 +64,15 @@ export default function ShopClient() {
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() => {
+        AOS.init({
+            duration: 1000,
+            once: false,
+            offset: 190,
+            delay: 100
+        });
     }, []);
 
     return (
@@ -67,42 +111,20 @@ export default function ShopClient() {
             </div>
             <Button
                 position='fixed'
-                className={`${buttonPosition} left-1/2 -translate-x-1/2 z-50 transition-all duration-300 opacity-${buttonOpacity * 100}`}
+                className={`${buttonPosition} left-1/2 -translate-x-1/2 z-50 transition-[bottom,opacity] duration-1000 ease-in-out opacity-${buttonOpacity * 100}`}
                 onClick={open}
             >
                 I am Interested
             </Button>
-            <div className="space-y-10 p-6 max-w-2xl mx-auto lg:max-w-[806px]" style={{ background: '#eaeadb' }}>
-                <InfoSection
-                    id="story-section"
-                    title="STORY"
-                    content="[The Black Crew Tee had to come first.] Every man owns black tees  The one piece you'll never outgrow or overthink. No effort. No question. [Always essential.]"
-                    image="/story-asset.png"
-                />
-
-                <InfoSection
-                    id="fabric-section"
-                    title="Fabric"
-                    content="[A precise blend of bamboo, charcoal, Supima cotton, and spandex] creates a fabric that's not only breathable and stretchy but also features exceptional moisture-wicking and antibacterial properties. [* [This ensures you stay fresh and comfortable all day.]"
-                    image="/fabric-asset.png"
-                    icon={'/thread_1.svg'}
-                    reverse
-                />
-                <InfoSection
-                    id="fit-section"
-                    title="FIT"
-                    content="We're creating a size matrix that acknowledges the diversity of male physiques.] This approach respects that a man's height and width don't necessarily scale proportionally, allowing customers to find their precise size rather than settling for the closest approximation. "
-                    image="/fit-asset.png"
-                    icon={'/ruler.svg'}
-                />
-                <InfoSection
-                    id="design-section"
-                    title="TIMELESS DESIGN"
-                    content="[A piece of timeless design that you own, that will be ubiquitous anytime,] anywhere on anyone. This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to."
-                    image="/design-asset.png"
-                    icon={'/clock.svg'}
-                    reverse
-                />
+            <div className="p-6 max-w-2xl mx-auto lg:max-w-[806px]">
+                {infoSections.map((section, index) => (
+                    <InfoSection
+                        key={section.id}
+                        {...section}
+                        data-aos="fade-up"
+                        data-aos-delay={index * 200}
+                    />
+                ))}
             </div>
             <ImageMarqueeSection
                 id="style-section"

@@ -15,6 +15,7 @@ const Header: React.FC<HeaderProps> = ({
     scrolledEffect = true,
 }) => {
     const [scrolled, setScrolled] = useState(false);
+    const [logoLoaded, setLogoLoaded] = useState(false);
     const router = useRouter();
     const pathname = usePathname();
 
@@ -26,6 +27,14 @@ const Header: React.FC<HeaderProps> = ({
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, [scrolledEffect]);
+
+    useEffect(() => {
+        setLogoLoaded(false);
+        const timer = setTimeout(() => {
+            setLogoLoaded(true);
+        }, 300);
+        return () => clearTimeout(timer);
+    }, [scrolled]);
 
     const handleSectionClick = async (sectionId: string) => {
         const isHomeOrThankYou = pathname === '/' || pathname === '/thank-you';
@@ -69,7 +78,7 @@ const Header: React.FC<HeaderProps> = ({
                 : "h-[108px] justify-center"
                 }`}
             style={{
-                background: effectiveScrolled ? "#F0F1E2" : "transparent",
+                background: effectiveScrolled ? "rgba(240, 241, 226, 0.9)" : "transparent",
             }}
         >
             <div className={`${maxWidthClass} flex w-full justify-between items-center mx-auto`}>
@@ -78,16 +87,16 @@ const Header: React.FC<HeaderProps> = ({
                         }`}
                 >
                     <Link href="/">
-                        <Image
-                            src={effectiveScrolled ? "/logo-black.svg" : "/logo-white.svg"}
-                            alt="Logo"
-                            width={effectiveScrolled ? 76 : 104}
-                            height={effectiveScrolled ? 26 : 74}
-                            layout="intrinsic"
-                            className={`transition-all duration-500 cursor-pointer
-                            ${effectiveScrolled ? 'w-[76px] h-[26px]' : 'w-[104px] h-[74px]'} 
-                            sm:w-[104px] sm:h-[74px]`}
-                        />
+                            <Image
+                                src={effectiveScrolled ? "/logo-black.svg" : "/logo-white.svg"}
+                                alt="Logo"
+                                width={effectiveScrolled ? 76 : 104}
+                                height={effectiveScrolled ? 26 : 74}
+                                layout="intrinsic"
+                                className={`transition-all duration-500 cursor-pointer
+                                ${effectiveScrolled ? 'w-[76px] h-[26px]' : 'w-[104px] h-[74px]'} 
+                                sm:w-[104px] sm:h-[74px] ${!effectiveScrolled ? `transform ${logoLoaded ? 'scale-100' : 'scale-0'} transition-transform duration-1000` : ''}`}
+                            />
                     </Link>
                 </div>
                 <nav

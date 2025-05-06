@@ -7,12 +7,35 @@ interface VideoSectionProps {
   src: string;
   heightClass?: string;
   showArrow?: boolean;
+  nextSectionId?: string;
 }
 
-const VideoSection = ({ src, showArrow = true, heightClass }: VideoSectionProps) => {
+const VideoSection = ({ src, showArrow = true, heightClass, nextSectionId }: VideoSectionProps) => {
   const [isArrowVisible, setIsArrowVisible] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  const scrollToNextSection = () => {
+    if (window.scrollY === 0) {
+      if (nextSectionId) {
+        const nextSection = document.getElementById(nextSectionId);
+        if (nextSection) {
+          nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          setHasScrolled(true);
+        }
+      } else {
+        // If no nextSectionId provided, scroll to the next section after video
+        const videoSection = videoRef.current?.parentElement;
+        if (videoSection) {
+          const nextElement = videoSection.nextElementSibling;
+          if (nextElement) {
+            nextElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setHasScrolled(true);
+          }
+        }
+      }
+    }
+  };
 
   useEffect(() => {
     // We want to show the arrow after 5 seconds of video playback
@@ -27,14 +50,7 @@ const VideoSection = ({ src, showArrow = true, heightClass }: VideoSectionProps)
     // Handle video end
     const handleVideoEnd = () => {
       if (!hasScrolled) {
-        // Check if page is not scrolled at all
-        if (window.scrollY === 0) {
-          const productSection = document.getElementById('product-section');
-          if (productSection) {
-            productSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            setHasScrolled(true);
-          }
-        }
+        scrollToNextSection();
       }
     };
 
@@ -65,7 +81,7 @@ const VideoSection = ({ src, showArrow = true, heightClass }: VideoSectionProps)
       }
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [hasScrolled]);
+  }, [hasScrolled, nextSectionId]);
 
   return (
     <section
@@ -79,13 +95,20 @@ const VideoSection = ({ src, showArrow = true, heightClass }: VideoSectionProps)
         muted
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
-        loop
+        onEnded={() => {
+          if (!hasScrolled) {
+            scrollToNextSection();
+          }
+        }}
       >
         <source src={src} type="video/mp4" />
       </video>
       <div className="relative z-20 h-full flex flex-col items-center justify-center">
         {showArrow && isArrowVisible && (
-          <div className="absolute bottom-10 animate-bounce">
+          <div 
+            className="absolute bottom-10 animate-bounce cursor-pointer"
+            onClick={scrollToNextSection}
+          >
             <Image
               src="/down-arrow.svg"
               width={20}

@@ -95,11 +95,13 @@ export default function Home() {
         src="/dress-shop-ad.mov"
         showArrow={true}
         heightClass=''
+        nextSectionId="story-container"
       />
       <div 
         ref={contentRef}
         className="max-w-[654px] pos mx-auto" 
         style={{ background: '#eaeadb' }}
+        id="story-container"
       >
         <div 
           ref={storySectionRef}

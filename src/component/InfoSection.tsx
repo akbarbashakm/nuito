@@ -43,20 +43,12 @@ const InfoSection: React.FC<InfoSectionProps> = ({
                 overflow-hidden
             `}
             data-aos="fade-up"
-            data-aos-duration="1000"
-            data-aos-easing="ease-out-cubic"
-            data-aos-offset="120"
         >
             <div
                 className={`
-                    flex-1 md:px-0 transition-all duration-700
-                    opacity-0 translate-y-8
+                    w-full md:w-1/2 md:px-0
                 `}
                 data-aos={isMobile ? "fade-up" : (reverse ? "fade-left" : "fade-right")}
-                data-aos-duration="800"
-                data-aos-easing="ease-out-cubic"
-                data-aos-offset="120"
-                data-aos-delay="200"
                 >
                 <h2 className="text-3xl text-black/64 md:text-[31px] font-metrophobic mb-4 uppercase flex items-center">
                     {icon && (
@@ -93,14 +85,10 @@ const InfoSection: React.FC<InfoSectionProps> = ({
             </div>
             <div
                 className={`
-                    flex-1 flex justify-center items-center md:px-12 transition-all duration-700
+                    w-full md:w-1/2 flex justify-center items-center md:px-12
                     opacity-0 translate-y-8
                 `}
                 data-aos={isMobile ? "fade-up" : (reverse ? "fade-right" : "fade-left")}
-                data-aos-duration="800"
-                data-aos-easing="ease-out-cubic"
-                data-aos-offset="120"
-                data-aos-delay="200"
                 >
                 <Image
                     src={image}
