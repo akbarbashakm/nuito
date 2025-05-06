@@ -8,8 +8,6 @@ import InfoSection from '@/component/InfoSection';
 import VideoSection from '@/component/VideoSection';
 import Button from '@/component/Button';
 import { useModal } from '@/context/ModalContext';
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 const infoSections = [
     {
@@ -64,15 +62,6 @@ export default function ShopClient() {
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    useEffect(() => {
-        AOS.init({
-            duration: 1000,
-            once: false,
-            offset: 190,
-            delay: 100
-        });
     }, []);
 
     return (

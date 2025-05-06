@@ -1,8 +1,14 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+if (typeof window !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+}
 
 interface InfoSectionProps {
     title: string;
@@ -22,35 +28,137 @@ const InfoSection: React.FC<InfoSectionProps> = ({
     icon,
     id
 }) => {
-    const [isMobile, setIsMobile] = useState(false);
+    const sectionRef = useRef<HTMLElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
+    const imageRef = useRef<HTMLDivElement>(null);
+    const titleRef = useRef<HTMLHeadingElement>(null);
 
     useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth < 768);
+        if (sectionRef.current) {
+            ScrollTrigger.getAll().forEach(trigger => {
+                if (trigger.vars.trigger === sectionRef.current) {
+                    trigger.kill();
+                }
+            });
+        }
+
+        const isMobile = window.innerWidth <= 768;
+
+        // Create a timeline for better control
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: sectionRef.current,
+                start: isMobile ? "top 95%" : "top 90%",
+                end: isMobile ? "top 60%" : "top 40%",
+                toggleActions: "play none none reverse",
+                markers: false,
+                once: false
+            }
+        });
+
+        // Title animation
+        tl.fromTo(titleRef.current,
+            { 
+                opacity: 0, 
+                y: isMobile ? 80 : 0,
+                x: isMobile ? 0 : (reverse ? 120 : -120),
+                scale: isMobile ? 0.9 : 0.85,
+                visibility: "hidden",
+                rotation: isMobile ? 0 : (reverse ? 5 : -5)
+            },
+            {
+                opacity: 1,
+                y: 0,
+                x: 0,
+                scale: 1,
+                rotation: 0,
+                visibility: "visible",
+                duration: isMobile ? 0.9 : 1,
+                ease: isMobile ? "power2.out" : "power3.out"
+            }
+        );
+
+        // Content animation with stagger
+        const contentElements = contentRef.current?.querySelectorAll('p, span');
+        if (contentElements) {
+            tl.fromTo(contentElements,
+                { 
+                    opacity: 0, 
+                    y: isMobile ? 60 : 0,
+                    x: isMobile ? 0 : (reverse ? 100 : -100),
+                    scale: isMobile ? 0.95 : 0.9,
+                    visibility: "hidden"
+                },
+                {
+                    opacity: 1,
+                    y: 0,
+                    x: 0,
+                    scale: 1,
+                    visibility: "visible",
+                    duration: isMobile ? 0.8 : 1,
+                    stagger: isMobile ? 0.08 : 0.12,
+                    ease: "power2.out"
+                },
+                isMobile ? "-=0.3" : "-=0.5"
+            );
+        }
+
+        // Image animation with scale
+        tl.fromTo(imageRef.current,
+            { 
+                opacity: 0, 
+                y: isMobile ? 100 : 0,
+                x: isMobile ? 0 : (reverse ? -120 : 120),
+                scale: isMobile ? 0.85 : 0.8,
+                visibility: "hidden",
+                rotation: isMobile ? 0 : (reverse ? 10 : -10)
+            },
+            {
+                opacity: 1,
+                y: 0,
+                x: 0,
+                scale: 1,
+                rotation: 0,
+                visibility: "visible",
+                duration: isMobile ? 1 : 1,
+                ease: isMobile ? "power2.out" : "power3.out"
+            },
+            isMobile ? "-=0.6" : "-=0.8"
+        );
+
+        return () => {
+            if (sectionRef.current) {
+                ScrollTrigger.getAll().forEach(trigger => {
+                    // eslint-disable-next-line react-hooks/exhaustive-deps
+                    if (trigger.vars.trigger === sectionRef.current) {
+                        trigger.kill();
+                    }
+                });
+            }
         };
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
+    }, [id, reverse]);
 
     return (
         <section
+            ref={sectionRef}
             id={id}
             className={`
                 w-full flex flex-col md:flex-row items-end justify-between
-                gap-10 md:gap-0 py-10 transition-all duration-700 bg-lightbeige
+                gap-10 md:gap-0 py-12 px-4 md:px-8 lg:px-12 transition-all duration-700 bg-lightbeige
                 ${reverse ? "md:flex-row-reverse" : ""}
-                overflow-hidden
             `}
-            data-aos="fade-up"
         >
             <div
+                ref={contentRef}
                 className={`
-                    w-full md:w-1/2 md:px-0
+                    w-full md:w-1/2 px-4 md:px-0
+                    ${reverse ? "md:pl-8" : "md:pr-8"}
                 `}
-                data-aos={isMobile ? "fade-up" : (reverse ? "zoom-in-left" : "zoom-in-right")}
+            >
+                <h2 
+                    ref={titleRef}
+                    className="text-3xl text-black/64 md:text-[31px] font-metrophobic mb-4 uppercase flex items-center"
                 >
-                <h2 className="text-3xl text-black/64 md:text-[31px] font-metrophobic mb-4 uppercase flex items-center">
                     {icon && (
                         <Image
                             src={icon}
@@ -84,18 +192,18 @@ const InfoSection: React.FC<InfoSectionProps> = ({
                 </p>
             </div>
             <div
+                ref={imageRef}
                 className={`
-                    w-full md:w-1/2 flex justify-center items-center md:px-12
-                    opacity-0 translate-y-8
+                    w-full md:w-1/2 flex justify-center items-center px-4 md:px-8
+                    ${reverse ? "md:pr-8" : "md:pl-8"}
                 `}
-                data-aos={isMobile ? "fade-up" : (reverse ? "zoom-in-right" : "zoom-in-left")}
-                >
+            >
                 <Image
                     src={image}
                     alt={title}
                     width={412}
                     height={731}
-                    className="rounded-lg shadow-lg object-cover"
+                    className="rounded-lg shadow-lg object-cover w-full max-w-[412px]"
                 />
             </div>
         </section>
