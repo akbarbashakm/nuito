@@ -35,7 +35,7 @@ export default function Home() {
       pin: true,
       pinSpacing: true,
       anticipatePin: 1,
-      pinType: window.innerWidth < 768 ? "fixed" : "transform",
+      pinType: "fixed",
       onEnter: () => {
         // 1 sec delay, then start TypingText animation
         typingTimeout = setTimeout(() => {

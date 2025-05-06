@@ -116,7 +116,7 @@ export default function ShopClient() {
             >
                 I am Interested
             </Button>
-            <div className="p-6 max-w-2xl mx-auto lg:max-w-[806px]">
+            <div className="max-w-2xl mx-auto lg:max-w-[806px]">
                 {infoSections.map((section, index) => (
                     <InfoSection
                         key={section.id}

@@ -48,7 +48,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
                 className={`
                     w-full md:w-1/2 md:px-0
                 `}
-                data-aos={isMobile ? "fade-up" : (reverse ? "fade-left" : "fade-right")}
+                data-aos={isMobile ? "fade-up" : (reverse ? "zoom-in-left" : "zoom-in-right")}
                 >
                 <h2 className="text-3xl text-black/64 md:text-[31px] font-metrophobic mb-4 uppercase flex items-center">
                     {icon && (
@@ -88,7 +88,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
                     w-full md:w-1/2 flex justify-center items-center md:px-12
                     opacity-0 translate-y-8
                 `}
-                data-aos={isMobile ? "fade-up" : (reverse ? "fade-right" : "fade-left")}
+                data-aos={isMobile ? "fade-up" : (reverse ? "zoom-in-right" : "zoom-in-left")}
                 >
                 <Image
                     src={image}
