@@ -34,20 +34,21 @@ const InfoSection: React.FC<InfoSectionProps> = ({
     const titleRef = useRef<HTMLHeadingElement>(null);
 
     useEffect(() => {
-        if (sectionRef.current) {
-            ScrollTrigger.getAll().forEach(trigger => {
-                if (trigger.vars.trigger === sectionRef.current) {
-                    trigger.kill();
-                }
-            });
-        }
+        const section = sectionRef.current;
+        if (!section) return;
+
+        ScrollTrigger.getAll().forEach(trigger => {
+            if (trigger.vars.trigger === section) {
+                trigger.kill();
+            }
+        });
 
         const isMobile = window.innerWidth <= 768;
 
         // Create a timeline for better control
         const tl = gsap.timeline({
             scrollTrigger: {
-                trigger: sectionRef.current,
+                trigger: section,
                 start: isMobile ? "top 95%" : "top 90%",
                 end: isMobile ? "top 60%" : "top 40%",
                 toggleActions: "play none none reverse",
@@ -74,7 +75,8 @@ const InfoSection: React.FC<InfoSectionProps> = ({
                 rotation: 0,
                 visibility: "visible",
                 duration: isMobile ? 0.9 : 1,
-                ease: isMobile ? "power2.out" : "power3.out"
+                delay: isMobile ? 0.1 : 0.2,
+                ease: isMobile ? "power3.out" : "power3.out"
             }
         );
 
@@ -127,14 +129,11 @@ const InfoSection: React.FC<InfoSectionProps> = ({
         );
 
         return () => {
-            if (sectionRef.current) {
-                ScrollTrigger.getAll().forEach(trigger => {
-                    // eslint-disable-next-line react-hooks/exhaustive-deps
-                    if (trigger.vars.trigger === sectionRef.current) {
-                        trigger.kill();
-                    }
-                });
-            }
+            ScrollTrigger.getAll().forEach(trigger => {
+                if (trigger.vars.trigger === section) {
+                    trigger.kill();
+                }
+            });
         };
     }, [id, reverse]);
 

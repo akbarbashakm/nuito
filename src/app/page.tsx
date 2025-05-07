@@ -40,9 +40,14 @@ export default function Home() {
         // 1 sec delay, then start TypingText animation
         typingTimeout = setTimeout(() => {
           if (typingTimeline) typingTimeline.kill();
+          
+          // Convert NodeList to Array
+          const typingElements = Array.from(typingText.querySelectorAll(".typing-text-animate"));
+          if (typingElements.length === 0) return;
+
           typingTimeline = gsap.timeline();
           typingTimeline.fromTo(
-            typingText.querySelectorAll(".typing-text-animate"),
+            typingElements,
             { opacity: 0, y: 30 },
             { opacity: 1, y: 0, stagger: 0.1, duration: 0.6, ease: "power2.out" }
           );
@@ -51,12 +56,17 @@ export default function Home() {
       onLeaveBack: () => {
         // Reset animation if needed
         if (typingTimeline) typingTimeline.kill();
-        gsap.set(typingText.querySelectorAll(".typing-text-animate"), { opacity: 0, y: 30 });
+        
+        // Convert NodeList to Array
+        const typingElements = Array.from(typingText.querySelectorAll(".typing-text-animate"));
+        if (typingElements.length === 0) return;
+
+        gsap.set(typingElements, { opacity: 0, y: 30 });
         if (typingTimeout) clearTimeout(typingTimeout);
       }
     });
 
-    // Video section scroll behavior (ok)
+    // Video section scroll behavior
     const videoSection = document.querySelector(".video-section");
     if (videoSection) {
       ScrollTrigger.create({
@@ -105,7 +115,7 @@ export default function Home() {
       >
         <div 
           ref={storySectionRef}
-          className="snap-center sticky top-0 z-10 bg-[#eaeadb] py-8"
+          className="snap-center sticky top-0 z-10 bg-[#eaeadb] py-8 pb-0"
         >
           <div ref={typingTextRef} className="py-4">
             <TypingText
@@ -128,7 +138,7 @@ export default function Home() {
             />
           </div>
         </div>
-        <div ref={shopSectionRef} className="min-h-screen pt-10">
+        <div ref={shopSectionRef} className="min-h-screen pt-0">
           <ShopSection id="chapter-1"/>
           <Footer className="pt-10" />
         </div>

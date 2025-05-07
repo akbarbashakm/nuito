@@ -50,15 +50,9 @@ const BottomSheetModal: React.FC = () => {
     const modalRef = useRef<HTMLDivElement>(null);
     const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [formError, setFormError] = useState("");
 
     const [form, setForm] = useState({
-        name: "",
-        email: "",
-        mobile: "",
-        size: "",
-    });
-
-    const [errors, setErrors] = useState({
         name: "",
         email: "",
         mobile: "",
@@ -88,23 +82,18 @@ const BottomSheetModal: React.FC = () => {
         }
 
         setForm({ ...form, [name]: value });
-
-        // Clear error when user types
-        if (errors[name as keyof typeof errors]) {
-            setErrors((prev) => ({ ...prev, [name]: "" }));
-        }
+        setFormError(""); // Clear error when user types
     };
 
     const handleSize = (size: string) => {
         setForm({ ...form, size });
-        if (errors.size) {
-            setErrors((prev) => ({ ...prev, size: "" }));
-        }
+        setFormError(""); // Clear error when size is selected
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         router.push("/thank-you");
+        
         const newErrors = {
             name: form.name.trim() ? "" : "Name is required",
             email: !form.email.trim()
@@ -120,15 +109,14 @@ const BottomSheetModal: React.FC = () => {
             size: form.size ? "" : "Size is required",
         };
 
-        setErrors(newErrors);
-
         const hasError = Object.values(newErrors).some((err) => err !== "");
-        if (hasError) return;
+        if (hasError) {
+            setFormError("Please fill all required fields correctly");
+            return;
+        }
 
         try {
             setIsSubmitting(true);
-
-            // Submit data to Google Sheets
             await sendToGoogleSheets({
                 name: form.name,
                 email: form.email,
@@ -140,7 +128,7 @@ const BottomSheetModal: React.FC = () => {
             setIsSubmitted(true);
             close();
         } catch (error) {
-            alert("Failed to submit form. Please try again.");
+            setFormError("Failed to submit form. Please try again.");
             console.error("Form submission error:", error);
         } finally {
             setIsSubmitting(false);
@@ -191,60 +179,54 @@ const BottomSheetModal: React.FC = () => {
                 style={{ maxWidth: 600, margin: "0 auto" }}
             >
                 <div className="">
-                    <div className="flex justify-between p-4 px-6 items-center border-b">
+                    <div className="flex justify-between pt-4 pb-2 px-6 items-center border-b">
                         <div className="font-normal font-metrophobic text-[18px] text-black">Black Crew Tee | Him</div>
                         <div className="font-normal font-metrophobic text-[18px] text-black">₹ 1999</div>
                     </div>
 
-                    <div className="py-4 px-6 border-b">
+                    <div className="py-2 px-6 border-b">
                         <div className="font-normal font-metrophobic text-[18px] mb-2 text-black">Register your interest below</div>
-                        <ol className="font-normal font-metrophobic text-[18px] list-decimal pl-4 py-2 text-[#060606]">
-                            <li className="py-2">Your intent will help us guide you through our FIT consultation service</li>
+                        <ol className="font-normal font-metrophobic text-[18px] list-decimal pl-4 py-0 text-[#060606]">
+                            <li className="py-0">Your intent will help us guide you through our FIT consultation service</li>
                             <li className="py-2">After that select 50 will get a special invite to make a purchase of the Tee.</li>
                         </ol>
                     </div>
 
-                    <form className="pt-4 flex flex-col gap-4" onSubmit={handleSubmit}>
-                        <div className="font-normal font-metrophobic text-[18px] mb-2 px-6 text-black">Please fill this form for us</div>
+                    <form className="pt-4 flex flex-col gap-3" onSubmit={handleSubmit}>
+                        <div className="font-normal font-metrophobic text-[18px] px-6 text-black">Please fill this form for us</div>
 
                         {/* Name */}
                         <div className="px-6">
                             <input
-                                className={`w-full border p-2 rounded text-black font-avenir text-[14px] font-normal placeholder:text-black ${errors.name ? "border-red-500" : "border-[#868686]"
-                                    }`}
+                                className={`w-full border p-2 rounded text-black font-avenir text-[14px] font-normal placeholder:text-black ${formError ? "border-red-500" : "border-[#868686]"}`}
                                 placeholder="Name"
                                 name="name"
                                 value={form.name}
                                 onChange={handleChange}
                             />
-                            {errors.name && <p className="text-red-500 font-avenir text-[14px] font-normal text-sm mt-1">{errors.name}</p>}
                         </div>
 
                         {/* Email */}
                         <div className="px-6">
                             <input
-                                className={`w-full border p-2 rounded font-avenir text-[14px] font-normal text-black placeholder:text-black ${errors.email ? "border-red-500" : "border-[#868686]"
-                                    }`}
+                                className={`w-full border p-2 rounded font-avenir text-[14px] font-normal text-black placeholder:text-black ${formError ? "border-red-500" : "border-[#868686]"}`}
                                 placeholder="Email"
                                 type="email"
                                 name="email"
                                 value={form.email}
                                 onChange={handleChange}
                             />
-                            {errors.email && <p className="text-red-500 font-avenir text-sm mt-1">{errors.email}</p>}
                         </div>
 
                         {/* Mobile */}
                         <div className="px-6">
                             <input
-                                className={`w-full border p-2 rounded text-black font-avenir text-[14px] font-normal placeholder:text-black ${errors.mobile ? "border-red-500" : "border-[#868686]"
-                                    }`}
+                                className={`w-full border p-2 rounded text-black font-avenir text-[14px] font-normal placeholder:text-black ${formError ? "border-red-500" : "border-[#868686]"}`}
                                 placeholder="Mobile"
                                 name="mobile"
                                 value={form.mobile}
                                 onChange={handleChange}
                             />
-                            {errors.mobile && <p className="text-red-500 font-avenirv text-sm mt-1">{errors.mobile}</p>}
                         </div>
 
                         {/* Size */}
@@ -267,8 +249,15 @@ const BottomSheetModal: React.FC = () => {
                                     </button>
                                 ))}
                             </div>
-                            {errors.size && <p className="text-red-500 font-avenir text-sm mt-1">{errors.size}</p>}
                         </div>
+
+                        {/* Single Error Message */}
+                        {formError && (
+                            <div className="px-2">
+                                <p className="text-red-500 text-center font-avenir text-[14px] font-normal">{formError}</p>
+                            </div>
+                        )}
+
                         <div className="p-6 pt-0 w-full">
                             {/* Submit Button */}
                             <Button className="w-full rounded-[8px]" type="submit" disabled={isSubmitting}>
