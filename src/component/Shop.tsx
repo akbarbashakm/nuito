@@ -103,7 +103,7 @@ const ShopSection = ({ id }: { id: string }) => {
                     scale: isMobile ? 0.85 : 0.8,
                     visibility: "hidden",
                     duration: isMobile ? 0.4 : 0.6,
-                    ease: "power2.in"
+                    ease: "power3.out"
                 });
 
                 const contentElements = contentRef.current?.querySelectorAll('div');
@@ -115,7 +115,7 @@ const ShopSection = ({ id }: { id: string }) => {
                         visibility: "hidden",
                         duration: isMobile ? 0.4 : 0.6,
                         stagger: isMobile ? 0.03 : 0.05,
-                        ease: "power2.in"
+                        ease: "power3.out"
                     });
                 }
             }

@@ -78,7 +78,7 @@ const Header: React.FC<HeaderProps> = ({
                 : "h-[108px] justify-center"
                 }`}
             style={{
-                background: effectiveScrolled ? "rgba(240, 241, 226, 0.9)" : "transparent",
+                background: effectiveScrolled ? "rgba(240, 241, 226, 0.8)" : "transparent",
             }}
         >
             <div className={`${maxWidthClass} flex w-full justify-between items-center mx-auto`}>
