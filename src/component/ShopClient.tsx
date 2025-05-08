@@ -106,12 +106,10 @@ export default function ShopClient() {
                 I am Interested
             </Button>
             <div className="max-w-2xl mx-auto lg:max-w-[806px]">
-                {infoSections.map((section, index) => (
+                {infoSections.map((section) => (
                     <InfoSection
                         key={section.id}
                         {...section}
-                        data-aos="fade-up"
-                        data-aos-delay={index * 200}
                     />
                 ))}
             </div>

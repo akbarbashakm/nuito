@@ -86,7 +86,8 @@ const InfoSection: React.FC<InfoSectionProps> = ({
             tl.fromTo(contentElements,
                 { 
                     opacity: 0, 
-                    y: isMobile ? 60 : 0,
+                    y: isMobile ? 50 : 0,
+                    autoAlpha: 0,
                     x: isMobile ? 0 : (reverse ? 100 : -100),
                     scale: isMobile ? 0.95 : 0.9,
                     visibility: "hidden"
@@ -97,6 +98,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
                     x: 0,
                     scale: 1,
                     visibility: "visible",
+                    autoAlpha: 1,
                     duration: isMobile ? 0.8 : 1,
                     stagger: isMobile ? 0.08 : 0.12,
                     ease: "power2.out"
@@ -112,6 +114,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
                 y: isMobile ? 100 : 0,
                 x: isMobile ? 0 : (reverse ? -120 : 120),
                 scale: isMobile ? 0.85 : 0.8,
+                autoAlpha: 0,
                 visibility: "hidden",
                 rotation: isMobile ? 0 : (reverse ? 10 : -10)
             },
@@ -121,6 +124,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
                 x: 0,
                 scale: 1,
                 rotation: 0,
+                autoAlpha: 1,
                 visibility: "visible",
                 duration: isMobile ? 1 : 1,
                 ease: isMobile ? "power2.out" : "power3.out"
@@ -201,7 +205,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
                     src={image}
                     alt={title}
                     width={412}
-                    height={731}
+                    height={431}
                     className="rounded-lg shadow-lg object-cover w-full max-w-[412px]"
                 />
             </div>
