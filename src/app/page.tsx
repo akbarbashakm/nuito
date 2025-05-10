@@ -40,7 +40,7 @@ export default function Home() {
         // 1 sec delay, then start TypingText animation
         typingTimeout = setTimeout(() => {
           if (typingTimeline) typingTimeline.kill();
-          
+
           // Convert NodeList to Array
           const typingElements = Array.from(typingText.querySelectorAll(".typing-text-animate"));
           if (typingElements.length === 0) return;
@@ -56,7 +56,7 @@ export default function Home() {
       onLeaveBack: () => {
         // Reset animation if needed
         if (typingTimeline) typingTimeline.kill();
-        
+
         // Convert NodeList to Array
         const typingElements = Array.from(typingText.querySelectorAll(".typing-text-animate"));
         if (typingElements.length === 0) return;
@@ -107,30 +107,30 @@ export default function Home() {
         heightClass=''
         nextSectionId="story-container"
       />
-      <div 
+      <div
         ref={contentRef}
-        className="max-w-[654px] pos mx-auto" 
+        className="max-w-[654px] pos mx-auto"
         style={{ background: '#eaeadb' }}
         id="story-container"
       >
-        <div 
+        <div
           ref={storySectionRef}
           className="snap-center sticky top-0 z-10 bg-[#eaeadb] py-8 pb-0"
         >
           <div ref={typingTextRef} className="py-4">
             <TypingText
               content={[
-                { type: "h2", text: "*nu ito •* [nwi.toʊ] *•* (noun)" },
-                { type: "p", text: "formed out of" },
-                { type: "p", text: 'nu ie. *"New"* and *ito* ie. *"Thread."*' },
-                { type: "divider" },
+                // { type: "divider" },
                 { type: "h2", text: "The STATUS QUO" },
-                { type: "p", text: "We wear our essentials the most—yet they're the most overlooked." },
+                { type: "p", text: "We wear our essentials the most—yet they’re the most overlooked. *The world offers a false choice:* cheap basics or luxury pieces that offer little beyond their label." },
                 { type: "h3", text: "Nu ITO exists to challenge that." },
                 { type: "h2", text: "A NEW STANDARD" },
                 { type: "p", text: "*We're crafting a capsule wardrobe* that grows with intention—one essential at a time. No seasonal cycles. No fleeting trends." },
                 { type: "h3", text: "Only pieces designed to remain relevant forever." },
                 { type: "h2", text: "The NU ITO WAY" },
+                { type: "h2", text: "*nu ito •* [nwi.toʊ] *•* (noun)" },
+                { type: "p", text: "formed out of" },
+                { type: "p", text: 'nu ie. *"New"* and *ito* ie. *"Thread."*' },
                 { type: "p", text: "*Every Nu ITO piece begins with intent — *fabric that feels like second skin, fits that honour real bodies, and design stripped of noise. Quiet, deliberate, and made to stay" },
                 { type: "h3", text: "— season after season, wear after wear." },
                 { type: "divider" },
@@ -139,10 +139,10 @@ export default function Home() {
           </div>
         </div>
         <div ref={shopSectionRef} className="min-h-screen pt-0">
-          <ShopSection id="chapter-1"/>
+          <ShopSection id="chapter-1" />
           <Footer className="pt-10" />
         </div>
-      </div>      
+      </div>
     </main>
   );
 }

@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Maven_Pro } from "next/font/google";
 import "./globals.css";
 import ClientLayout from "./client-layout";
 
-const inter = Inter({
+const mavenPro = Maven_Pro({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-maven",
 });
 
 export const metadata: Metadata = {
@@ -20,8 +21,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className={inter.className}>
+    <html lang="en" className={mavenPro.variable}>
+      <body className={mavenPro.className}>
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
