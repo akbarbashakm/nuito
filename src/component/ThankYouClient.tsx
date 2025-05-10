@@ -2,13 +2,8 @@
 import Header from "@/component/Header";
 import Footer from "@/component/Footer";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import dynamic from "next/dynamic";
-
-const Confetti = dynamic(() => import('react-confetti'), {
-  ssr: false
-});
 
 export default function ThankYouPage() {
   const tickRef = useRef<SVGSVGElement>(null);
@@ -17,23 +12,6 @@ export default function ThankYouPage() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const productRef = useRef<HTMLDivElement>(null);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
-  const [windowSize, setWindowSize] = useState({
-    width: typeof window !== 'undefined' ? window.innerWidth : 0,
-    height: typeof window !== 'undefined' ? window.innerHeight : 0,
-  });
-  const [showConfetti, setShowConfetti] = useState(true);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   useEffect(() => {
     // Add wave animation styles
@@ -109,31 +87,14 @@ export default function ThankYouPage() {
       }, "-=0.2");
     }
 
-    // Hide confetti after 5 seconds
-    const confettiTimer = setTimeout(() => {
-      setShowConfetti(false);
-    }, 5000);
-
     return () => {
       tl.kill();
-      clearTimeout(confettiTimer);
     };
   }, []);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8f8f6]">
       <Header scrolledEffect={false} />
-      {showConfetti && (
-        <Confetti
-          width={windowSize.width}
-          height={windowSize.height}
-          recycle={false}
-          numberOfPieces={600}
-          gravity={0.3}
-          wind={0.05}
-          colors={['#FF9AA2', '#FFB7B2', '#FFDAC1', '#E2F0CB', '#B5EAD7', '#C7CEEA']}
-        />
-      )}
       <main ref={contentRef} className="lg:max-w-[726px] mx-auto flex-1 flex flex-col items-center justify-center pt-30">
         <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-3xl mb-8">
           <div className="py-28 flex-1 flex flex-col items-center justify-center">

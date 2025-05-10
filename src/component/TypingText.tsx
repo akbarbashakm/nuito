@@ -23,10 +23,8 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
 
     const processText = (text: string | undefined) => {
         if (!text) return [];
-        // Split by [* *] to handle line breaks
         const lines = text.split('[* *]');
         return lines.map((line, lineIndex) => {
-            // Check for HTML tags
             if (line.includes('<p>')) {
                 return {
                     lineIndex,
@@ -34,7 +32,6 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                     content: line
                 };
             }
-            // Then split by * for strong text within each line
             const parts = line.split(/(\*.*?\*)/);
             return {
                 lineIndex,
@@ -79,26 +76,20 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                 const element = lineRefs.current[idx];
                 const lines = processText(item.text);
                 
-                // Clear existing content
                 element.innerHTML = '';
-                
-                // Create a container for all lines
                 const container = document.createElement('div');
                 container.className = 'flex flex-col';
                 element.appendChild(container);
 
-                // Process each line
                 lines.forEach((line) => {
                     const lineDiv = document.createElement('div');
-                    lineDiv.className = 'mb-4'; // Increased margin between lines
+                    lineDiv.className = 'mb-4';
                     
                     if (line.isHtml) {
-                        // Handle HTML content
                         const tempDiv = document.createElement('div');
                         tempDiv.innerHTML = line.content || '';
                         const pElement = tempDiv.querySelector('p');
                         if (pElement) {
-                            // Process strong text within p tag
                             const text = pElement.innerHTML;
                             const parts = text.split(/(\*.*?\*)/);
                             pElement.innerHTML = '';
@@ -121,7 +112,6 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                             lineDiv.appendChild(pElement);
                         }
                     } else {
-                        // Create and append spans for each character in the line
                         line.parts?.forEach(part => {
                             const chars = part.content.split('');
                             chars.forEach((char) => {
@@ -130,12 +120,10 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                                 span.style.opacity = '0.4';
                                 span.style.display = 'inline-block';
                                 
-                                // Check if this is phonetic text (contains [])
                                 if (part.content.includes('[') && part.content.includes(']') || part.content.includes('(') && part.content.includes(')')) {
                                     span.style.fontSize = '18px';
                                 }
                                 
-                                // Set font size for bullet point
                                 if (char === '•') {
                                     span.style.fontSize = '22px';
                                 }
@@ -190,7 +178,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                     return (
                         <h2
                             key={idx}
-                            className="text-[32px] py-2 md:text-3xl font-metrophobic font-normal text-center mb-0 typing_text-heading text-black/64"
+                            className="text-[34px] py-2 md:text-3xl font-metrophobic font-normal text-center mb-0 typing_text-heading text-black/64"
                             style={{ fontFamily: 'Avenir, sans-serif' }}
                         >
                             <span ref={el => { lineRefs.current[idx] = el; }} className="typing_text font-metrophobic" />
@@ -202,7 +190,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                     return (
                         <h3
                             key={idx}
-                            className="text-[18px] font-avenir pb-8 font-medium leading-[29.6px] tracking-[0.252px] text-center mb-4 typing_text-heading text-black"
+                            className="text-[22px] font-avenir pb-8 font-medium leading-[1.3] tracking-[0.252px] text-center mb-4 typing_text-heading text-black"
                             style={{ fontFamily: 'Avenir, sans-serif' }}
                         >
                             <span ref={el => { lineRefs.current[idx] = el; }} className="typing_text" />
@@ -213,7 +201,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                 return (
                     <p
                         key={idx}
-                        className="text-[18px] font-avenir font-medium leading-[29.6px] tracking-[0.252px] text-center mb-4 typing_text-heading text-black/64"
+                        className="text-[22px] font-avenir font-medium leading-[1.5] tracking-[0.252px] text-center mb-4 typing_text-heading text-black/64"
                         style={{ fontFamily: 'Avenir, sans-serif' }}
                     >
                         <span ref={el => { lineRefs.current[idx] = el; }} className="typing_text" />

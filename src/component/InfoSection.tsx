@@ -147,7 +147,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
             id={id}
             className={`
                 w-full flex flex-col md:flex-row items-end justify-between
-                gap-10 md:gap-0 py-8 px-4 md:px-8 lg:px-12 transition-all duration-700 bg-lightbeige
+                gap-10 md:gap-0 py-12 px-4 md:px-8 lg:px-12 transition-all duration-700 bg-lightbeige
                 ${reverse ? "md:flex-row-reverse" : ""}
             `}
         >

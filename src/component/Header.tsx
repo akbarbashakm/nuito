@@ -162,7 +162,7 @@ const Header: React.FC<HeaderProps> = ({
                                     after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-black
                                     after:w-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer"
                             >
-                                Chapter 1
+                                Drop 1
                             </button>
                         </>
                     )}
