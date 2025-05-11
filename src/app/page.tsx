@@ -1,116 +1,119 @@
-'use client'
+'use client';
 
-import { useEffect, useRef, useState } from 'react'
-import gsap from 'gsap'
-import ScrollTrigger from 'gsap/ScrollTrigger'
-import ScrollToPlugin from 'gsap/ScrollToPlugin'
-import TypingText from '@/component/TypingText'
-import VideoSection from '@/component/VideoSection'
-import ShopSection from '@/component/Shop'
-import Footer from '@/component/Footer'
-import Header from '@/component/Header'
+import { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+import ScrollToPlugin from 'gsap/ScrollToPlugin';
+import TypingText from '@/component/TypingText';
+import VideoSection from '@/component/VideoSection';
+import ShopSection from '@/component/Shop';
+import Footer from '@/component/Footer';
+import Header from '@/component/Header';
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 export default function Home() {
-  const currentIndex = useRef(0)
-  const [isClient, setIsClient] = useState(false)
-  const isMobile = window.innerWidth < 767
+  const currentIndex = useRef(0);
+  const [isClient, setIsClient] = useState(false);
 
+  // Set client-side rendering flag
   useEffect(() => {
-    setIsClient(true)
-  }, [])
+    setIsClient(true);
+  }, []);
 
+  // Handle scroll animations and scroll logic
   useEffect(() => {
-    if (!isClient) return
+    if (!isClient) return; // Skip if not client-side rendering
 
-    const isDesktop = window.innerWidth >= 1024
-    const panels = gsap.utils.toArray<HTMLElement>('.panel')
-    if (!panels.length) return
+    const isMobile = window.innerWidth < 767; // Detect mobile screen size
+    const panels = gsap.utils.toArray<HTMLElement>('.panel');
+    if (!panels.length) return;
 
-    let scrollTween: gsap.core.Tween | null = null
-    let scrollTimeout: ReturnType<typeof setTimeout> | null = null
+    let scrollTween: gsap.core.Tween | null = null;
+    let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
 
-    const observer = ScrollTrigger.normalizeScroll(true)
+    const observer = ScrollTrigger.normalizeScroll(true);
 
     const cancelTouch = (e: TouchEvent) => {
       if (scrollTween) {
-        e.preventDefault()
-        e.stopImmediatePropagation()
+        e.preventDefault();
+        e.stopImmediatePropagation();
       }
-    }
+    };
 
-    document.addEventListener('touchstart', cancelTouch, {
-      capture: true,
-      passive: false,
-    })
+    document.addEventListener('touchstart', cancelTouch, { capture: true, passive: false });
 
+    // Go to the specified section
     const goToSection = (index: number) => {
-      if (index < 0 || index >= panels.length || scrollTween) return
+      if (index < 0 || index >= panels.length || scrollTween) return;
 
       scrollTween = gsap.to(window, {
         scrollTo: { y: panels[index].offsetTop, autoKill: false },
-        duration: isMobile ? 0.5 : 1,
+        duration: isMobile ? 0.5 : 1, // Adjust duration based on mobile/desktop
         ease: 'power2.inOut',
         overwrite: true,
         onStart: () => {
-          observer?.disable()
-          observer?.enable()
+          observer?.disable();
+          observer?.enable();
         },
         onComplete: () => {
-          scrollTween = null
-          currentIndex.current = index
+          scrollTween = null;
+          currentIndex.current = index;
         },
-      })
-    }
+      });
+    };
 
+    // Wheel scroll event for desktop
     const handleWheel = (e: WheelEvent) => {
-      if (!isDesktop || scrollTween || scrollTimeout) return
+      if (scrollTween || scrollTimeout) return;
 
       if (e.deltaY > 0) {
-        goToSection(currentIndex.current + 1)
+        goToSection(currentIndex.current + 1);
       } else if (e.deltaY < 0) {
-        goToSection(currentIndex.current - 1)
+        goToSection(currentIndex.current - 1);
       }
 
       scrollTimeout = setTimeout(() => {
-        scrollTimeout = null
-      }, 1000)
-    }
+        scrollTimeout = null;
+      }, 1000);
+    };
 
-    let startY: number | null = null
+    let startY: number | null = null;
 
+    // Touch start event for mobile
     const handleTouchStart = (e: TouchEvent) => {
-      if (isDesktop || scrollTween) return
-      startY = e.touches[0].clientY
-    }
+      startY = e.touches[0].clientY;
+    };
 
+    // Touch end event for mobile
     const handleTouchEnd = (e: TouchEvent) => {
-      if (isDesktop || scrollTween || startY === null) return
+      if (scrollTween || startY === null) return;
 
-      const deltaY = startY - e.changedTouches[0].clientY
-      const threshold = 10
+      const deltaY = startY - e.changedTouches[0].clientY;
+      const threshold = 10;
 
       if (deltaY > threshold) {
-        goToSection(currentIndex.current + 1)
+        goToSection(currentIndex.current + 1);
       } else if (deltaY < -threshold) {
-        goToSection(currentIndex.current - 1)
+        goToSection(currentIndex.current - 1);
       }
 
-      startY = null
-    }
+      startY = null;
+    };
 
+    // Prevent scroll move
     const handleTouchMove = (e: TouchEvent) => {
       if (scrollTween) {
-        e.preventDefault()
+        e.preventDefault();
       }
-    }
+    };
 
-    window.addEventListener('wheel', handleWheel, { passive: false })
-    window.addEventListener('touchstart', handleTouchStart, { passive: false })
-    window.addEventListener('touchend', handleTouchEnd, { passive: false })
-    window.addEventListener('touchmove', handleTouchMove, { passive: false })
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('touchstart', handleTouchStart, { passive: false });
+    window.addEventListener('touchend', handleTouchEnd, { passive: false });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
 
+    // GSAP scroll animations for the panels
     panels.forEach((panel) => {
       gsap.from(panel.children, {
         opacity: 0,
@@ -122,29 +125,30 @@ export default function Home() {
           start: 'top center',
           toggleActions: 'play none none none',
         },
-      })
-    })
+      });
+    });
 
+    // Update the scroll position
     ScrollTrigger.create({
       start: 0,
       end: 'max',
       onUpdate: (self) => {
-        currentIndex.current = Math.round(self.scroll() / window.innerHeight)
+        currentIndex.current = Math.round(self.scroll() / window.innerHeight);
       },
-    })
+    });
 
     return () => {
-      window.removeEventListener('wheel', handleWheel)
-      window.removeEventListener('touchstart', handleTouchStart)
-      window.removeEventListener('touchend', handleTouchEnd)
-      window.removeEventListener('touchmove', handleTouchMove)
-      document.removeEventListener('touchstart', cancelTouch)
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
-    }
-  }, [isClient, isMobile])
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchstart', cancelTouch);
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, [isClient]); // Run this useEffect only when isClient changes
 
-  if (!isClient) return null // Prevent white page on SSR
-
+  // Prevent rendering on SSR
+  if (!isClient) return null;
 
   return (
     <main>
