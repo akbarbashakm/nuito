@@ -75,7 +75,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
 
       lines.forEach((line, lineIdx) => {
         const lineDiv = document.createElement("div");
-        lineDiv.className = "mb-0";
+        lineDiv.className = "mb-4";
 
         if (line.isHtml && line.content) {
           const tempDiv = document.createElement("div");
@@ -175,7 +175,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
         
         if (isFirstSpecialText) {
           return (
-            <div key={idx} className="boxy w-full bg-[rgba(164,164,164,0.16)] rounded-[24px] mb-8">
+            <div key={idx} className="boxy w-full bg-[rgba(164,164,164,0.16)] rounded-[24px] sm:my-8">
               <h2 className="text-[32px] py-2 md:text-3xl font-metrophobic font-normal text-center mb-0 typing_text-heading text-black/64">
               <span className="text-[32px] text-[#060606]">nu ito</span>
                 <span className="text-[22px] text-[#060606]"> • </span>
@@ -255,7 +255,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           return (
             <p
               key={idx}
-              className="text-[24px] font-maven font-medium leading-[1.5] tracking-[0.252px] text-center my-0 typing_text-heading text-black/64"
+              className="text-[24px] font-maven font-medium leading-[1.5] tracking-[0.252px] text-center my-4 typing_text-heading text-black/64"
             >
               {spanElement}
               {cursor}
