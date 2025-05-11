@@ -1,8 +1,11 @@
+"use client";
+
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(TextPlugin);
+gsap.registerPlugin(TextPlugin, ScrollTrigger);
 
 type ContentItem = {
   type: "h2" | "h3" | "p" | "divider";
@@ -16,7 +19,7 @@ interface TypingTextProps {
 
 const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const lineRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const lineRefs = useRef<(HTMLElement | null)[]>([]);
 
   const processText = (text: string | undefined) => {
     if (!text) return [];
@@ -46,7 +49,6 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    // Initialize GSAP timeline
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
@@ -118,48 +120,17 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
         element.appendChild(lineDiv);
       });
 
-      const spansAndHeadings = Array.from(element.querySelectorAll("span, p, h2"));
-      spansAndHeadings.forEach((el) => {
+      const spans = Array.from(element.querySelectorAll("span, p, h2, h3"));
+      spans.forEach((span) => {
         tl.to(
-          el,
+          span,
           {
             opacity: 1,
-            duration: 0.195,
+            duration: 0.2,
             ease: "power3.out",
           },
           "+=0.05"
         );
-      });
-
-      // Add animation for h2 with opacity and typing effect
-      const h2Elements = element.querySelectorAll("h2");
-      h2Elements.forEach((h2) => {
-        const textContent = h2.innerHTML;
-
-        // Remove <br> tags and split the text into words
-        const words = textContent.replace(/<br>/g, " ").split(" ");
-        h2.innerHTML = ""; // Clear the h2 content
-
-        // Create a span for each word
-        words.forEach((word, wordIdx) => {
-          const span = document.createElement("span");
-          span.textContent = word + " "; // Preserve spaces between words
-          span.style.opacity = "0.5"; // Start with zero opacity
-          span.style.whiteSpace = "nowrap"; // Prevent line breaks
-          span.setAttribute("data-key", `span-h2-${wordIdx}`);
-          h2.appendChild(span);
-
-          // Typing animation: gradually increase opacity and simulate typing
-          tl.to(
-            span,
-            {
-              opacity: 1, // Typing effect with opacity change
-              duration: 0.05, // Short duration for quick typing
-              ease: "none", // No easing for smooth typing
-            },
-            `+=0.05` // Delay for each word in sequence
-          );
-        });
       });
     });
 
@@ -182,16 +153,11 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           );
         }
 
-        const spanRefCallback = (el: HTMLSpanElement | null) => {
+        const refCallback = (el: HTMLElement | null) => {
           lineRefs.current[idx] = el;
         };
 
-        const spanElement = <span ref={spanRefCallback} className="typing_text" />;
-        const cursor = <span className="cursor" />;
-
-        // Check if this is the first of the three texts
         const isFirstSpecialText = item.text === "*nu ito •* [nwi.toʊ] *•* (noun)";
-        
         if (isFirstSpecialText) {
           return (
             <div key={idx} className="boxy w-full bg-[rgba(164,164,164,0.16)] rounded-[24px] mb-2 relative bottom-4 mt-0 px-4 py-4">
@@ -201,22 +167,18 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                 <span className="text-[18px] text-black/64">[nwi.toʊ] </span>
                 <span className="text-[22px] text-[#060606]"> • </span>
                 <span className="text-[18px] text-[#060606]">(noun)</span>
-                {cursor}
               </h2>
               {content.slice(idx + 1, idx + 3).map((nextItem, nextIdx) => {
-                const nextSpanRefCallback = (el: HTMLSpanElement | null) => {
+                const nextRefCallback = (el: HTMLParagraphElement | null) => {
                   lineRefs.current[idx + nextIdx + 1] = el;
                 };
-                const nextSpanElement = <span ref={nextSpanRefCallback} className="typing_text" />;
-                const nextCursor = <span className="cursor" />;
-
                 return (
                   <p
                     key={idx + nextIdx + 1}
-                    className="text-[18px] font-maven font-medium leading-[1.5] tracking-[0.252px] text-center mb-2 typing_text-heading text-black/64"
+                    ref={nextRefCallback}
+                    className="text-[18px] font-maven font-medium leading-[1.5] tracking-[0.252px] text-center mb-2 text-black/64"
                   >
-                    {nextSpanElement}
-                    {nextCursor}
+                    {/* content gets injected by processText */}
                   </p>
                 );
               })}
@@ -224,22 +186,22 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           );
         }
 
-        // Skip the next two items as they're already rendered in the boxy div
-        if (idx > 0 && (content[idx - 1].text === "*nu ito •* [nwi.toʊ] *•* (noun)" || 
-            content[idx - 1].text === "formed out of")) {
+        if (idx > 0 && (content[idx - 1].text === "*nu ito •* [nwi.toʊ] *•* (noun)" || content[idx - 1].text === "formed out of")) {
           return null;
         }
+
         if (item.type === "h2") {
           if (item.text?.includes("/n")) {
             const parts = item.text.split("/n");
             return (
               <h2
                 key={idx}
-                className="text-[40px] pt-0 py-8 font-metrophobic font-normal text-center mb-0 typing_text-heading text-black/64"
+                ref={refCallback}
+                className="text-[40px] pt-0 py-8 px-12 font-metrophobic font-normal text-center mb-0 px-8 text-black/64"
               >
                 {parts.map((part, i) => (
                   <React.Fragment key={i}>
-                    <span>{part.trim()}</span>
+                    {part.trim()}
                     {i < parts.length - 1 && (
                       <>
                         <span className="hidden md:inline">&nbsp;</span>
@@ -254,24 +216,19 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           return (
             <h2
               key={idx}
-              className="text-[40px] py-8 sm:mb-8 font-metrophobic font-normal text-center mb-0 typing_text-heading text-black/64"
-            >
-              {spanElement}
-              {cursor}
-            </h2>
+              ref={refCallback}
+              className="text-[40px] py-8 sm:mb-8 px-8 font-metrophobic font-normal text-center mb-0 text-black/64"
+            />
           );
         }
-        
 
         if (item.type === "h3") {
           return (
             <h3
               key={idx}
-              className="text-[24px] font-maven py-8 font-medium leading-[1.3] tracking-[0.252px] text-center mb-0 typing_text-heading text-black"
-            >
-              {spanElement}
-              {cursor}
-            </h3>
+              ref={refCallback}
+              className="text-[24px] font-maven py-8 font-medium leading-[1.3] tracking-[0.252px] text-center mb-0 text-black"
+            />
           );
         }
 
@@ -279,11 +236,9 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           return (
             <p
               key={idx}
-              className="text-[24px] font-maven font-medium leading-[1.5] tracking-[0.252px] text-center my-0 typing_text-heading text-black/64"
-            >
-              {spanElement}
-              {cursor}
-            </p>
+              ref={refCallback}
+              className="text-[24px] font-maven font-medium leading-[1.5] tracking-[0.252px] text-center my-0 text-black/64"
+            />
           );
         }
 

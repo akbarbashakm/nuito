@@ -159,7 +159,7 @@ export default function Home() {
       <section id="story-section" className="panel h-screen flex items-center justify-center max-w-[654px] mx-auto">
         <TypingText
           content={[
-            { type: 'h2', text: 'THE /n STATUS QUO' },
+            { type: 'h2', text: 'THE STATUS QUO' },
             {
               type: 'p',
               text: 'We wear our essentials the most—yet they’re the most overlooked. *The world offers a false choice:* cheap basics or luxury pieces that offer little beyond their label.',
@@ -172,7 +172,7 @@ export default function Home() {
       <section className="panel h-screen flex items-center justify-center max-w-[654px] mx-auto">
         <TypingText
           content={[
-            { type: 'h2', text: 'A /n NEW STANDARD' },
+            { type: 'h2', text: 'A NEW STANDARD' },
             {
               type: 'p',
               text: "*We're crafting a capsule wardrobe* that grows with intention—one essential at a time. No seasonal cycles. No fleeting trends.",
@@ -185,7 +185,7 @@ export default function Home() {
       <section className="panel h-screen flex items-center justify-center max-w-[654px] mx-auto">
         <TypingText
           content={[
-            { type: 'h2', text: 'THE /n NU ITO WAY' },
+            { type: 'h2', text: 'THE NU ITO WAY' },
             { type: 'h2', text: '*nu ito •* [nwi.toʊ] *•* (noun)' },
             { type: 'p', text: 'formed out of' },
             { type: 'h3', text: 'nu ie. *"New"* and *ito* ie. *"Thread."' },
