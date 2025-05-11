@@ -13,14 +13,14 @@ const infoSections = [
     {
         id: "story-section",
         title: "OUR STORY",
-        content: "We are a team of passionate individuals who believe in creating timeless pieces that transcend trends. Our journey began with a simple idea: to create clothing that is both stylish and comfortable, while being mindful of our impact on the environment.",
+        content: "*The Black Crew Tee had to come first.* Every man owns black tees  The one piece you’ll never outgrow or overthink. No effort. No question. *Always essential.*",
         image: "/story-asset.png",
         
     },
     {
         id: "fabric-section",
         title: "FABRIC",
-        content: "We use only the finest quality fabrics that are not only comfortable but also sustainable. Our fabrics are carefully selected to ensure they meet our high standards of quality and environmental responsibility.",
+        content: "*A precise blend of bamboo, charcoal, Supima cotton, and spandex* creates a fabric that’s not only breathable and stretchy but also features exceptional moisture-wicking and antibacterial properties.\n\n*This ensures you stay fresh and comfortable all day*",
         image: "/fabric-asset.png",
         icon: "/thread_1.svg",
         reverse: true
@@ -28,17 +28,22 @@ const infoSections = [
     {
         id: "fit-section",
         title: "FIT",
-        content: "Our garments are designed to fit perfectly, with attention to every detail. We believe that the right fit can make all the difference in how you feel and look in your clothes.",
+        content: "*We’re creating a size matrix that acknowledges the diversity of male physiques.* This approach respects that a man’s height and width don’t necessarily scale proportionally, allowing customers to find their precise size rather than settling for the closest approximation.",
         image: "/fit-asset.png",
         icon: "/ruler.svg"
     },
     {
         id: "design-section",
         title: "TIMELESS DESIGN",
-        content: "A piece of timeless design that you own, that will be ubiquitous anytime, anywhere on anyone. This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to.",
+        content: "*A piece of timeless design that you own, that will be ubiquitous anytime, anywhere on anyone.* This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to.",
         image: "/design-asset.png",
         icon: "/clock.svg",
         reverse: true
+    },
+    {
+        id: "style-section",
+        title: "STYLING",
+        content: "*A piece of timeless design that you own, that will be ubiquitous anytime, anywhere on anyone.* This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to.",
     }
 ];
 
@@ -114,7 +119,7 @@ export default function ShopClient() {
                 ))}
             </div>
             <ImageMarqueeSection
-                id="style-section"
+                id="styled-section"
                 images={[
                     "/styling-asset.png",
                     "/styling-asset-2.png",

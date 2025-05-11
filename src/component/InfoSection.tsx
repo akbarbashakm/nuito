@@ -6,7 +6,7 @@ import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 }
 
@@ -14,7 +14,7 @@ interface InfoSectionProps {
     title: string;
     content: string;
     span?: string;
-    image: string;
+    image?: string;
     reverse?: boolean;
     icon?: string | StaticImport;
     id?: string;
@@ -45,7 +45,6 @@ const InfoSection: React.FC<InfoSectionProps> = ({
 
         const isMobile = window.innerWidth <= 768;
 
-        // Create a timeline for better control
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: section,
@@ -59,8 +58,8 @@ const InfoSection: React.FC<InfoSectionProps> = ({
 
         // Title animation
         tl.fromTo(titleRef.current,
-            { 
-                opacity: 0, 
+            {
+                opacity: 0,
                 y: isMobile ? 80 : 0,
                 x: isMobile ? 0 : (reverse ? 120 : -120),
                 scale: isMobile ? 0.9 : 0.85,
@@ -76,16 +75,16 @@ const InfoSection: React.FC<InfoSectionProps> = ({
                 visibility: "visible",
                 duration: isMobile ? 0.9 : 1,
                 delay: isMobile ? 0.1 : 0.2,
-                ease: isMobile ? "power3.out" : "power3.out"
+                ease: "power3.out"
             }
         );
 
         // Content animation with stagger
-        const contentElements = contentRef.current?.querySelectorAll('p, span');
+        const contentElements = contentRef.current?.querySelectorAll('p, span, strong');
         if (contentElements) {
             tl.fromTo(contentElements,
-                { 
-                    opacity: 0, 
+                {
+                    opacity: 0,
                     y: isMobile ? 50 : 0,
                     autoAlpha: 0,
                     x: isMobile ? 0 : (reverse ? 100 : -100),
@@ -107,10 +106,10 @@ const InfoSection: React.FC<InfoSectionProps> = ({
             );
         }
 
-        // Image animation with scale
+        // Image animation
         tl.fromTo(imageRef.current,
-            { 
-                opacity: 0, 
+            {
+                opacity: 0,
                 y: isMobile ? 100 : 0,
                 x: isMobile ? 0 : (reverse ? -120 : 120),
                 scale: isMobile ? 0.85 : 0.8,
@@ -126,8 +125,8 @@ const InfoSection: React.FC<InfoSectionProps> = ({
                 rotation: 0,
                 autoAlpha: 1,
                 visibility: "visible",
-                duration: isMobile ? 1 : 1,
-                ease: isMobile ? "power2.out" : "power3.out"
+                duration: 1,
+                ease: "power3.out"
             },
             isMobile ? "-=0.6" : "-=0.8"
         );
@@ -158,7 +157,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
                     ${reverse ? "md:pl-8" : "md:pr-8"}
                 `}
             >
-                <h2 
+                <h2
                     ref={titleRef}
                     className="text-3xl text-black/64 md:text-[31px] font-metrophobic mb-4 uppercase flex items-center"
                 >
@@ -173,42 +172,67 @@ const InfoSection: React.FC<InfoSectionProps> = ({
                     )}
                     {title}
                 </h2>
-                <p className="text-[18px] font-m font-metrophobic md:text-[18px] text-black/64">
-                    {content.split('[*').map((line, lineIndex) => (
-                        <React.Fragment key={lineIndex}>
-                            {lineIndex > 0 && <br />}
-                            {line.split(/(\[.*?\])/g).map((part, index) => {
-                                if (part.startsWith('[') && part.endsWith(']')) {
-                                    const text = part.slice(1, -1);
-                                    return (
-                                        <span key={index} className="font-medium text-[#212121]">
-                                            {text}
-                                        </span>
-                                    );
-                                } else {
-                                    return <span key={index} className="font-medium text-[#212121]/60">{part}</span>;
-                                }
-                            })}
-                            {lineIndex < content.split('[*').length - 1 && <br />}
-                        </React.Fragment>
-                    ))}
-                </p>
+                <p className="text-[18px] font-metrophobic md:text-[18px] text-black/64">
+  {content.split(/(\n\n|\n)/g).map((line, lineIndex) => {
+    if (line === '\n\n') {
+      return (
+        <React.Fragment key={lineIndex}>
+          <br />
+          <br />
+        </React.Fragment>
+      );
+    } else if (line === '\n') {
+      return <br key={lineIndex} />;
+    }
+
+    return (
+      <React.Fragment key={lineIndex}>
+        {line.split(/(\*.*?\*|\[.*?\])/g).map((part, index) => {
+          if (part.startsWith('*') && part.endsWith('*')) {
+            const text = part.slice(1, -1);
+            return (
+              <strong key={index} className="text-black font-semibold">
+                {text}
+              </strong>
+            );
+          } else if (part.startsWith('[') && part.endsWith(']')) {
+            const text = part.slice(1, -1);
+            return (
+              <span key={index} className="font-medium text-[#212121]">
+                {text}
+              </span>
+            );
+          } else {
+            return (
+              <span key={index} className="font-medium text-[#212121]/60">
+                {part}
+              </span>
+            );
+          }
+        })}
+      </React.Fragment>
+    );
+  })}
+</p>
+
             </div>
-            <div
-                ref={imageRef}
-                className={`
-                    w-full md:w-1/2 flex justify-center items-center px-4 md:px-8
-                    ${reverse ? "md:pr-8" : "md:pl-8"}
-                `}
-            >
-                <Image
-                    src={image}
-                    alt={title}
-                    width={412}
-                    height={431}
-                    className="rounded-lg shadow-lg object-cover w-full max-w-[412px]"
-                />
-            </div>
+            {image && (
+                <div
+                    ref={imageRef}
+                    className={`
+                        w-full md:w-1/2 flex justify-center items-center px-4 md:px-8
+                        ${reverse ? "md:pr-8" : "md:pl-8"}
+                    `}
+                >
+                    <Image
+                        src={image}
+                        alt={title}
+                        width={412}
+                        height={431}
+                        className="rounded-lg shadow-lg object-cover w-full max-w-[412px]"
+                    />
+                </div>
+            )}
         </section>
     );
 };

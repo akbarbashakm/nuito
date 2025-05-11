@@ -1,11 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { TextPlugin } from "gsap/TextPlugin";
-
-gsap.registerPlugin(ScrollTrigger, TextPlugin);
+import React, { useRef } from "react";
 
 type ContentItem = {
   type: "h2" | "h3" | "p" | "divider";
@@ -20,141 +15,30 @@ interface TypingTextProps {
 const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const lineRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const skippedIndexes = new Set<number>(); // Track which indexes are rendered inside "boxy"
 
-  const processText = (text: string | undefined) => {
-    if (!text) return [];
-    const lines = text.split("[* *]");
-    return lines.map((line, lineIndex) => {
-      if (line.includes("<p>")) {
-        return {
-          lineIndex,
-          isHtml: true,
-          content: line,
-        };
+  const renderFormattedText = (text: string) => {
+    const parts = text.split(/(\*[^*]+\*)/g);
+    return parts.map((part, idx) => {
+      if (part.startsWith("*") && part.endsWith("*")) {
+        return (
+          <strong key={idx} className="font-bold text-black">
+            {part.slice(1, -1)}
+          </strong>
+        );
       }
-      const parts = line.split(/(\*.*?\*)/);
-      return {
-        lineIndex,
-        isHtml: false,
-        parts: parts.map((part) => {
-          if (part.startsWith("*") && part.endsWith("*")) {
-            return { type: "strong", content: part.slice(1, -1) };
-          }
-          return { type: "normal", content: part };
-        }),
-      };
+      return part;
     });
   };
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    ScrollTrigger.normalizeScroll(true);
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        scrub: 2,
-        start: "top top",
-        end: "bottom+=500 center",
-        pinSpacing: false,
-        fastScrollEnd: false,
-        anticipatePin: 1,
-        onUpdate: () => {
-          tl.timeScale(0);
-        },
-      },
-    });
-
-    content.forEach((item, idx) => {
-      const element = lineRefs.current[idx];
-      if (!element || item.type === "divider") return;
-
-      element.innerHTML = "";
-      const lines = processText(item.text);
-
-      lines.forEach((line, lineIdx) => {
-        const lineDiv = document.createElement("div");
-        lineDiv.className = "mb-0";
-
-        if (line.isHtml && line.content) {
-          const tempDiv = document.createElement("div");
-          tempDiv.innerHTML = line.content;
-          const pElement = tempDiv.querySelector("p");
-          if (pElement) {
-            const text = pElement.innerHTML;
-            const parts = text.split(/(\*.*?\*)/);
-            pElement.innerHTML = "";
-
-            parts.forEach((part, partIdx) => {
-              if (part.startsWith("*") && part.endsWith("*")) {
-                const strong = document.createElement("strong");
-                strong.textContent = part.slice(1, -1);
-                strong.style.fontWeight = "700";
-                strong.style.color = "#000000";
-                strong.setAttribute("data-key", `html-strong-${lineIdx}-${partIdx}`);
-                pElement.appendChild(strong);
-              } else {
-                const textNode = document.createTextNode(part);
-                pElement.appendChild(textNode);
-              }
-            });
-
-            pElement.style.fontSize = "18px";
-            pElement.style.display = "inline-block";
-            pElement.style.margin = "0 0.25em";
-            lineDiv.appendChild(pElement);
-          }
-        } else {
-          line.parts?.forEach((part, partIdx) => {
-            const words = part.content.split(" ");
-            words.forEach((word, wordIdx) => {
-              const span = document.createElement("span");
-              span.textContent = word + " ";
-              span.style.opacity = "0.4";
-              span.style.display = "inline-block";
-              span.style.marginRight = "0.25em";
-              span.setAttribute("data-key", `span-${lineIdx}-${partIdx}-${wordIdx}`);
-
-              if (part.type === "strong") {
-                span.style.fontWeight = "700";
-                span.style.color = "#000000";
-              }
-
-              lineDiv.appendChild(span);
-            });
-          });
-        }
-
-        element.appendChild(lineDiv);
-      });
-
-      const spans = Array.from(element.querySelectorAll("span, p"));
-      spans.forEach((span) => {
-        tl.to(
-          span,
-          {
-            opacity: 1,
-            duration: 0.15,
-            ease: "power1.out",
-          },
-          "+=0.2"
-        );
-      });
-    });
-
-    return () => {
-      tl.kill();
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, [content]);
 
   return (
     <div
       ref={containerRef}
-      className={`w-full border-[#868686] max-w-[654px] mx-auto bg-lightbeige pt-0 pb-4 px-4 flex flex-col items-center ${className ?? ""}`}
+      className={`w-full border-[#868686] max-w-[654px] mx-auto bg-lightbeige pt-0 pb-4 px-4 flex flex-col items-center justify-center ${className ?? ""}`}
     >
       {content.map((item, idx) => {
+        if (skippedIndexes.has(idx)) return null; // ✅ Skip if already rendered in boxy
+
         if (item.type === "divider") {
           return (
             <div key={`divider-${idx}`} className="w-full flex justify-center my-4">
@@ -170,34 +54,38 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
         const spanElement = <span ref={spanRefCallback} className="typing_text" />;
         const cursor = <span className="cursor" />;
 
-        // Check if this is the first of the three texts
         const isFirstSpecialText = item.text === "*nu ito •* [nwi.toʊ] *•* (noun)";
-        
         if (isFirstSpecialText) {
+          const nextItems = content.slice(idx + 1, idx + 3);
+          skippedIndexes.add(idx + 1); // ✅ Mark next lines as skipped
+          skippedIndexes.add(idx + 2);
+
           return (
-            <div key={idx} className="boxy w-full bg-[rgba(164,164,164,0.16)] rounded-[24px] mb-8">
-              <h2 className="text-[32px] py-2 md:text-3xl font-metrophobic font-normal text-center mb-0 typing_text-heading text-black/64">
-              <span className="text-[32px] text-[#060606]">nu ito</span>
+            <div key={idx} className="boxy w-full bg-[rgba(164,164,164,0.16)] rounded-[24px] mb-8 mt-0 px-4 py-4" data-aos="fade-up">
+              <h2 className="text-[40px] font-metrophobic font-normal text-center mb-2 typing_text-heading text-black/64">
+                <span className="text-[40px] text-[#060606]">nu ito</span>
                 <span className="text-[22px] text-[#060606]"> • </span>
                 <span className="text-[18px] text-black/64">[nwi.toʊ] </span>
                 <span className="text-[22px] text-[#060606]"> • </span>
                 <span className="text-[18px] text-[#060606]">(noun)</span>
                 {cursor}
               </h2>
-              {content.slice(idx + 1, idx + 3).map((nextItem, nextIdx) => {
+
+              {nextItems.map((nextItem, nextIdx) => {
+                const refIndex = idx + nextIdx + 1;
                 const nextSpanRefCallback = (el: HTMLSpanElement | null) => {
-                  lineRefs.current[idx + nextIdx + 1] = el;
+                  lineRefs.current[refIndex] = el;
                 };
-                const nextSpanElement = <span ref={nextSpanRefCallback} className="typing_text" />;
-                const nextCursor = <span className="cursor" />;
 
                 return (
                   <p
-                    key={idx + nextIdx + 1}
-                    className="text-[18px] font-maven font-medium leading-[1.5] tracking-[0.252px] text-center mb-4 typing_text-heading text-black/64"
+                    key={refIndex}
+                    className="text-[18px] font-maven font-medium leading-[1.5] tracking-[0.252px] text-center mb-2 typing_text-heading text-black/64"
                   >
-                    {nextSpanElement}
-                    {nextCursor}
+                    <span ref={nextSpanRefCallback} className="typing_text">
+                      {nextItem.text ? renderFormattedText(nextItem.text) : ""}
+                    </span>
+                    <span className="cursor" />
                   </p>
                 );
               })}
@@ -205,32 +93,35 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           );
         }
 
-        // Skip the next two items as they're already rendered in the boxy div
-        if (idx > 0 && (content[idx - 1].text === "*nu ito •* [nwi.toʊ] *•* (noun)" || 
-            content[idx - 1].text === "formed out of")) {
-          return null;
-        }
-
+        // The rest of your type rendering logic remains unchanged
         if (item.type === "h2") {
           if (item.text?.includes("/n")) {
             const parts = item.text.split("/n");
             return (
               <h2
                 key={idx}
-                className="text-[40px] py-2 md:text-3xl font-metrophobic font-normal text-center mb-0 typing_text-heading text-black/64"
+                data-aos="fade-up"
+                className="text-[40px] pt-0 py-8 font-metrophobic font-normal text-center mb-0 typing_text-heading text-black/64"
               >
                 {parts.map((part, i) => (
                   <React.Fragment key={i}>
                     {part.trim()}
-                    {i < parts.length - 1 && <br className="md:hidden" />}
+                    {i < parts.length - 1 && (
+                      <>
+                        <span className="hidden md:inline">&nbsp;</span>
+                        <br className="md:hidden" />
+                      </>
+                    )}
                   </React.Fragment>
                 ))}
               </h2>
             );
           }
+
           return (
             <h2
               key={idx}
+              data-aos="fade-up"
               className="text-[40px] py-8 sm:mb-8 font-metrophobic font-normal text-center mb-0 typing_text-heading text-black/64"
             >
               {spanElement}
@@ -243,10 +134,13 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           return (
             <h3
               key={idx}
-              className="text-[24px] font-maven pb-8 font-medium leading-[1.3] tracking-[0.252px] text-center mb-0 typing_text-heading text-black"
+              data-aos="fade-up"
+              className="text-[24px] font-maven py-8 font-medium leading-[1.3] tracking-[0.252px] text-center mb-0 typing_text-heading text-black"
             >
-              {spanElement}
-              {cursor}
+              <span ref={spanRefCallback} className="typing_text">
+                {item.text}
+              </span>
+              <span className="cursor" />
             </h3>
           );
         }
@@ -255,10 +149,13 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           return (
             <p
               key={idx}
+              data-aos="fade-up"
               className="text-[24px] font-maven font-medium leading-[1.5] tracking-[0.252px] text-center my-0 typing_text-heading text-black/64"
             >
-              {spanElement}
-              {cursor}
+              <span ref={spanRefCallback} className="typing_text">
+                {item.text ? renderFormattedText(item.text) : ""}
+              </span>
+              <span className="cursor" />
             </p>
           );
         }

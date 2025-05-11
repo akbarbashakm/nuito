@@ -15,11 +15,11 @@ export default function ClientLayout({
     AOS.init({
       duration: 1000,
       once: false,
-      offset: 220,
-      delay: 0,
-      anchorPlacement: "top-top",
+      offset: 80,
+      delay: 100,
+      anchorPlacement: "top-center",
       startEvent: "DOMContentLoaded",
-      throttleDelay: 999,
+      throttleDelay: 9,
       debounceDelay: 50
     });
 
