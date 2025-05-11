@@ -38,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({
 
     const handleSectionClick = async (sectionId: string) => {
         const isHomeOrThankYou = pathname === '/' || pathname === '/thank-you';
-        const headerHeight =  20;
+        const headerHeight =  80;
         const targetPath = isHomeOrThankYou ? `/#${sectionId}` : `/shop#${sectionId}`;
         
         // If we're already on the correct page, just scroll
