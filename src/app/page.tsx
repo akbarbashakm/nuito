@@ -1,123 +1,127 @@
-'use client';
+'use client'
 
-import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
-import ScrollToPlugin from 'gsap/ScrollToPlugin';
-import TypingText from '@/component/TypingText';
-import VideoSection from '@/component/VideoSection';
-import ShopSection from '@/component/Shop';
-import Footer from '@/component/Footer';
-import Header from '@/component/Header';
+import { useEffect, useRef, useState } from 'react'
+import gsap from 'gsap'
+import ScrollTrigger from 'gsap/ScrollTrigger'
+import ScrollToPlugin from 'gsap/ScrollToPlugin'
+import TypingText from '@/component/TypingText'
+import VideoSection from '@/component/VideoSection'
+import ShopSection from '@/component/Shop'
+import Footer from '@/component/Footer'
+import Header from '@/component/Header'
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
 export default function Home() {
-  const currentIndex = useRef(0);
-  const [isClient, setIsClient] = useState(false);
+  const currentIndex = useRef(0)
+  const [isClient, setIsClient] = useState(false)
+  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 767 : false
 
-  // Set client-side rendering flag
   useEffect(() => {
-    setIsClient(true);
-  }, []);
+    setIsClient(true)
+  }, [])
 
-  // Handle scroll animations and scroll logic
   useEffect(() => {
-    if (!isClient) return; // Skip if not client-side rendering
+    if (!isClient) return
 
-    const isMobile = window.innerWidth < 767; // Detect mobile screen size
-    const panels = gsap.utils.toArray<HTMLElement>('.panel');
-    if (!panels.length) return;
+    const isDesktop = window.innerWidth >= 1024
+    const panels = gsap.utils.toArray<HTMLElement>('.panel')
+    if (!panels.length) return
 
-    let scrollTween: gsap.core.Tween | null = null;
-    let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
-
-    const observer = ScrollTrigger.normalizeScroll(true);
+    let scrollTween: gsap.core.Tween | null = null
+    const observer = ScrollTrigger.normalizeScroll(true)
 
     const cancelTouch = (e: TouchEvent) => {
       if (scrollTween) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
+        e.preventDefault()
+        e.stopImmediatePropagation()
       }
-    };
+    }
 
-    document.addEventListener('touchstart', cancelTouch, { capture: true, passive: false });
+    document.addEventListener('touchstart', cancelTouch, {
+      capture: true,
+      passive: false,
+    })
 
-    // Go to the specified section
     const goToSection = (index: number) => {
-      if (index < 0 || index >= panels.length || scrollTween) return;
+      if (index < 0 || index >= panels.length || scrollTween) return
 
       scrollTween = gsap.to(window, {
         scrollTo: { y: panels[index].offsetTop, autoKill: false },
-        duration: isMobile ? 0.5 : 1, // Adjust duration based on mobile/desktop
+        duration: isMobile ? 0.5 : 1.2,
         ease: 'power2.inOut',
-        overwrite: true,
+        overwrite: 'auto',
         onStart: () => {
-          observer?.disable();
-          observer?.enable();
+          observer?.disable()
+          observer?.enable()
         },
         onComplete: () => {
-          scrollTween = null;
-          currentIndex.current = index;
+          currentIndex.current = index
+          scrollTween = null
         },
-      });
-    };
+      })
+    }
 
-    // Wheel scroll event for desktop
     const handleWheel = (e: WheelEvent) => {
-      if (scrollTween || scrollTimeout) return;
+      if (!isDesktop || scrollTween) return
+      e.preventDefault()
 
+      let nextIndex = currentIndex.current
       if (e.deltaY > 0) {
-        goToSection(currentIndex.current + 1);
+        nextIndex += 1
       } else if (e.deltaY < 0) {
-        goToSection(currentIndex.current - 1);
+        nextIndex -= 1
       }
 
-      scrollTimeout = setTimeout(() => {
-        scrollTimeout = null;
-      }, 1000);
-    };
+      nextIndex = Math.max(0, Math.min(nextIndex, panels.length - 1))
+      if (nextIndex !== currentIndex.current) {
+        goToSection(nextIndex)
+      }
+    }
 
-    let startY: number | null = null;
+    let startY: number | null = null
 
-    // Touch start event for mobile
     const handleTouchStart = (e: TouchEvent) => {
-      startY = e.touches[0].clientY;
-    };
+      if (isDesktop || scrollTween) return
+      startY = e.touches[0].clientY
+    }
 
-    // Touch end event for mobile
     const handleTouchEnd = (e: TouchEvent) => {
-      if (scrollTween || startY === null) return;
+      if (isDesktop || scrollTween || startY === null) return
 
-      const deltaY = startY - e.changedTouches[0].clientY;
-      const threshold = 10;
+      const deltaY = startY - e.changedTouches[0].clientY
+      const threshold = 20
 
+      let nextIndex = currentIndex.current
       if (deltaY > threshold) {
-        goToSection(currentIndex.current + 1);
+        nextIndex += 1
       } else if (deltaY < -threshold) {
-        goToSection(currentIndex.current - 1);
+        nextIndex -= 1
       }
 
-      startY = null;
-    };
+      nextIndex = Math.max(0, Math.min(nextIndex, panels.length - 1))
+      if (nextIndex !== currentIndex.current) {
+        goToSection(nextIndex)
+      }
 
-    // Prevent scroll move
+      startY = null
+    }
+
     const handleTouchMove = (e: TouchEvent) => {
       if (scrollTween) {
-        e.preventDefault();
+        e.preventDefault()
       }
-    };
+    }
 
-    window.addEventListener('wheel', handleWheel, { passive: false });
-    window.addEventListener('touchstart', handleTouchStart, { passive: false });
-    window.addEventListener('touchend', handleTouchEnd, { passive: false });
-    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('wheel', handleWheel, { passive: false })
+    window.addEventListener('touchstart', handleTouchStart, { passive: false })
+    window.addEventListener('touchend', handleTouchEnd, { passive: false })
+    window.addEventListener('touchmove', handleTouchMove, { passive: false })
 
-    // GSAP scroll animations for the panels
     panels.forEach((panel) => {
       gsap.from(panel.children, {
         opacity: 0,
-        y: isMobile ? 0 : 0,
+        y: 0,
         duration: 0.5,
         stagger: 0.1,
         scrollTrigger: {
@@ -125,30 +129,20 @@ export default function Home() {
           start: 'top center',
           toggleActions: 'play none none none',
         },
-      });
-    });
-
-    // Update the scroll position
-    ScrollTrigger.create({
-      start: 0,
-      end: 'max',
-      onUpdate: (self) => {
-        currentIndex.current = Math.round(self.scroll() / window.innerHeight);
-      },
-    });
+      })
+    })
 
     return () => {
-      window.removeEventListener('wheel', handleWheel);
-      window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchend', handleTouchEnd);
-      window.removeEventListener('touchmove', handleTouchMove);
-      document.removeEventListener('touchstart', cancelTouch);
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, [isClient]); // Run this useEffect only when isClient changes
+      window.removeEventListener('wheel', handleWheel)
+      window.removeEventListener('touchstart', handleTouchStart)
+      window.removeEventListener('touchend', handleTouchEnd)
+      window.removeEventListener('touchmove', handleTouchMove)
+      document.removeEventListener('touchstart', cancelTouch)
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+    }
+  }, [isClient, isMobile])
 
-  // Prevent rendering on SSR
-  if (!isClient) return null;
+  if (!isClient) return null
 
   return (
     <main>
@@ -158,7 +152,7 @@ export default function Home() {
           src="/dress-shop-ad.mov"
           showArrow
           heightClass=""
-          nextSectionId="story-container"
+          nextSectionId="story-section"
         />
       </section>
 
@@ -213,5 +207,5 @@ export default function Home() {
         <Footer className="pt-10" />
       </section>
     </main>
-  );
+  )
 }

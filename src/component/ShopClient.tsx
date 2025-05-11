@@ -23,7 +23,7 @@ const infoSections = [
         content: "*A precise blend of bamboo, charcoal, Supima cotton, and spandex* creates a fabric that’s not only breathable and stretchy but also features exceptional moisture-wicking and antibacterial properties.\n\n*This ensures you stay fresh and comfortable all day*",
         image: "/fabric-asset.png",
         icon: "/thread_1.svg",
-        reverse: true
+        reverse: true   
     },
     {
         id: "fit-section",
