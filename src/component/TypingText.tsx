@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
@@ -120,17 +118,48 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
         element.appendChild(lineDiv);
       });
 
-      const spans = Array.from(element.querySelectorAll("span, p"));
-      spans.forEach((span) => {
+      const spansAndHeadings = Array.from(element.querySelectorAll("span, p, h2"));
+      spansAndHeadings.forEach((el) => {
         tl.to(
-          span,
+          el,
           {
             opacity: 1,
-            duration: 0,
+            duration: 0.195,
             ease: "power3.out",
           },
           "+=0.05"
         );
+      });
+
+      // Add animation for h2 with opacity and typing effect
+      const h2Elements = element.querySelectorAll("h2");
+      h2Elements.forEach((h2) => {
+        const textContent = h2.innerHTML;
+
+        // Remove <br> tags and split the text into words
+        const words = textContent.replace(/<br>/g, " ").split(" ");
+        h2.innerHTML = ""; // Clear the h2 content
+
+        // Create a span for each word
+        words.forEach((word, wordIdx) => {
+          const span = document.createElement("span");
+          span.textContent = word + " "; // Preserve spaces between words
+          span.style.opacity = "0.5"; // Start with zero opacity
+          span.style.whiteSpace = "nowrap"; // Prevent line breaks
+          span.setAttribute("data-key", `span-h2-${wordIdx}`);
+          h2.appendChild(span);
+
+          // Typing animation: gradually increase opacity and simulate typing
+          tl.to(
+            span,
+            {
+              opacity: 1, // Typing effect with opacity change
+              duration: 0.05, // Short duration for quick typing
+              ease: "none", // No easing for smooth typing
+            },
+            `+=0.05` // Delay for each word in sequence
+          );
+        });
       });
     });
 
@@ -165,7 +194,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
         
         if (isFirstSpecialText) {
           return (
-            <div key={idx} className="boxy w-full bg-[rgba(164,164,164,0.16)] rounded-[24px] mb-8 mt-0 px-4 py-4">
+            <div key={idx} className="boxy w-full bg-[rgba(164,164,164,0.16)] rounded-[24px] mb-2 relative bottom-4 mt-0 px-4 py-4">
               <h2 className="text-[40px] font-metrophobic font-normal text-center mb-2 typing_text-heading text-black/64">
                 <span className="text-[40px] text-[#060606]">nu ito</span>
                 <span className="text-[22px] text-[#060606]"> • </span>
@@ -200,7 +229,6 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             content[idx - 1].text === "formed out of")) {
           return null;
         }
-
         if (item.type === "h2") {
           if (item.text?.includes("/n")) {
             const parts = item.text.split("/n");
@@ -211,7 +239,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
               >
                 {parts.map((part, i) => (
                   <React.Fragment key={i}>
-                    {part.trim()}
+                    <span>{part.trim()}</span>
                     {i < parts.length - 1 && (
                       <>
                         <span className="hidden md:inline">&nbsp;</span>
@@ -233,6 +261,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             </h2>
           );
         }
+        
 
         if (item.type === "h3") {
           return (
