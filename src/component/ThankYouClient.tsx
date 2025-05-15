@@ -3,6 +3,7 @@ import Header from "@/component/Header";
 import Footer from "@/component/Footer";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import Image from "next/image";
 
 export default function ThankYouPage() {
   const tickRef = useRef<SVGSVGElement>(null);
@@ -120,7 +121,7 @@ export default function ThankYouPage() {
       <Header scrolledEffect={false} />
       <main
         ref={contentRef}
-        className="lg:max-w-[726px] mx-auto flex-1 flex flex-col items-center justify-center pt-30 bg-background dark:bg-background-dark"
+        className="lg:max-w-[806px] mx-auto flex-1 flex flex-col items-center justify-center pt-30 bg-background dark:bg-background-dark"
       >
         <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-3xl mb-8">
           <div className="py-28 flex-1 flex flex-col items-center justify-center">
@@ -180,9 +181,8 @@ export default function ThankYouPage() {
                   key={`interest-${index}`}
                   className="inline-block text-foreground dark:text-foreground"
                   style={{
-                    animation: `wave 1.2s ease-in-out ${
-                      (index + "Thank you for your".length) * 0.08
-                    }s forwards`,
+                    animation: `wave 1.2s ease-in-out ${(index + "Thank you for your".length) * 0.08
+                      }s forwards`,
                   }}
                 >
                   {letter === " " ? "\u00A0" : letter}
@@ -191,14 +191,17 @@ export default function ThankYouPage() {
             </h2>
             <div
               ref={productRef}
-              className="text-center mb-8"
+              className="text-center mb-8 flex g-8 items-center justify-center"
             >
-              <p className="font-normal font-avenir text-left text-foreground dark:text-foreground text-[18px]">
+              <Image src="/t-black.svg" width={100} height={100} alt="Black Crew Tee" className="w-full h-auto" />
+              <div className="flex flex-col items-start justify-start">
+                <p className="font-normal pt-4 font-avenir text-left text-foreground dark:text-foreground text-[18px] whitespace-nowrap">
                   Black Crew Tee | Him
                 </p>
-              <p className="font-normal font-avenir text-left text-foreground dark:text-foreground text-[14px] pt-2">
-                ₹1999
+                <p className="font-normal font-avenir text-left text-foreground dark:text-foreground text-[14px] pt-2">
+                  ₹1999
                 </p>
+              </div>
             </div>
             <p
               ref={descriptionRef}

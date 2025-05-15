@@ -15,7 +15,7 @@ const infoSections = [
         title: "OUR STORY",
         content: "*The Black Crew Tee had to come first.* Every man owns black tees  The one piece you'll never outgrow or overthink. No effort. No question. *Always essential.*",
         image: "/story-asset.png",
-        
+
     },
     {
         id: "fabric-section",
@@ -23,7 +23,7 @@ const infoSections = [
         content: "*A precise blend of bamboo, charcoal, Supima cotton, and spandex* creates a fabric that's not only breathable and stretchy but also features exceptional moisture-wicking and antibacterial properties.\n\n*This ensures you stay fresh and comfortable all day*",
         image: "/fabric-asset.png",
         icon: "/thread_1.svg",
-        reverse: true   
+        reverse: true
     },
     {
         id: "fit-section",
@@ -59,7 +59,7 @@ export default function ShopClient() {
 
             if (scrollTop > 20) {
                 setButtonPosition('bottom-5');
-                
+
             } else {
                 setButtonPosition('bottom-48');
             }

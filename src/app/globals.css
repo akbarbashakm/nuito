@@ -38,6 +38,9 @@ html {
   --footer-text: #000000;
   --footer-link: #000000;
   --footer-link-hover: #666666;
+  --typing-bg-light: rgba(164, 164, 164, 0.16);
+  --typing-bg-dark: rgba(31, 41, 55, 0.3);
+
 }
 
 .dark {

@@ -11,7 +11,7 @@ const ShopSection = ({ id }: { id: string }) => {
     return (
         <main className="w-full" id={id}>
             <div
-                className="space-y-6 max-w-2xl flex items-center justify-center py-8 mx-4 sm:mx-4 lg:mx-auto rounded-[12px] block lg:max-w-[806px] dark:bg-background-dark relative"
+                className="space-y-6 max-w-2xl flex items-center justify-center py-8 mx-4 sm:mx-4 lg:mx-auto rounded-[24px] block lg:max-w-[806px] dark:bg-background-dark relative"
             >
                 {/* Background Image */}
                 <div className="absolute inset-0 z-0">

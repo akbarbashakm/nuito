@@ -155,7 +155,16 @@ export default function Home() {
           nextSectionId="story-section"
         />
       </section>
-
+      <section id="story-section" className="panel h-screen flex items-center justify-center max-w-[654px] mx-auto">
+        <TypingText
+          content={[
+            { type: 'h2', text: '*nu ito •* [nwi.toʊ] *•* (noun)' },
+            { type: 'p', text: 'formed out of' },
+            { type: 'h3', text: 'nu ie. *"New"* and *ito* ie. *"Thread."' },
+            { type: 'divider' },
+          ]}
+        />
+      </section>
       <section id="story-section" className="panel h-screen flex items-center justify-center max-w-[654px] mx-auto">
         <TypingText
           content={[
@@ -168,7 +177,6 @@ export default function Home() {
           ]}
         />
       </section>
-
       <section className="panel h-screen flex items-center justify-center max-w-[654px] mx-auto">
         <TypingText
           content={[
@@ -181,14 +189,10 @@ export default function Home() {
           ]}
         />
       </section>
-
       <section className="panel h-screen flex items-center justify-center max-w-[654px] mx-auto">
         <TypingText
           content={[
             { type: 'h2', text: 'THE NU ITO WAY' },
-            { type: 'h2', text: '*nu ito •* [nwi.toʊ] *•* (noun)' },
-            { type: 'p', text: 'formed out of' },
-            { type: 'h3', text: 'nu ie. *"New"* and *ito* ie. *"Thread."' },
             {
               type: 'p',
               text: '*Every Nu ITO piece begins with intent — *fabric that feels like second skin, fits that honour real bodies, and design stripped of noise. Quiet, deliberate, and made to stay',
@@ -199,7 +203,7 @@ export default function Home() {
         />
       </section>
 
-      <section className="panel h-screen flex items-center justify-center mx-auto">
+      <section className="panel h-screen flex items-center max-w-[654px] justify-center mx-auto">
         <ShopSection id="chapter-1" />
       </section>
 

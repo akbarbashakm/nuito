@@ -127,7 +127,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           span,
           {
             opacity: 1,
-            duration: 0.1,
+            duration: 0.05,
             ease: "power3.out",
           },
           "+=0.05"
@@ -161,7 +161,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
         const isFirstSpecialText = item.text === "*nu ito •* [nwi.toʊ] *•* (noun)";
         if (isFirstSpecialText) {
           return (
-            <div key={idx} className="boxy w-full bg-[var(--typing-bg-light)] dark:bg-[var(--typing-bg-dark)] rounded-[24px] mb-2 relative bottom-4 mt-0">
+            <div key={idx} className="boxy px-6 dark:bg-[var(--typing-bg-dark)] rounded-[24px] mb-2 relative bottom-4 mt-0">
               <h2 className="text-[40px] font-metrophobic font-normal text-center mb-2 typing_text-heading text-[var(--foreground)]/64">
                 <span className="text-[40px] text-[var(--foreground)]">nu ito</span>
                 <span className="text-[22px] text-[var(--foreground)]"> • </span>
@@ -198,7 +198,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
               <h2
                 key={idx}
                 ref={refCallback}
-                className="text-[40px] pt-0 py-8 px-12 font-metrophobic font-normal text-center mb-0 px-8 text-black/64 dark:text-white/64"
+                className="text-[40px] pt-4 py-0 px-12 font-metrophobic font-normal text-center mb-0 px-8 text-black/64 dark:text-white/64"
               >
                 {parts.map((part, i) => (
                   <React.Fragment key={i}>
@@ -218,7 +218,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             <h2
               key={idx}
               ref={refCallback}
-              className="text-[40px] py-8 sm:mb-8 px-8 font-metrophobic font-normal text-center mb-0 text-black/64 dark:text-white/64"
+              className="text-[40px] py-4 sm:mb-8 px-8 font-metrophobic font-normal text-center mb-0 text-black/64 dark:text-white/64"
             />
           );
         }
