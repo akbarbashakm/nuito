@@ -13,14 +13,14 @@ const infoSections = [
     {
         id: "story-section",
         title: "OUR STORY",
-        content: "*The Black Crew Tee had to come first.* Every man owns black tees  The one piece you’ll never outgrow or overthink. No effort. No question. *Always essential.*",
+        content: "*The Black Crew Tee had to come first.* Every man owns black tees  The one piece you'll never outgrow or overthink. No effort. No question. *Always essential.*",
         image: "/story-asset.png",
         
     },
     {
         id: "fabric-section",
         title: "FABRIC",
-        content: "*A precise blend of bamboo, charcoal, Supima cotton, and spandex* creates a fabric that’s not only breathable and stretchy but also features exceptional moisture-wicking and antibacterial properties.\n\n*This ensures you stay fresh and comfortable all day*",
+        content: "*A precise blend of bamboo, charcoal, Supima cotton, and spandex* creates a fabric that's not only breathable and stretchy but also features exceptional moisture-wicking and antibacterial properties.\n\n*This ensures you stay fresh and comfortable all day*",
         image: "/fabric-asset.png",
         icon: "/thread_1.svg",
         reverse: true   
@@ -28,7 +28,7 @@ const infoSections = [
     {
         id: "fit-section",
         title: "FIT",
-        content: "*We’re creating a size matrix that acknowledges the diversity of male physiques.* This approach respects that a man’s height and width don’t necessarily scale proportionally, allowing customers to find their precise size rather than settling for the closest approximation.",
+        content: "*We're creating a size matrix that acknowledges the diversity of male physiques.* This approach respects that a man's height and width don't necessarily scale proportionally, allowing customers to find their precise size rather than settling for the closest approximation.",
         image: "/fit-asset.png",
         icon: "/ruler.svg"
     },
@@ -70,7 +70,7 @@ export default function ShopClient() {
     }, []);
 
     return (
-        <main className="w-full overflow-x-hidden">
+        <main className="w-full overflow-x-hidden dark:bg-background-dark">
             <Header maxWidthClass='lg:max-w-[806px]' />
             {/* Video Section - responsive height */}
             <VideoSection
@@ -79,10 +79,10 @@ export default function ShopClient() {
                 heightClass='calc(100vh - 175px)'
             />
             {/* Product Title - mobile-le first viewport-le visible-a irukkanum */}
-            <div className="block text-center pt-5 pb-2 bg-[#eaeadb] product-section" id="product-section">
+            <div className="block text-center pt-5 pb-2 dark:bg-background-dark product-section" id="product-section">
                 <h1
                     className="
-                        text-black
+                        text-foreground dark:text-foreground
                         font-metrophobic
                         tracking-wide
                         text-[32px]
@@ -94,7 +94,7 @@ export default function ShopClient() {
                     Black Crew Tee | Him
                 </h1>
                 <div className="
-                 text-black
+                 text-foreground dark:text-foreground
                         tracking-wide
                         text-[18px]
                         font-normal
@@ -110,7 +110,7 @@ export default function ShopClient() {
             >
                 I am Interested
             </Button>
-            <div className="max-w-2xl mx-auto lg:max-w-[806px]">
+            <div className="max-w-2xl mx-auto lg:max-w-[806px] dark:bg-background-dark">
                 {infoSections.map((section) => (
                     <InfoSection
                         key={section.id}
@@ -134,7 +134,7 @@ export default function ShopClient() {
                 ]}
                 speed={100}
             />
-            <div className="space-y-10 p-6 max-w-2xl mx-auto lg:max-w-[806px]" style={{ background: '#eaeadb' }}>
+            <div className="space-y-10 p-6 max-w-2xl mx-auto lg:max-w-[806px] dark:bg-background-dark">
                 <Footer />
             </div>
         </main>

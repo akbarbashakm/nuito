@@ -56,7 +56,7 @@ export default function NuItoSection() {
   };
 
   return (
-    <section className="min-h-screen bg-[#f6f6e8] flex flex-col justify-center items-center px-6 py-12">
+    <section className="min-h-screen bg-[#f8f8f6] dark:bg-background-dark flex flex-col justify-center items-center px-6 py-12">
       {sections.slice(0, current + 1).map((text, idx) => (
         <motion.div
           key={idx}

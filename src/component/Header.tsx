@@ -78,7 +78,9 @@ const Header: React.FC<HeaderProps> = ({
                 : "h-[108px] justify-center"
                 }`}
             style={{
-                background: effectiveScrolled ? "rgba(240, 241, 226, 0.8)" : "transparent",
+                background: effectiveScrolled 
+                    ? "var(--background)" 
+                    : "transparent",
             }}
         >
             <div className={`${maxWidthClass} flex w-full justify-between items-center mx-auto`}>
@@ -95,7 +97,8 @@ const Header: React.FC<HeaderProps> = ({
                                 layout="intrinsic"
                                 className={`transition-all duration-500 cursor-pointer
                                 ${effectiveScrolled ? 'w-[76px] h-[26px]' : 'w-[104px] h-[74px]'} 
-                                sm:w-[104px] sm:h-[74px] ${!effectiveScrolled ? `transform ${logoLoaded ? 'scale-100' : 'scale-0'} transition-transform duration-1000` : ''}`}
+                                sm:w-[104px] sm:h-[74px] ${!effectiveScrolled ? `transform ${logoLoaded ? 'scale-100' : 'scale-0'} transition-transform duration-1000` : ''}
+                                ${effectiveScrolled ? 'header-logo' : ''}`}
                             />
                     </Link>
                 </div>
@@ -107,40 +110,40 @@ const Header: React.FC<HeaderProps> = ({
                         <>
                             <button
                                 onClick={() => handleSectionClick('story-section')}
-                                className="relative text-black/64 font-avenir text-[14px] sm:text-[16px] md:text-[18px]
-                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-black
+                                className="relative text-foreground/64 dark:text-foreground/64 font-avenir text-[14px] sm:text-[16px] md:text-[18px]
+                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-foreground dark:after:bg-foreground
                                     after:w-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer"
                             >
                                 Story
                             </button>
                             <button
                                 onClick={() => handleSectionClick('fabric-section')}
-                                className="relative text-black/64 font-avenir text-[14px] sm:text-[16px] md:text-[18px]
-                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-black
+                                className="relative text-foreground/64 dark:text-foreground/64 font-avenir text-[14px] sm:text-[16px] md:text-[18px]
+                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-foreground dark:after:bg-foreground
                                     after:w-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer"
                             >
                                 Fabric
                             </button>
                             <button
                                 onClick={() => handleSectionClick('fit-section')}
-                                className="relative text-black/64 font-avenir text-[14px] sm:text-[16px] md:text-[18px]
-                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-black
+                                className="relative text-foreground/64 dark:text-foreground/64 font-avenir text-[14px] sm:text-[16px] md:text-[18px]
+                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-foreground dark:after:bg-foreground
                                     after:w-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer"
                             >
                                 Fit
                             </button>
                             <button
                                 onClick={() => handleSectionClick('design-section')}
-                                className="relative text-black/64 font-avenir text-[14px] sm:text-[16px] md:text-[18px]
-                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-black
+                                className="relative text-foreground/64 dark:text-foreground/64 font-avenir text-[14px] sm:text-[16px] md:text-[18px]
+                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-foreground dark:after:bg-foreground
                                     after:w-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer"
                             >
                                 Design
                             </button>
                             <button
                                 onClick={() => handleSectionClick('style-section')}
-                                className="relative text-black/64 font-avenir text-[14px] sm:text-[16px] md:text-[18px]
-                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-black
+                                className="relative text-foreground/64 dark:text-foreground/64 font-avenir text-[14px] sm:text-[16px] md:text-[18px]
+                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-foreground dark:after:bg-foreground
                                     after:w-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer"
                             >
                                 Style
@@ -150,19 +153,19 @@ const Header: React.FC<HeaderProps> = ({
                         <>
                             <button
                                 onClick={() => handleSectionClick('story-section')}
-                                className="relative text-black/64 font-avenir text-[14px] sm:text-[16px] md:text-[18px]
-                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-black
+                                className="relative text-foreground/64 dark:text-foreground/64 font-avenir text-[14px] sm:text-[16px] md:text-[18px]
+                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-foreground dark:after:bg-foreground
                                     after:w-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer"
                             >
-                                Our Story
+                                Story
                             </button>
                             <button
                                 onClick={() => handleSectionClick('chapter-1')}
-                                className="relative text-black/64 font-avenir text-[14px] sm:text-[16px] md:text-[18px]
-                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-black
+                                className="relative text-foreground/64 dark:text-foreground/64 font-avenir text-[14px] sm:text-[16px] md:text-[18px]
+                                    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-foreground dark:after:bg-foreground
                                     after:w-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer"
                             >
-                                Drop 1
+                                Shop
                             </button>
                         </>
                     )}

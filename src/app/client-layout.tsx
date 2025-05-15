@@ -3,6 +3,8 @@
 import React, { useEffect } from "react";
 import BottomSheetModal from "@/component/Modal";
 import { ModalProvider } from "@/context/ModalContext";
+import { ThemeProvider } from "@/context/ThemeContext";
+import ThemeToggle from "@/component/ThemeToggle";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -33,11 +35,14 @@ export default function ClientLayout({
   }, []);
 
   return (
+    <ThemeProvider>
     <ModalProvider>
       <div className="flex min-h-screen flex-col">
+          <ThemeToggle />
         <main className="flex-1">{children}</main>
       </div>
       <BottomSheetModal />
     </ModalProvider>
+    </ThemeProvider>
   );
 } 

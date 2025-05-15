@@ -150,7 +150,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
       id={id}
       className={`
                 w-full flex flex-col md:flex-row items-end justify-between
-                gap-10 md:gap-0 py-12 px-4 md:px-8 lg:px-12 transition-all duration-700 bg-lightbeige
+                gap-10 md:gap-0 py-12 px-4 md:px-8 lg:px-12 transition-all duration-700 dark:bg-background-dark
                 ${reverse ? "md:flex-row-reverse" : ""}
             `}
     >
@@ -163,7 +163,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
       >
         <h2
           ref={titleRef}
-          className="text-3xl text-black/64 md:text-[31px] font-metrophobic mb-4 uppercase flex items-center"
+          className="text-3xl md:text-[31px] font-metrophobic mb-4 uppercase flex items-center text-foreground/64 dark:text-foreground/64"
         >
           {icon && (
             <Image
@@ -176,7 +176,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
           )}
           {title}
         </h2>
-        <p className="text-[18px] font-metrophobic md:text-[18px] text-black/64">
+        <p className="text-[18px] font-metrophobic md:text-[18px] text-foreground/64 dark:text-foreground/64">
           {content.split("\n").map((line, lineIndex) => (
             <React.Fragment key={lineIndex}>
               {lineIndex > 0 && <br />}
@@ -184,20 +184,20 @@ const InfoSection: React.FC<InfoSectionProps> = ({
                 if (part.startsWith("*") && part.endsWith("*")) {
                   const text = part.slice(1, -1);
                   return (
-                    <strong key={index} className="text-black font-semibold">
+                    <strong key={index} className="font-semibold text-foreground dark:text-foreground">
                       {text}
                     </strong>
                   );
                 } else if (part.startsWith("[") && part.endsWith("]")) {
                   const text = part.slice(1, -1);
                   return (
-                    <span key={index} className="font-medium text-[#212121]">
+                    <span key={index} className="font-medium text-foreground dark:text-foreground">
                       {text}
                     </span>
                   );
                 } else {
                   return (
-                    <span key={index} className="font-medium text-[#212121]/60">
+                    <span key={index} className="font-medium text-foreground/64 dark:text-foreground/64">
                       {part}
                     </span>
                   );

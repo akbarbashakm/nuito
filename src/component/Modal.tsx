@@ -172,33 +172,33 @@ const BottomSheetModal: React.FC = () => {
             <div
                 ref={modalRef}
                 className={`
-          w-full md:w-[600px] bg-white rounded-t-2xl md:rounded-2xl shadow-xl
+          w-full md:w-[600px] bg-background dark:bg-background-dark rounded-t-2xl md:rounded-2xl shadow-xl
           transition-transform duration-500
           ${isOpen ? "translate-y-0 md:translate-y-0" : "translate-y-full md:translate-y-32"}
         `}
                 style={{ maxWidth: 600, margin: "0 auto" }}
             >
                 <div className="">
-                    <div className="flex justify-between pt-4 pb-2 px-6 items-center border-b">
-                        <div className="font-normal font-metrophobic text-[18px] text-black">Black Crew Tee | Him</div>
-                        <div className="font-normal font-metrophobic text-[18px] text-black">₹ 1999</div>
+                    <div className="flex justify-between pt-4 pb-2 px-6 items-center border-b border-foreground/20 dark:border-foreground/20">
+                        <div className="font-normal font-metrophobic text-[18px] text-foreground dark:text-foreground">Black Crew Tee | Him</div>
+                        <div className="font-normal font-metrophobic text-[18px] text-foreground dark:text-foreground">₹ 1999</div>
                     </div>
 
-                    <div className="py-2 px-6 border-b">
-                        <div className="font-normal font-metrophobic text-[18px] mb-2 text-black">Register your interest below</div>
-                        <ol className="font-normal font-metrophobic text-[18px] list-decimal pl-4 py-0 text-[#060606]">
+                    <div className="py-2 px-6 border-b border-foreground/20 dark:border-foreground/20">
+                        <div className="font-normal font-metrophobic text-[18px] mb-2 text-foreground dark:text-foreground">Register your interest below</div>
+                        <ol className="font-normal font-metrophobic text-[18px] list-decimal pl-4 py-0 text-foreground/64 dark:text-foreground/64">
                             <li className="py-0">Your intent will help us guide you through our FIT consultation service</li>
                             <li className="py-2">After that select 50 will get a special invite to make a purchase of the Tee.</li>
                         </ol>
                     </div>
 
                     <form className="pt-4 flex flex-col gap-3" onSubmit={handleSubmit}>
-                        <div className="font-normal font-metrophobic text-[18px] px-6 text-black">Please fill this form for us</div>
+                        <div className="font-normal font-metrophobic text-[18px] px-6 text-foreground dark:text-foreground">Please fill this form for us</div>
 
                         {/* Name */}
                         <div className="px-6">
                             <input
-                                className={`w-full border p-2 rounded text-black font-avenir text-[14px] font-normal placeholder:text-black ${formError ? "border-red-500" : "border-[#868686]"}`}
+                                className={`w-full border p-2 rounded text-foreground dark:text-foreground font-avenir text-[14px] font-normal placeholder:text-foreground/64 dark:placeholder:text-foreground/64 bg-background dark:bg-background-dark ${formError ? "border-red-500" : "border-foreground/20 dark:border-foreground/20"}`}
                                 placeholder="Name"
                                 name="name"
                                 value={form.name}
@@ -209,7 +209,7 @@ const BottomSheetModal: React.FC = () => {
                         {/* Email */}
                         <div className="px-6">
                             <input
-                                className={`w-full border p-2 rounded font-avenir text-[14px] font-normal text-black placeholder:text-black ${formError ? "border-red-500" : "border-[#868686]"}`}
+                                className={`w-full border p-2 rounded font-avenir text-[14px] font-normal text-foreground dark:text-foreground placeholder:text-foreground/64 dark:placeholder:text-foreground/64 bg-background dark:bg-background-dark ${formError ? "border-red-500" : "border-foreground/20 dark:border-foreground/20"}`}
                                 placeholder="Email"
                                 type="email"
                                 name="email"
@@ -221,7 +221,7 @@ const BottomSheetModal: React.FC = () => {
                         {/* Mobile */}
                         <div className="px-6">
                             <input
-                                className={`w-full border p-2 rounded text-black font-avenir text-[14px] font-normal placeholder:text-black ${formError ? "border-red-500" : "border-[#868686]"}`}
+                                className={`w-full border p-2 rounded text-foreground dark:text-foreground font-avenir text-[14px] font-normal placeholder:text-foreground/64 dark:placeholder:text-foreground/64 bg-background dark:bg-background-dark ${formError ? "border-red-500" : "border-foreground/20 dark:border-foreground/20"}`}
                                 placeholder="Mobile"
                                 name="mobile"
                                 value={form.mobile}
@@ -231,7 +231,7 @@ const BottomSheetModal: React.FC = () => {
 
                         {/* Size */}
                         <div className="px-6 flex gap-6 items-center">
-                            <div className="text-black font-avenir text-[14px] font-normal">Size</div>
+                            <div className="text-foreground dark:text-foreground font-avenir text-[14px] font-normal">Size</div>
                             <div className="flex gap-2">
                                 {["S", "M", "L"].map((size) => (
                                     <button
@@ -239,8 +239,8 @@ const BottomSheetModal: React.FC = () => {
                                         key={size}
                                         className={`w-8 h-8 border rounded-[4px] cursor-pointer transition-all duration-200
                         ${form.size === size
-                                                ? "bg-black font-avenir text-[14px] font-normal text-white border-black"
-                                                : "bg-white font-avenir text-[14px] font-normal text-black border-[#868686]"
+                                                ? "bg-foreground dark:bg-foreground font-avenir text-[14px] font-normal text-background dark:text-background border-foreground dark:border-foreground"
+                                                : "bg-background dark:bg-background-dark font-avenir text-[14px] font-normal text-foreground dark:text-foreground border-foreground/20 dark:border-foreground/20"
                                             }
                       `}
                                         onClick={() => handleSize(size)}

@@ -4,6 +4,7 @@ const config: Config = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     colors: {
       lightbeige: "#F5F5DC",
@@ -13,7 +14,18 @@ const config: Config = {
     fontFamily: {
       nuito: ['Nuito', 'sans-serif'],
     },
-    extend: {},
+    extend: {
+      colors: {
+        background: {
+          light: '#eaeadb',
+          dark: '#1a1a1a',
+        },
+        text: {
+          light: '#000000',
+          dark: '#ffffff',
+        }
+      }
+    },
   },
   plugins: [],
 }
