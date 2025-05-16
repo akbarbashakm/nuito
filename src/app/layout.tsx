@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import ThemeToggle from "@/component/ThemeToggle";
 import { ModalProvider } from "@/context/ModalContext";
 import BottomSheetModal from "@/component/Modal";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Nu ITO",
@@ -20,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body>
         <Providers>
           <ModalProvider>
             <ThemeToggle />
