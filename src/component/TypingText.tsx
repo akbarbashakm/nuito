@@ -1,16 +1,12 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ContentItem } from "@/constants/content";
 
 gsap.registerPlugin(TextPlugin, ScrollTrigger);
-
-type ContentItem = {
-  type: "h2" | "h3" | "p" | "divider";
-  text?: string;
-};
 
 interface TypingTextProps {
   content: ContentItem[];
@@ -20,6 +16,11 @@ interface TypingTextProps {
 const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const lineRefs = useRef<(HTMLElement | null)[]>([]);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const processText = (text: string | undefined) => {
     if (!text) return [];
@@ -47,7 +48,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
   };
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || !mounted) return;
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -138,12 +139,37 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
     return () => {
       tl.kill();
     };
-  }, [content]);
+  }, [content, mounted]);
+
+  useEffect(() => {
+    if (!containerRef.current || !mounted) return;
+
+    const updateHeight = () => {
+      const container = containerRef.current;
+      if (container) {
+        const height = container.scrollHeight;
+        container.style.height = `${height}px`;
+      }
+    };
+    
+    updateHeight();
+    
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(containerRef.current);
+    
+    return () => {
+      observer.disconnect();
+    };
+  }, [content, mounted]);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div
       ref={containerRef}
-      className={`w-full border-[#868686] dark:border-gray-700 max-w-[654px] mx-auto bg-lightbeige dark:bg-background-dark pt-0 pb-4 px-4 sm:px-4 flex flex-col items-center ${className ?? ""}`}
+      className={`w-full border-[#868686] dark:border-gray-700 max-w-[654px] mx-auto bg-lightbeige dark:bg-background-dark pt-8 pb-8 px-4 sm:px-4 flex flex-col items-center justify-center ${className ?? ""}`}
     >
       {content.map((item, idx) => {
         if (item.type === "divider") {
@@ -161,7 +187,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
         const isFirstSpecialText = item.text === "*nu ito •* [nwi.toʊ] *•* (noun)";
         if (isFirstSpecialText) {
           return (
-            <div key={idx} className="boxy mb-2 px-4 sm:px-6 dark:bg-[var(--typing-bg-dark)] rounded-[24px] mb-2 relative bottom-4 mt-0">
+            <div key={idx} className="boxy mb-2 px-2 sm:px-6 md:mb-8 dark:bg-[var(--typing-bg-dark)] rounded-[24px] mb-2 relative bottom-4 mt-0">
               <h2 className="text-[40px] sm:text-[40px] font-metrophobic font-normal text-center mb-2 typing_text-heading text-[var(--foreground)]/64">
                 <span className="text-[40px] font-metrophobic text-[var(--foreground)]">nu ito</span>
                 <span className="text-[22px] text-[var(--foreground)]"> • </span>
@@ -197,7 +223,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             <h2
               key={idx}
               ref={refCallback}
-              className="text-[40px] sm:text-[40px] px-4 sm:px-6 py-8 pt-0 sm:mb-8 font-metrophobic font-normal text-center mb-0 text-black/64 dark:text-white/64"
+              className="text-[40px] sm:text-[40px] px-6 sm:px-6 md:mb-0 py-8 pt-0 sm:mb-8 font-metrophobic font-normal text-center mb-0 text-black/64 dark:text-white/64"
             >
               {parts.map((part, i) => (
                 <React.Fragment key={i}>
