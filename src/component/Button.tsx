@@ -26,7 +26,7 @@ const Button: React.FC<ButtonProps> = ({
       text-black font-medium py-2 px-4 rounded-[8px] mt-2
       border border-[#868686] bg-[#e7cd4b]
       hover:bg-[#d6bc3f] hover:border-[#d6bc3f] hover:text-white
-      hover:shadow-md hover:scale-[1.02]
+      hover:scale-[1.001]
       cursor-pointer transition-all duration-300 ease-in-out
       ${disabled ? 'opacity-70 cursor-not-allowed' : ''}
       ${className}

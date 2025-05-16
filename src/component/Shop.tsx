@@ -1,13 +1,20 @@
 "use client";
 
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from './Button';
 import { useRouter } from 'next/navigation';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const ShopSection = ({ id }: { id: string }) => {
     const router = useRouter();
-
+    useEffect(() => {
+        AOS.init({
+            duration: 800, // adjust animation duration if needed
+            once: false, // run animation only once
+        });
+    }, []);
     return (
         <main className="w-full" id={id}>
             <div
