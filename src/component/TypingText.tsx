@@ -66,7 +66,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
 
       lines.forEach((line, lineIdx) => {
         const lineDiv = document.createElement("div");
-        lineDiv.className = "mb-4";
+        lineDiv.className = "mb-0";
 
         if (line.isHtml && line.content) {
           const tempDiv = document.createElement("div");
@@ -143,7 +143,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
   return (
     <div
       ref={containerRef}
-      className={`w-full border-[#868686] dark:border-gray-700 max-w-[654px] mx-auto bg-lightbeige dark:bg-background-dark pt-0 pb-4 px-4 flex flex-col items-center ${className ?? ""}`}
+      className={`w-full border-[#868686] dark:border-gray-700 max-w-[654px] mx-auto bg-lightbeige dark:bg-background-dark pt-0 pb-4 px-4 sm:px-4 flex flex-col items-center ${className ?? ""}`}
     >
       {content.map((item, idx) => {
         if (item.type === "divider") {
@@ -161,8 +161,8 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
         const isFirstSpecialText = item.text === "*nu ito •* [nwi.toʊ] *•* (noun)";
         if (isFirstSpecialText) {
           return (
-            <div key={idx} className="boxy px-6 dark:bg-[var(--typing-bg-dark)] rounded-[24px] mb-2 relative bottom-4 mt-0">
-              <h2 className="text-[40px] font-metrophobic font-normal text-center mb-2 typing_text-heading text-[var(--foreground)]/64">
+            <div key={idx} className="boxy mb-2 px-4 sm:px-6 dark:bg-[var(--typing-bg-dark)] rounded-[24px] mb-2 relative bottom-4 mt-0">
+              <h2 className="text-[40px] sm:text-[40px] font-metrophobic font-normal text-center mb-2 typing_text-heading text-[var(--foreground)]/64">
                 <span className="text-[40px] text-[var(--foreground)]">nu ito</span>
                 <span className="text-[22px] text-[var(--foreground)]"> • </span>
                 <span className="text-[18px] text-[var(--foreground)]/64">[nwi.toʊ] </span>
@@ -192,43 +192,30 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
         }
 
         if (item.type === "h2") {
-          if (item.text?.includes("/n")) {
-            const parts = item.text.split("/n");
-            return (
-              <h2
-                key={idx}
-                ref={refCallback}
-                className="text-[40px] pt-4 py-0 px-12 font-metrophobic font-normal text-center mb-0 px-8 text-black/64 dark:text-white/64"
-              >
-                {parts.map((part, i) => (
-                  <React.Fragment key={i}>
-                    {part.trim()}
-                    {i < parts.length - 1 && (
-                      <>
-                        <span className="hidden md:inline">&nbsp;</span>
-                        <br className="md:hidden" />
-                      </>
-                    )}
-                  </React.Fragment>
-                ))}
-              </h2>
-            );
-          }
+          const parts = item.text?.split("/n") ?? [];
           return (
             <h2
               key={idx}
               ref={refCallback}
-              className="text-[40px] py-4 sm:mb-8 px-8 font-metrophobic font-normal text-center mb-0 text-black/64 dark:text-white/64"
-            />
+              className="text-[40px] sm:text-[40px] px-4 sm:px-6 py-8 pt-0 sm:mb-8 font-metrophobic font-normal text-center mb-0 text-black/64 dark:text-white/64"
+            >
+              {parts.map((part, i) => (
+                <React.Fragment key={i}>
+                  {part.trim()}
+                  {i < parts.length - 1 && <br />}
+                </React.Fragment>
+              ))}
+            </h2>
           );
         }
+        
 
         if (item.type === "h3") {
           return (
             <h3
               key={idx}
               ref={refCallback}
-              className="text-[24px] font-maven pt-4 pb-8 font-medium leading-[1.3] tracking-[0.252px] text-center mb-0 text-black dark:text-white"
+              className="text-[20px] sm:text-[24px] font-maven px-2 pt-6 pb-8 font-medium leading-[1.3] tracking-[0.252px] text-center mb-0 text-black dark:text-white"
             />
           );
         }
@@ -238,7 +225,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             <p
               key={idx}
               ref={refCallback}
-              className="text-[24px] font-maven font-medium leading-[1.5] tracking-[0.252px] text-center my-0 text-black/64 dark:text-white/64"
+              className="text-[20px] sm:text-[24px] px-2 font-maven font-medium leading-[1.5] tracking-[0.252px] text-center my-0 text-black/64 dark:text-white/64"
             />
           );
         }

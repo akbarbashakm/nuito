@@ -1,29 +1,33 @@
 import type { Metadata } from "next";
-import { Maven_Pro } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import ClientLayout from "./client-layout";
+import { Providers } from "./providers";
+import ThemeToggle from "@/component/ThemeToggle";
+import { ModalProvider } from "@/context/ModalContext";
+import BottomSheetModal from "@/component/Modal";
 
-const mavenPro = Maven_Pro({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-  variable: "--font-maven",
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Nuito Tees | Quality T-Shirts Online",
-  description: "Shop the latest collection of premium t-shirts at Nuito Tees. Find your perfect fit with our range of styles and designs.",
+  title: "Nu ITO",
+  description: "Nu ITO - A New Standard",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en" className={mavenPro.variable}>
-      <body className={mavenPro.className}>
-        <ClientLayout>{children}</ClientLayout>
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className}>
+        <Providers>
+          <ModalProvider>
+            <ThemeToggle />
+            {children}
+            <BottomSheetModal />
+          </ModalProvider>
+        </Providers>
       </body>
     </html>
   );

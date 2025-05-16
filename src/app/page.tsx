@@ -9,16 +9,20 @@ import VideoSection from '@/component/VideoSection'
 import ShopSection from '@/component/Shop'
 import Footer from '@/component/Footer'
 import Header from '@/component/Header'
+import { useTheme } from 'next-themes'
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
 export default function Home() {
   const currentIndex = useRef(0)
   const [isClient, setIsClient] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const isMobile = typeof window !== 'undefined' ? window.innerWidth < 767 : false
+  const { resolvedTheme } = useTheme()
 
   useEffect(() => {
     setIsClient(true)
+    setMounted(true)
   }, [])
 
   useEffect(() => {
@@ -27,7 +31,7 @@ export default function Home() {
     const isDesktop = window.innerWidth >= 1024
     const panels = gsap.utils.toArray<HTMLElement>('.panel')
     if (!panels.length) return
-
+  console.log(resolvedTheme)
     let scrollTween: gsap.core.Tween | null = null
     const observer = ScrollTrigger.normalizeScroll(true)
 
@@ -142,11 +146,16 @@ export default function Home() {
     }
   }, [isClient, isMobile])
 
+  // Prevent hydration mismatch
+  if (!mounted) {
+    return null
+  }
+
   if (!isClient) return null
 
   return (
     <main>
-      <section className="panel h-screen flex items-center justify-center">
+      <section className="panel h-screen flex items-start justify-center">
         <Header />
         <VideoSection
           src="/dress-shop-ad.mov"
@@ -155,27 +164,33 @@ export default function Home() {
           nextSectionId="story-section"
         />
       </section>
-      <section id="story-section" className="panel h-screen flex items-center justify-center max-w-[654px] mx-auto">
-        <TypingText
-          content={[
-            { type: 'h2', text: '*nu ito •* [nwi.toʊ] *•* (noun)' },
-            { type: 'p', text: 'formed out of' },
-            { type: 'h3', text: 'nu ie. *"New"* and *ito* ie. *"Thread."' },
-            { type: 'divider' },
-          ]}
-        />
-      </section>
-      <section id="story-section" className="panel h-screen flex items-center justify-center max-w-[654px] mx-auto">
-        <TypingText
-          content={[
-            { type: 'h2', text: 'THE STATUS QUO' },
-            {
-              type: 'p',
-              text: 'We wear our essentials the most—yet they’re the most overlooked. *The world offers a false choice:* cheap basics or luxury pieces that offer little beyond their label.',
-            },
-            { type: 'h3', text: 'Nu ITO exists to challenge that.' },
-          ]}
-        />
+      <section id="story-section" className="panel h-screen py-10 flex items-center justify-center max-w-[654px] mx-auto">
+        {resolvedTheme === 'light' ? (
+          <TypingText
+            content={[
+              { type: 'h2', text: '*nu ito •* [nwi.toʊ] *•* (noun)' },
+              { type: 'p', text: 'formed out of' },
+              { type: 'h3', text: 'nu ie. *"New"* and *ito* ie. *"Thread."' },
+              { type: 'h2', text: 'THE STATUS QUO' },
+              {
+                type: 'p',
+                text: 'We wear our essentials the most—yet they\'re the most overlooked. *The world offers a false choice:* cheap basics or luxury pieces that offer little beyond their label.'
+              },
+              { type: 'h3', text: 'Nu ITO exists to challenge that.' }
+            ]}
+          />
+        ) : (
+          <TypingText
+            content={[
+              { type: 'h2', text: 'THE STATUS QUO' },
+              {
+                type: 'p',
+                text: 'We wear our essentials the most—yet they\'re the most overlooked. *The world offers a false choice:* cheap basics or luxury pieces that offer little beyond their label.'
+              },
+              { type: 'h3', text: 'Nu ITO exists to challenge that.' }
+            ]}
+          />
+        )}
       </section>
       <section className="panel h-screen flex items-center justify-center max-w-[654px] mx-auto">
         <TypingText
@@ -183,21 +198,26 @@ export default function Home() {
             { type: 'h2', text: 'A NEW STANDARD' },
             {
               type: 'p',
-              text: "*We're crafting a capsule wardrobe* that grows with intention—one essential at a time. No seasonal cycles. No fleeting trends.",
+              text: "*We're crafting a capsule wardrobe* that grows with intention—one essential at a time. No seasonal cycles. No fleeting trends."
             },
-            { type: 'h3', text: 'Only pieces designed to remain relevant forever.' },
+            { type: 'h3', text: 'Only pieces designed to remain relevant forever.' }
           ]}
         />
       </section>
       <section className="panel h-screen flex items-center justify-center max-w-[654px] mx-auto">
         <TypingText
           content={[
-            { type: 'h2', text: 'THE NU ITO WAY' },
+            { type: 'h2' as const, text: 'THE NU ITO WAY' },
+            ...(resolvedTheme !== 'light' ? [
+              { type: 'h2' as const, text: '*nu ito •* [nwi.toʊ] *•* (noun)' },
+              { type: 'p' as const, text: 'formed out of' },
+              { type: 'h3' as const, text: 'nu ie. *"New"* and *ito* ie. *"Thread."' }
+            ] : []),
             {
-              type: 'p',
-              text: '*Every Nu ITO piece begins with intent — *fabric that feels like second skin, fits that honour real bodies, and design stripped of noise. Quiet, deliberate, and made to stay',
+              type: 'p' as const,
+              text: '*Every Nu ITO piece begins with intent — *fabric that feels like second skin, fits that honour real bodies, and design stripped of noise. Quiet, deliberate, and made to stay'
             },
-            { type: 'h3', text: '— season after season, wear after wear.' },
+            { type: 'h3' as const, text: '— season after season, wear after wear.' }
           ]}
           className="mt-8"
         />
