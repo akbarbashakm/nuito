@@ -189,7 +189,7 @@ export default function Home() {
         </div>
       </section>
       <section className="panel h-screen flex items-center max-w-[654px] justify-center mx-auto">
-        <ShopSection id="chapter-1" />
+        <ShopSection id="drop-1" />
       </section>
       <section className="max-w-[654px] mx-auto">
         <Footer className="pt-10" />
