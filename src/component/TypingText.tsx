@@ -17,10 +17,32 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const lineRefs = useRef<(HTMLElement | null)[]>([]);
   const [mounted, setMounted] = useState(false);
+  const [containerHeight, setContainerHeight] = useState(0);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (!containerRef.current || !mounted) return;
+
+    const updateHeight = () => {
+      const container = containerRef.current;
+      if (container) {
+        const headerHeight = 96; // Header height in pixels
+        const viewportHeight = window.innerHeight;
+        const newHeight = viewportHeight - headerHeight;
+        setContainerHeight(newHeight);
+      }
+    };
+
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+
+    return () => {
+      window.removeEventListener("resize", updateHeight);
+    };
+  }, [mounted]);
 
   const processText = (text: string | undefined) => {
     if (!text) return [];
@@ -83,7 +105,10 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                 const strong = document.createElement("strong");
                 strong.textContent = part.slice(1, -1);
                 strong.className = "font-bold text-black dark:text-white";
-                strong.setAttribute("data-key", `html-strong-${lineIdx}-${partIdx}`);
+                strong.setAttribute(
+                  "data-key",
+                  `html-strong-${lineIdx}-${partIdx}`
+                );
                 pElement.appendChild(strong);
               } else {
                 const textNode = document.createTextNode(part);
@@ -107,7 +132,10 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
               span.style.display = "inline-block";
               span.style.marginRight = "0.25em";
               span.style.color = "var(--foreground)";
-              span.setAttribute("data-key", `span-${lineIdx}-${partIdx}-${wordIdx}`);
+              span.setAttribute(
+                "data-key",
+                `span-${lineIdx}-${partIdx}-${wordIdx}`
+              );
 
               if (part.type === "strong") {
                 span.style.fontWeight = "700";
@@ -151,12 +179,12 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
         container.style.height = `${height}px`;
       }
     };
-    
+
     updateHeight();
-    
+
     const observer = new ResizeObserver(updateHeight);
     observer.observe(containerRef.current);
-    
+
     return () => {
       observer.disconnect();
     };
@@ -169,12 +197,18 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
   return (
     <div
       ref={containerRef}
-      className={`w-full border-[#868686] dark:border-gray-700 max-w-[654px] mx-auto bg-lightbeige dark:bg-background-dark pt-8 pb-8 px-4 sm:px-4 flex flex-col items-center justify-center ${className ?? ""}`}
+      style={{ height: containerHeight }}
+      className={`w-full border-[#868686] dark:border-gray-700 max-w-[654px] mx-auto bg-lightbeige dark:bg-background-dark pt-8 pb-8 px-4 sm:px-4 flex flex-col items-center justify-center ${
+        className ?? ""
+      }`}
     >
       {content.map((item, idx) => {
         if (item.type === "divider") {
           return (
-            <div key={`divider-${idx}`} className="w-full flex justify-center my-4">
+            <div
+              key={`divider-${idx}`}
+              className="w-full flex justify-center my-4"
+            >
               <div className="w-full h-[1px] bg-[#868686] dark:bg-gray-700" />
             </div>
           );
@@ -184,16 +218,32 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           lineRefs.current[idx] = el;
         };
 
-        const isFirstSpecialText = item.text === "*nu ito •* [nwi.toʊ] *•* (noun)";
+        const isFirstSpecialText =
+          item.text === "*nu ito •* [nwi.toʊ] *•* (noun)";
         if (isFirstSpecialText) {
           return (
-            <div key={idx} className="boxy mb-2 px-2 sm:px-6 md:mb-8 dark:bg-[var(--typing-bg-dark)] rounded-[24px] mb-2 relative bottom-4 mt-0">
+            <div
+              key={idx}
+              className="boxy mb-2 px-2 sm:px-6 md:mb-8 dark:bg-[var(--typing-bg-dark)] rounded-[24px] mb-2 relative bottom-4 mt-0"
+            >
               <h2 className="text-[40px] sm:text-[40px] font-metrophobic font-normal text-center mb-2 typing_text-heading text-[var(--foreground)]/64">
-                <span className="text-[40px] font-metrophobic text-[var(--foreground)]">nu ito</span>
-                <span className="text-[22px] text-[var(--foreground)]"> • </span>
-                <span className="text-[18px] font-avenir text-[var(--foreground)]/64">[nwi.toʊ] </span>
-                <span className="text-[22px] text-[var(--foreground)]"> • </span>
-                <span className="text-[18px] font-avenir text-[var(--foreground)]">(noun)</span>
+                <span className="text-[40px] font-metrophobic text-[var(--foreground)]">
+                  nu ito
+                </span>
+                <span className="text-[22px] text-[var(--foreground)]">
+                  {" "}
+                  •{" "}
+                </span>
+                <span className="text-[18px] font-avenir text-[var(--foreground)]/64">
+                  [nwi.toʊ]{" "}
+                </span>
+                <span className="text-[22px] text-[var(--foreground)]">
+                  {" "}
+                  •{" "}
+                </span>
+                <span className="text-[18px] font-avenir text-[var(--foreground)]">
+                  (noun)
+                </span>
               </h2>
               {content.slice(idx + 1, idx + 3).map((nextItem, nextIdx) => {
                 const nextRefCallback = (el: HTMLParagraphElement | null) => {
@@ -213,7 +263,11 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           );
         }
 
-        if (idx > 0 && (content[idx - 1].text === "*nu ito •* [nwi.toʊ] *•* (noun)" || content[idx - 1].text === "formed out of")) {
+        if (
+          idx > 0 &&
+          (content[idx - 1].text === "*nu ito •* [nwi.toʊ] *•* (noun)" ||
+            content[idx - 1].text === "formed out of")
+        ) {
           return null;
         }
 
@@ -234,7 +288,6 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             </h2>
           );
         }
-        
 
         if (item.type === "h3") {
           return (
