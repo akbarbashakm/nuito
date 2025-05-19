@@ -198,7 +198,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
     <div
       ref={containerRef}
       style={{ height: containerHeight }}
-      className={`w-full border-[#868686] dark:border-gray-700 max-w-[654px] mx-auto bg-lightbeige dark:bg-background-dark pt-8 pb-8 px-4 sm:px-4 flex flex-col items-center justify-center ${
+      className={`w-full border-[#868686] dark:border-gray-700 max-w-[654px] mx-auto bg-lightbeige dark:bg-background-dark pb-8 px-4 sm:px-4 flex flex-col items-center justify-center ${
         className ?? ""
       }`}
     >

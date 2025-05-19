@@ -13,6 +13,7 @@ const ShopSection = ({ id }: { id: string }) => {
         AOS.init({
             duration: 800, // adjust animation duration if needed
             once: false, // run animation only once
+            offset: 100,
         });
     }, []);
     return (
@@ -59,7 +60,6 @@ const ShopSection = ({ id }: { id: string }) => {
                     </div>
                     <div
                         className="flex justify-center gap-0 items-center"
-                        data-aos="fade-up"
                     >
                         {/* Left Tee */}
                         <div className="flex flex-col justify-center items-center">

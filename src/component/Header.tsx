@@ -88,7 +88,7 @@ const Header: React.FC<HeaderProps> = ({
             }`}
             style={{
                 background: effectiveScrolled 
-                    ? "var(--background)" 
+                    ? "var(--header-bg)" 
                     : "transparent",
             }}
         >
