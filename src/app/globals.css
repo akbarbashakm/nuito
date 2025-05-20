@@ -31,7 +31,7 @@ html {
 
 :root {
   --background: #f8f8f6;
-  --header-bg: rgba(240, 241, 226, 0.86);
+  --header-bg: rgba(240, 241, 226, 0.80);
   --foreground: #000000;
   --font-avenir: 'Avenir Next', sans-serif;
   --font-metrophobic: 'Metrophobic', sans-serif;
@@ -46,7 +46,7 @@ html {
 
 .dark {
   --background: #1a1a1a;
-  --header-bg: rgba(0, 0, 0, 0.86);
+  --header-bg: rgba(26, 26, 26, 0.80);
   --foreground: #ffffff;
   --footer-bg: #1a1a1a;
   --footer-text: #ffffff;

@@ -117,12 +117,12 @@ const InterestForm: React.FC = () => {
 
     return (
         <div className="">
-            <div className="flex justify-between pt-4 pb-2 px-6 items-center border-b border-foreground/20 dark:border-foreground/20">
+            <div className="flex justify-between pt-4 pb-2 rounded-tl-[24px] rounded-tr-[24px] px-6 items-center border-foreground/20 dark:border-foreground/20">
                 <div className="font-normal font-metrophobic text-[18px] text-foreground dark:text-foreground">Black Crew Tee | Him</div>
                 <div className="font-normal font-metrophobic text-[18px] text-foreground dark:text-foreground">₹ 1999</div>
             </div>
 
-            <div className="py-2 px-6 border-b border-foreground/20 dark:border-foreground/20">
+            <div className="py-2 px-6 border-b border-var(--foreground)/20 dark:border-var(--foreground)/20">
                 <div className="font-normal font-metrophobic text-[18px] mb-2 text-foreground dark:text-foreground">
                     Register your interest below
                 </div>
