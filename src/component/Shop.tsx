@@ -33,13 +33,13 @@ const ShopSection = ({ id }: { id: string }) => {
 
                 <div className="relative z-10">
                     <h2
-                        className="text-[40px] uppercase text-center font-metrophobic text-black/64 dark:text-white/64"
+                        className="text-[40px] uppercase text-center font-metrophobic text-[#000000]/64"
                         data-aos="fade-up"
                     >
                         Drop 01
                     </h2>
                     <h4
-                        className="text-[24px] leading-[39px] text-black dark:text-white text-center font-metrophobic"
+                        className="text-[24px] leading-[39px] text-[#060606] text-center font-maven font-medium"
                         data-aos="fade-up"
                     >
                         &ldquo;MONOCHROME MAGIC <br />

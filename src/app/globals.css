@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Metrophobic:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&display=swap');
 @import "tailwindcss";
 
 html {
@@ -34,6 +35,7 @@ html {
   --header-bg: rgba(240, 241, 226, 0.80);
   --foreground: #000000;
   --font-avenir: 'Avenir Next', sans-serif;
+  --font-maven: 'Maven Pro', sans-serif;
   --font-metrophobic: 'Metrophobic', sans-serif;
   --footer-bg: #f8f8f6;
   --footer-text: #000000;
@@ -41,17 +43,20 @@ html {
   --footer-link-hover: #666666;
   --typing-bg-light: rgba(164, 164, 164, 0.16);
   --typing-bg-dark: rgba(31, 41, 55, 0.3);
+  --typing-background: 164, 164, 164;
 
 }
 
 .dark {
-  --background: #1a1a1a;
+  --background: #101820;
   --header-bg: rgba(26, 26, 26, 0.80);
   --foreground: #ffffff;
   --footer-bg: #1a1a1a;
   --footer-text: #ffffff;
   --footer-link: #ffffff;
   --footer-link-hover: #cccccc;
+  --typing-bg-dark: rgba(31, 41, 55, 0.3);
+  --typing-background: 164, 164, 164;
 }
 
 @theme inline {
@@ -66,7 +71,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-avenir);
+  font-family: var(--font-maven);
   overflow-x: hidden;
 }
 
