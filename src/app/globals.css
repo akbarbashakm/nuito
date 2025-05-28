@@ -49,7 +49,7 @@ html {
 
 .dark {
   --background: #101820;
-  --header-bg: rgba(26, 26, 26, 0.80);
+  --header-bg: rgba(16, 24, 32, 0.80);
   --foreground: #ffffff;
   --footer-bg: #1a1a1a;
   --footer-text: #ffffff;
