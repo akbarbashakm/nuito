@@ -83,7 +83,7 @@ const Header: React.FC<HeaderProps> = ({
         <header
             className={`fixed top-0 w-full flex items-center z-50 transition-all duration-500 ease-in-out ${
                 effectiveScrolled
-                    ? "h-[68px] shadow-md justify-between px-8 backdrop-blur-sm"
+                    ? "h-[60px] shadow-md justify-between px-8 backdrop-blur-sm"
                     : "h-[108px] justify-center"
             }`}
             style={{
