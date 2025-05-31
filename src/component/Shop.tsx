@@ -31,7 +31,7 @@ const ShopSection = ({ id }: { id: string }) => {
                     />
                 </div>
 
-                <div className="relative z-10">
+                <div className="relative w-full z-10">
                     <h2
                         className="text-[3rem] pb-[18px] font-normal uppercase text-center font-metrophobic text-[#000000]/64"
                         data-aos="fade-up"

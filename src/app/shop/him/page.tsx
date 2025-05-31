@@ -3,8 +3,8 @@ export const metadata = {
   description: "Shop the latest collection of premium t-shirts for men at Nuito Tees. Find your perfect fit, fabric, and timeless design. Quality guaranteed.",
 };
 
-import ShopMen from "@/component/ShopMen";
+import BlackShirt from "@/component/BlackShirt";
 
 export default function ShopPage() {
-  return <ShopMen />;
+  return <BlackShirt />;
 }

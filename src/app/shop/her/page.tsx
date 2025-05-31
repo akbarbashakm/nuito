@@ -1,4 +1,4 @@
-import ShopWomen from "@/component/ShopWomen";
+import WhiteShirt from "@/component/WhiteShirt";
 
 export const metadata = {
   title: "Shop | Nuito Tees",
@@ -7,5 +7,5 @@ export const metadata = {
 
 
 export default function ShopPage() {
-  return <ShopWomen />;
+  return <WhiteShirt />;
 }

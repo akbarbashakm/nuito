@@ -158,7 +158,7 @@ export default function Home() {
 
   return (
     <main>
-      <section className="panel h-screen flex items-start justify-center">
+      <section className="panel h-[100dvh] flex items-start justify-center">
         <Header />
         <VideoSection
           src="/dress-shop-ad.mov"
@@ -167,7 +167,7 @@ export default function Home() {
           isHomePage={true}
         />
       </section>
-      <section id="story-section" className="panel min-h-screen py-10 flex items-center justify-center max-w-[654px] mx-auto">
+      <section id="story-section" className="panel h-[100dvh] py-10 flex items-center justify-center max-w-[654px] mx-auto">
         <div className="w-full">
           {mounted && resolvedTheme === 'light' ? (
             <TypingText content={TYPING_CONTENT.story.light} />
@@ -176,10 +176,10 @@ export default function Home() {
           )}
         </div>
       </section>
-      <section className="panel h-screen flex items-center justify-center max-w-[654px] mx-auto">
+      <section className="panel h-[100dvh] flex items-center justify-center max-w-[654px] mx-auto">
         <TypingText content={TYPING_CONTENT.newStandard} />
       </section>
-      <section className="panel h-screen flex items-center justify-center max-w-[654px] mx-auto">
+      <section className="panel h-[100dvh] flex items-center justify-center max-w-[654px] mx-auto">
         <div className="w-full h-full flex items-center justify-center">
           <div className="w-full">
             <TypingText
@@ -189,7 +189,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="panel h-screen flex items-center max-w-[654px] justify-center mx-auto">
+      <section className="panel h-[100dvh] flex items-center max-w-[654px] justify-center mx-auto">
         <div className="flex flex-col items-center gap-6">
           <ShopSection id="drop-1" />
         </div>

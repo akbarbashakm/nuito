@@ -124,26 +124,25 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           }
         } else {
           line.parts?.forEach((part, partIdx) => {
-            const words = part.content.split(" ");
-            words.forEach((word, wordIdx) => {
-              const span = document.createElement("span");
-              span.textContent = word + " ";
-              span.style.opacity = "0.1";
-              span.style.display = "inline-block";
-              span.style.marginRight = "0.25em";
-              span.style.color = "var(--foreground)";
-              span.setAttribute(
-                "data-key",
-                `span-${lineIdx}-${partIdx}-${wordIdx}`
-              );
+            const partSpan = document.createElement("span");
+            partSpan.style.opacity = "0.1";
+            partSpan.style.display = "inline-block";
+            partSpan.style.color = "var(--foreground)";
+            partSpan.setAttribute(
+              "data-key",
+              `span-${lineIdx}-${partIdx}`
+            );
 
-              if (part.type === "strong") {
-                span.style.fontWeight = "500";
-                span.style.color = "var(--foreground)";
-              }
+            if (part.type === "strong") {
+              partSpan.textContent = part.content;
+              partSpan.style.fontWeight = "500";
+              partSpan.style.color = "var(--foreground)";
+            } else {
+              partSpan.textContent = part.content;
+              partSpan.style.marginRight = "0.25em";
+            }
 
-              lineDiv.appendChild(span);
-            });
+            lineDiv.appendChild(partSpan);
           });
         }
 
@@ -225,7 +224,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           return (
             <div
               key={idx}
-              className="boxy mb-2 w-fit p-6 pr-0 sm:px-6 md:mb-8 bg-[rgba(var(--typing-background),0.16)] rounded-[24px] relative bottom-4 mt-0 text-center sm:text-left mr-auto sm:w-full"
+              className="boxy mb-2 w-fit p-6 pr-0 sm:px-6 md:mb-8 bg-[rgba(var(--typing-background),0.16)] rounded-[24px] relative bottom-4 mt-0 text-center sm:text-left"
               data-aos="fade-up"
             >
               <h2 className="text-[2.25rem] sm:text-[2.5rem] font-metrophobic font-normal text-left mb-2 typing_text-heading text-[var(--foreground)]/64">

@@ -129,7 +129,7 @@ export const SHOP_CONTENT_HER = {
       id: "story-section",
       title: "OUR STORY",
       content: "*The Black Crew Tee had to come first.* Every man owns black tees  The one piece you'll never outgrow or overthink. No effort. No question. *Always essential.*",
-      image: "/story-asset.webp",
+      // image: "/story-asset.webp",
     },
     {
       id: "fabric-section",

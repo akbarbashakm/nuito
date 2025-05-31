@@ -16,7 +16,7 @@ import { useRouter } from 'next/navigation';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-export default function ShopWomen() {
+export default function WhiteShirt() {
     const { open } = useModal();
     const router = useRouter();
     const [buttonPosition, setButtonPosition] = useState('bottom-48');
@@ -239,9 +239,11 @@ export default function ShopWomen() {
     }, [mounted, isMobile]);
 
     return (
-        <main ref={mainRef} className="w-full overflow-x-hidden dark:bg-background-dark">
+        <main ref={mainRef} className="w-full dark:bg-background-dark">
             <Header maxWidthClass='lg:max-w-[806px]' onHomeClick={handleHomeNavigation} />
-            <section className="panel h-[100dvh] relative">
+
+            {/* HERO SECTION */}
+            <section className="panel min-h-[100dvh] relative">
                 <div className="absolute inset-0 h-full">
                     <VideoSection
                         src="/dress-shop-ad.mov"
@@ -249,14 +251,16 @@ export default function ShopWomen() {
                     />
                 </div>
                 <div className="absolute bottom-[1.5rem] sm:bottom-[1.5rem] left-1/2 -translate-x-1/2 z-10 text-center px-4 w-full max-w-[806px]">
-                    <h1 className="text-foreground d-inline dark:text-foreground font-metrophobic tracking-wide text-[32px] font-normal leading-[39.5px] pb-2 whitespace-nowrap">
+                    <h1 className="text-foreground dark:text-foreground font-metrophobic tracking-wide text-[30px] font-normal leading-[39.5px] pb-2 whitespace-nowrap">
                         {SHOP_CONTENT_HER.product.title}
                     </h1>
-                    <div className="text-foreground dark:text-foreground tracking-wide text-[18px] sm:text-[18px] font-normal leading-[23.2px] font-metrophobic">
+                    <div className="text-foreground dark:text-foreground tracking-wide text-[18px] font-normal leading-[23.2px] font-metrophobic">
                         {SHOP_CONTENT_HER.product.price}
                     </div>
                 </div>
             </section>
+
+            {/* BUTTON */}
             <Button
                 position='fixed'
                 className={`${buttonPosition} left-1/2 -translate-x-1/2 z-50 transition-[bottom] duration-1000 ease-in-out`}
@@ -264,7 +268,7 @@ export default function ShopWomen() {
             >
                 I am Interested
             </Button>
-            <section className="panel h-screen overflow-hidden flex items-start sm:items-center justify-center mx-auto lg:max-w-[806px]">
+            <section className="panel h-screen flex items-start sm:items-center justify-center mx-auto lg:max-w-[806px]">
                 <InfoSection
                     id="story-section"
                     title="OUR STORY"
@@ -273,7 +277,7 @@ export default function ShopWomen() {
                 />
             </section>
 
-            <section className="panel h-screen overflow-hidden flex items-start sm:items-center justify-center mx-auto lg:max-w-[806px]">
+            <section className="panel h-screen flex items-start sm:items-center justify-center mx-auto lg:max-w-[806px]">
                 <InfoSection
                     id="fabric-section"
                     title="FABRIC"
@@ -284,7 +288,7 @@ export default function ShopWomen() {
                 />
             </section>
 
-            <section className="panel h-screen overflow-hidden flex items-start sm:items-center justify-center mx-auto lg:max-w-[806px]">
+            <section className="panel h-screen flex items-start sm:items-center justify-center mx-auto lg:max-w-[806px]">
                 <InfoSection
                     id="fit-section"
                     title="FIT"
@@ -294,7 +298,7 @@ export default function ShopWomen() {
                 />
             </section>
 
-            <section className="panel h-screen overflow-hidden flex items-start sm:items-center justify-center mx-auto lg:max-w-[806px]">
+            <section className="panel h-screen flex items-start sm:items-center justify-center mx-auto lg:max-w-[806px]">
                 <InfoSection
                     id="design-section"
                     title="TIMELESS"
@@ -305,7 +309,7 @@ export default function ShopWomen() {
                 />
             </section>
 
-            <section className="panel h-screen overflow-hidden flex items-start flex-col sm:items-center justify-start mx-auto lg:max-w-[806px]">
+            <section className="panel h-screen flex items-start flex-col sm:items-center justify-start mx-auto lg:max-w-[806px]">
                 <InfoSection
                     id="style-section"
                     title="STYLING"
@@ -317,10 +321,10 @@ export default function ShopWomen() {
                     speed={100}
                 />
             </section>
-                <div className="pb-[10rem] max-w-2xl mx-auto lg:max-w-[806px] dark:bg-background-dark">
+                <div className="pb-[5rem] max-w-2xl mx-auto lg:max-w-[806px] dark:bg-background-dark">
                     <Footer paddingY="py-0" />
                 </div>
             {/* </section> */}
         </main>
     );
-} 
+}
