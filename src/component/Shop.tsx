@@ -50,7 +50,7 @@ const ShopSection = ({ id }: { id: string }) => {
                         data-aos="fade-up"
                     >
                         <Image
-                            src="/teepic.png"
+                            src="/teepic.webp"
                             width={348}
                             height={274}
                             alt="t-shirt"
