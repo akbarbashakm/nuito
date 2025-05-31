@@ -104,7 +104,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
               if (part.startsWith("*") && part.endsWith("*")) {
                 const strong = document.createElement("strong");
                 strong.textContent = part.slice(1, -1);
-                strong.className = "font-bold text-black dark:text-white";
+                strong.className = "font-semi-bold text-black dark:text-white";
                 strong.setAttribute(
                   "data-key",
                   `html-strong-${lineIdx}-${partIdx}`
@@ -138,7 +138,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
               );
 
               if (part.type === "strong") {
-                span.style.fontWeight = "700";
+                span.style.fontWeight = "500";
                 span.style.color = "var(--foreground)";
               }
 
@@ -156,8 +156,8 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           span,
           {
             opacity: 1,
-            duration: 0.15,
-            ease: "power3.out",
+            duration: 0.06,
+            ease: "power2.out",
           },
           "+=0.05"
         );
@@ -198,7 +198,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
     <div
       ref={containerRef}
       style={{ height: containerHeight }}
-      className={`w-full border-[#868686] dark:border-gray-700 max-w-[654px] mx-auto bg-lightbeige dark:bg-background-dark pb-8 px-4 sm:px-4 flex flex-col items-center justify-center ${
+      className={`w-full border-[#868686] dark:border-gray-500 max-w-[654px] mx-auto bg-lightbeige dark:bg-background-dark pb-8 px-4 sm:px-4 flex flex-col items-center justify-center ${
         className ?? ""
       }`}
     >
@@ -210,7 +210,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
               className="w-full flex justify-center my-4"
               data-aos="fade-up"
             >
-              <div className="w-full h-[1px] bg-[#868686] dark:bg-gray-700" />
+              <div className="w-full h-[1px] bg-[#868686] dark:bg-gray-500" />
             </div>
           );
         }
@@ -232,18 +232,18 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                 <span className="text-[2.5rem] font-metrophobic text-[var(--foreground)]">
                   nu ito
                 </span>
-                <span className="text-[1.375rem] text-[var(--foreground)]">
+                <span className="text-[1.25rem] text-[var(--foreground)]">
                   {" "}
                   •{" "}
                 </span>
-                <span className="text-[1.125rem] font-maven text-[var(--foreground)]/64">
+                <span className="text-[1.25rem] font-maven text-[var(--foreground)]/64">
                   [nwi.toʊ]{" "}
                 </span>
-                <span className="text-[1.375rem] text-[var(--foreground)]">
+                <span className="text-[1.25rem] text-[var(--foreground)]">
                   {" "}
                   •{" "}
                 </span>
-                <span className="text-[1.125rem] font-maven text-[var(--foreground)]">
+                <span className="text-[1.25rem] font-maven text-[var(--foreground)]">
                   (noun)
                 </span>
               </h2>
@@ -255,7 +255,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                   <p
                     key={idx + nextIdx + 1}
                     ref={nextRefCallback}
-                    className="text-[1.5rem] font-maven font-medium leading-[1.5] tracking-[0.252px] text-center mb-2 text-black/64 dark:text-white/64"
+                    className="text-[1.75rem] font-maven font-normal leading-[1.5] tracking-[0.252px] text-center mb-2 text-black/64 dark:text-white/64"
                   >
                     {/* content gets injected by processText */}
                   </p>
@@ -279,7 +279,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             <h2
               key={idx}
               ref={refCallback}
-              className="text-[2.5rem] sm:text-[2.5rem] px-6 sm:px-6 md:mb-0 py-8 pt-0 sm:mb-8 font-metrophobic font-normal text-center mb-0 text-black/64 dark:text-white/64"
+              className="text-[3rem] sm:text-[3rem] px-6 sm:px-6 md:mb-0 py-8 pt-0 sm:mb-8 font-metrophobic font-normal text-center mb-0 text-black/64 dark:text-white/64"
               data-aos="fade-up"
             >
               {parts.map((part, i) => (
@@ -297,7 +297,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             <h3
               key={idx}
               ref={refCallback}
-              className="text-[1.5rem] sm:text-[1.5rem] font-maven px-2 pt-6 pb-8 font-medium leading-[1.3] tracking-[0.252px] text-center mb-0 text-black dark:text-white"
+              className="text-[1.75rem] sm:text-[1.75rem] font-maven px-2 pt-6 pb-8 font-normal leading-[1.3] tracking-[0.252px] text-center mb-0 text-black dark:text-white"
               data-aos="fade-up"
             />
           );
@@ -308,7 +308,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             <p
               key={idx}
               ref={refCallback}
-              className="text-[1.5rem] sm:text-[1.5rem] px-2 font-maven font-medium leading-[1.5] tracking-[0.252px] text-center my-0 text-black/64 dark:text-white/64"
+              className="text-[1.75rem] sm:text-[1.75rem] px-2 font-maven font-normal leading-[1.5] tracking-[0.252px] text-center my-0 text-black/64 dark:text-white/64"
               data-aos="fade-up"
             />
           );

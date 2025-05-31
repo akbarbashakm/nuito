@@ -8,9 +8,9 @@ import InfoSection from '@/component/InfoSection';
 import VideoSection from '@/component/VideoSection';
 import Button from '@/component/Button';
 import { useModal } from '@/context/ModalContext';
-import { SHOP_CONTENT } from '@/constants/content';
+import { SHOP_CONTENT_HER } from '@/constants/content';
 
-export default function ShopClient() {
+export default function ShopMen() {
     const { open } = useModal();
     const [buttonPosition, setButtonPosition] = useState('bottom-48');
 
@@ -36,7 +36,6 @@ export default function ShopClient() {
             <VideoSection
                 src="/dress-shop-ad.mov"
                 showArrow={false}
-                heightClass='calc(100vh - 175px)'
             />
             {/* Product Title - mobile-le first viewport-le visible-a irukkanum */}
             <div className="block text-center pt-5 pb-2 dark:bg-background-dark product-section" id="product-section">
@@ -51,7 +50,7 @@ export default function ShopClient() {
                         pb-2
                     "
                 >
-                    {SHOP_CONTENT.product.title}
+                    {SHOP_CONTENT_HER.product.title}
                 </h1>
                 <div className="
                  text-foreground dark:text-foreground
@@ -61,7 +60,7 @@ export default function ShopClient() {
                         leading-[23.2px]
                         font-metrophobic
                         "
-                >{SHOP_CONTENT.product.price}</div>
+                >{SHOP_CONTENT_HER.product.price}</div>
             </div>
             <Button
                 position='fixed'
@@ -71,7 +70,7 @@ export default function ShopClient() {
                 I am Interested
             </Button>
             <div className="max-w-2xl mx-auto lg:max-w-[806px] dark:bg-background-dark">
-                {SHOP_CONTENT.infoSections.map((section) => (
+                {SHOP_CONTENT_HER.infoSections.map((section) => (
                     <InfoSection
                         key={section.id}
                         {...section}
@@ -80,7 +79,7 @@ export default function ShopClient() {
             </div>
             <ImageMarqueeSection
                 id="styled-section"
-                images={SHOP_CONTENT.stylingImages}
+                images={SHOP_CONTENT_HER.stylingImages}
                 speed={100}
             />
             <div className="space-y-10 p-6 max-w-2xl mx-auto lg:max-w-[806px] dark:bg-background-dark">

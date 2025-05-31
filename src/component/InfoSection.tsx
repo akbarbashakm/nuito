@@ -56,16 +56,24 @@ const InfoSection: React.FC<InfoSectionProps> = ({
       },
     });
 
-    // Title animation
+    // Title and content animation
     tl.fromTo(
-      titleRef.current,
+      [titleRef.current, contentRef.current],
       {
         opacity: 0,
-        y: isMobile ? 80 : 0,
-        x: isMobile ? 0 : reverse ? 120 : -120,
-        scale: isMobile ? 0.9 : 0.85,
+        y: isMobile ? 50 : 0,
+        x: (index) => {
+          if (isMobile) return 0;
+          if (index === 0) return reverse ? 120 : -120; // title
+          return reverse ? 100 : -100; // content
+        },
+        scale: isMobile ? 0.8 : 0.85,
         visibility: "hidden",
-        rotation: isMobile ? 0 : reverse ? 5 : -5,
+        rotation: (index) => {
+          if (isMobile) return 0;
+          if (index === 0) return reverse ? 5 : -5; // title
+          return 0; // content
+        },
       },
       {
         opacity: 1,
@@ -74,13 +82,39 @@ const InfoSection: React.FC<InfoSectionProps> = ({
         scale: 1,
         rotation: 0,
         visibility: "visible",
-        duration: isMobile ? 0.9 : 1,
-        delay: isMobile ? 0.1 : 0.2,
+        duration: isMobile ? 0.7 : 0.8,
         ease: "power3.out",
+        stagger: 0.1,
       }
     );
 
-    // Content animation with stagger
+    // Separate image animation with enhanced effects
+    if (imageRef.current) {
+      tl.fromTo(
+        imageRef.current,
+        {
+          opacity: 0,
+          scale: isMobile ? 0.9 : 0.8,
+          y: isMobile ? 100 : 0,
+          x: isMobile ? 0 : (reverse ? 100 : -100),
+          rotation: isMobile ? 0 : (reverse ? 15 : -15),
+          filter: "blur(10px)",
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          x: 0,
+          rotation: 0,
+          filter: "blur(0px)",
+          duration: isMobile ? 0.8 : 1,
+          ease: isMobile ? "power2.out" : "power3.out",
+        },
+        "<0.2" // Start slightly after the content animation
+      );
+    }
+
+    // Content elements stagger animation
     const contentElements =
       contentRef.current?.querySelectorAll("p, span, strong");
     if (contentElements) {
@@ -88,52 +122,20 @@ const InfoSection: React.FC<InfoSectionProps> = ({
         contentElements,
         {
           opacity: 0,
-          y: isMobile ? 50 : 0,
-          autoAlpha: 0,
-          x: isMobile ? 0 : reverse ? 100 : -100,
-          scale: isMobile ? 0.95 : 0.9,
-          visibility: "hidden",
+          y: 20,
+          scale: 0.85,
         },
         {
           opacity: 1,
           y: 0,
-          x: 0,
           scale: 1,
-          visibility: "visible",
-          autoAlpha: 1,
-          duration: isMobile ? 0.8 : 1,
-          stagger: isMobile ? 0.08 : 0.12,
+          duration: 0.5,
+          stagger: 0.05,
           ease: "power2.out",
         },
-        isMobile ? "-=0.3" : "-=0.5"
+        "<"
       );
     }
-
-    // Image animation
-    tl.fromTo(
-      imageRef.current,
-      {
-        opacity: 0,
-        y: isMobile ? 100 : 0,
-        x: isMobile ? 0 : reverse ? -120 : 120,
-        scale: isMobile ? 0.85 : 0.8,
-        autoAlpha: 0,
-        visibility: "hidden",
-        rotation: isMobile ? 0 : reverse ? 10 : -10,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        x: 0,
-        scale: 1,
-        rotation: 0,
-        autoAlpha: 1,
-        visibility: "visible",
-        duration: 1,
-        ease: "power3.out",
-      },
-      isMobile ? "-=0.6" : "-=0.8"
-    );
 
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => {
@@ -163,7 +165,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
       >
         <h2
           ref={titleRef}
-          className="text-3xl md:text-[31px] font-metrophobic mb-4 uppercase flex items-center text-foreground/64 dark:text-foreground/64"
+          className="text-3xl md:text-[31px] font-metrophobic mb-4 uppercase flex items-center text-secondary-textColor dark:text-secondary-textColor"
         >
           {icon && (
             <Image
@@ -176,7 +178,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
           )}
           {title}
         </h2>
-        <p className="text-[18px] font-metrophobic md:text-[18px] text-foreground/64 dark:text-foreground/64">
+        <p className="text-[18px] font-metrophobic md:text-[18px] text-secondary-textColor dark:text-secondary-textColor">
           {content.split("\n").map((line, lineIndex) => (
             <React.Fragment key={lineIndex}>
               {lineIndex > 0 && <br />}
@@ -191,13 +193,13 @@ const InfoSection: React.FC<InfoSectionProps> = ({
                 } else if (part.startsWith("[") && part.endsWith("]")) {
                   const text = part.slice(1, -1);
                   return (
-                    <span key={index} className="font-medium text-foreground dark:text-foreground">
+                    <span key={index} className="font-normal text-foreground dark:text-foreground">
                       {text}
                     </span>
                   );
                 } else {
                   return (
-                    <span key={index} className="font-medium text-foreground/64 dark:text-foreground/64">
+                    <span key={index} className="font-normal text-secondary-textColor dark:text-secondary-textColor">
                       {part}
                     </span>
                   );
@@ -212,7 +214,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
           ref={imageRef}
           className={`
                         w-full md:w-1/2 flex justify-center items-center px-4 md:px-8
-                        ${reverse ? "md:pr-8" : "md:pl-8"}
+                        ${reverse ? "md:pr-8" : "md:pl-8"}  
                     `}
         >
           <Image

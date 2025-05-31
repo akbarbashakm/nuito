@@ -60,8 +60,8 @@ const ContentSection = () => {
           className="h-screen snap-start flex items-center justify-center bg-lightbeige"
         >
           <div className="max-w-4xl px-8 text-center">
-            <h2 className="text-4xl md:text-6xl font-avenir mb-8">{section.title}</h2>
-            <p className="text-lg md:text-xl font-avenir">
+            <h2 className="text-4xl md:text-6xl font-maven mb-8">{section.title}</h2>
+            <p className="text-lg md:text-xl font-maven">
               {index === currentSection ? displayText : ''}
               {index === currentSection && isTyping && <span className="animate-pulse">|</span>}
             </p>

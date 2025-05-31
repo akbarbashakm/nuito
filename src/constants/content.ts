@@ -64,7 +64,7 @@ export const TYPING_CONTENT = {
   }
 };
 
-export const SHOP_CONTENT = {
+export const SHOP_CONTENT_HIM = {
   product: {
     title: "Black Crew Tee | Him",
     price: "₹1999"
@@ -74,13 +74,13 @@ export const SHOP_CONTENT = {
       id: "story-section",
       title: "OUR STORY",
       content: "*The Black Crew Tee had to come first.* Every man owns black tees  The one piece you'll never outgrow or overthink. No effort. No question. *Always essential.*",
-      image: "/story-asset.png",
+      image: "/story-asset.webp",
     },
     {
       id: "fabric-section",
       title: "FABRIC",
       content: "*A precise blend of bamboo, charcoal, Supima cotton, and spandex* creates a fabric that's not only breathable and stretchy but also features exceptional moisture-wicking and antibacterial properties.\n\n*This ensures you stay fresh and comfortable all day*",
-      image: "/fabric-asset.png",
+      image: "/fabric-asset.webp",
       icon: "/thread_1.svg",
       reverse: true
     },
@@ -88,14 +88,14 @@ export const SHOP_CONTENT = {
       id: "fit-section",
       title: "FIT",
       content: "*We're creating a size matrix that acknowledges the diversity of male physiques.* This approach respects that a man's height and width don't necessarily scale proportionally, allowing customers to find their precise size rather than settling for the closest approximation.",
-      image: "/fit-asset.png",
+      image: "/fit-asset.webp",
       icon: "/ruler.svg"
     },
     {
       id: "design-section",
       title: "TIMELESS DESIGN",
       content: "*A piece of timeless design that you own, that will be ubiquitous anytime, anywhere on anyone.* This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to.",
-      image: "/design-asset.png",
+      image: "/design-asset.webp",
       icon: "/clock.svg",
       reverse: true
     },
@@ -106,19 +106,73 @@ export const SHOP_CONTENT = {
     }
   ],
   stylingImages: [
-    "/styling-asset.png",
-    "/styling-asset-2.png",
-    "/styling-asset-3.png",
-    "/styling-asset-4.png",
-    "/styling-asset-5.png",
-    "/styling-asset.png",
-    "/styling-asset-2.png",
-    "/styling-asset-3.png",
-    "/styling-asset-4.png",
-    "/styling-asset-5.png",
+    "/styling-asset.webp",
+    "/styling-asset-2.webp",
+    "/styling-asset-3.webp",
+    "/styling-asset-4.webp",
+    "/styling-asset-5.webp",
+    "/styling-asset.webp",
+    "/styling-asset-2.webp",
+    "/styling-asset-3.webp",
+    "/styling-asset-4.webp",
+    "/styling-asset-5.webp",
   ]
 };
 
+export const SHOP_CONTENT_HER = {
+  product: {
+    title: "Black Crew Tee | Her",
+    price: "₹1999"
+  },
+  infoSections: [
+    {
+      id: "story-section",
+      title: "OUR STORY",
+      content: "*The Black Crew Tee had to come first.* Every man owns black tees  The one piece you'll never outgrow or overthink. No effort. No question. *Always essential.*",
+      image: "/story-asset.webp",
+    },
+    {
+      id: "fabric-section",
+      title: "FABRIC",
+      content: "*A precise blend of bamboo, charcoal, Supima cotton, and spandex* creates a fabric that's not only breathable and stretchy but also features exceptional moisture-wicking and antibacterial properties.\n\n*This ensures you stay fresh and comfortable all day*",
+      image: "/fabric-asset.webp",
+      icon: "/thread_1.svg",
+      reverse: true
+    },
+    {
+      id: "fit-section",
+      title: "FIT",
+      content: "*We're creating a size matrix that acknowledges the diversity of male physiques.* This approach respects that a man's height and width don't necessarily scale proportionally, allowing customers to find their precise size rather than settling for the closest approximation.",
+      image: "/fit-asset.webp",
+      icon: "/ruler.svg"
+    },
+    {
+      id: "design-section",
+      title: "TIMELESS DESIGN",
+      content: "*A piece of timeless design that you own, that will be ubiquitous anytime, anywhere on anyone.* This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to.",
+      image: "/design-asset.webp",
+      icon: "/clock.svg",
+      reverse: true
+    },
+    {
+      id: "style-section",
+      title: "STYLING",
+      content: "*A piece of timeless design that you own, that will be ubiquitous anytime, anywhere on anyone.* This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to.",
+    }
+  ],
+  stylingImages: [
+    "/styling-asset.webp",
+    "/styling-asset-2.webp",
+    "/styling-asset-3.webp",
+    "/styling-asset-4.webp",
+    "/styling-asset-5.webp",
+    "/styling-asset.webp",
+    "/styling-asset-2.webp",
+    "/styling-asset-3.webp",
+    "/styling-asset-4.webp",
+    "/styling-asset-5.webp",
+  ]
+}
 export const THANK_YOU_CONTENT = {
   title: "Thank You",
   message: "We'll get back to you soon!",

@@ -34,7 +34,8 @@ html {
   --background: #f8f8f6;
   --header-bg: rgba(240, 241, 226, 0.80);
   --foreground: #000000;
-  --font-avenir: 'Avenir Next', sans-serif;
+  --secondary-textColor: #060606;
+  --font-maven: 'Avenir Next', sans-serif;
   --font-maven: 'Maven Pro', sans-serif;
   --font-metrophobic: 'Metrophobic', sans-serif;
   --footer-bg: #f8f8f6;
@@ -49,8 +50,9 @@ html {
 
 .dark {
   --background: #101820;
-  --header-bg: rgba(16, 24, 32, 0.80);
+  --header-bg: rgba(26, 26, 26, 0.80);
   --foreground: #ffffff;
+  --secondary-textColor: #ffffff;
   --footer-bg: #1a1a1a;
   --footer-text: #ffffff;
   --footer-link: #ffffff;
@@ -64,7 +66,7 @@ html {
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-avenir: var(--font-avenir);
+  --font-maven: var(--font-maven);
   --font-metrophobic: var(--font-metrophobic);
 }
 

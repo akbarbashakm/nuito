@@ -195,10 +195,10 @@ export default function ThankYouPage() {
             >
               <Image src="/t-black.svg" width={100} height={100} alt="Black Crew Tee" className="w-full h-auto" />
               <div className="flex flex-col items-start justify-start">
-                <p className="font-normal pt-4 font-avenir text-left text-foreground dark:text-foreground text-[18px] whitespace-nowrap">
+                <p className="font-normal pt-4 font-maven text-left text-foreground dark:text-foreground text-[18px] whitespace-nowrap">
                   Black Crew Tee | Him
                 </p>
-                <p className="font-normal font-avenir text-left text-foreground dark:text-foreground text-[14px] pt-2">
+                <p className="font-normal font-maven text-left text-foreground dark:text-foreground text-[14px] pt-2">
                   ₹1999
                 </p>
               </div>

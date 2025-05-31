@@ -1,8 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import Button from "./Button";
 import { isValidEmail, isValidPhone } from "@/constants/validation";
+import { SHOP_CONTENT_HER, SHOP_CONTENT_HIM } from "@/constants/content";
 
 type FormData = {
     name: string;
@@ -29,6 +30,7 @@ const sendToGoogleSheets = async (formData: unknown) => {
 
 const InterestForm: React.FC = () => {
     const router = useRouter();
+    const pathname = usePathname();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formError, setFormError] = useState("");
     const [form, setForm] = useState<FormData>({
@@ -38,6 +40,10 @@ const InterestForm: React.FC = () => {
         size: "",
     });
 
+    // Get product info based on current page
+    const isHerPage = pathname === '/shop/her';
+    const productInfo = isHerPage ? SHOP_CONTENT_HER.product : SHOP_CONTENT_HIM.product;
+
     const formFields = [
         { name: "name", placeholder: "Name", type: "text" },
         { name: "email", placeholder: "Email", type: "email" },
@@ -45,7 +51,7 @@ const InterestForm: React.FC = () => {
     ];
 
     const inputClass = (hasError: boolean) =>
-        `w-full border p-2 rounded font-avenir text-[14px] font-normal text-foreground dark:text-foreground placeholder:text-foreground/64 dark:placeholder:text-foreground/64 bg-background dark:bg-background-dark ${hasError ? "border-red-500" : "border-foreground/20 dark:border-foreground/20"
+        `w-full border p-2 rounded font-maven text-[14px] font-normal text-foreground dark:text-foreground placeholder:text-foreground/64 dark:placeholder:text-foreground/64 bg-background dark:bg-background-dark ${hasError ? "border-red-500" : "border-foreground/20 dark:border-foreground/20"
         }`;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,8 +124,12 @@ const InterestForm: React.FC = () => {
     return (
         <div className="">
             <div className="flex justify-between pt-4 pb-2 rounded-tl-[24px] rounded-tr-[24px] px-6 items-center border-foreground/20 dark:border-foreground/20">
-                <div className="font-normal font-metrophobic text-[18px] text-foreground dark:text-foreground">Black Crew Tee | Him</div>
-                <div className="font-normal font-metrophobic text-[18px] text-foreground dark:text-foreground">₹ 1999</div>
+                <div className="font-normal font-metrophobic text-[18px] text-foreground dark:text-foreground">
+                    {productInfo.title}
+                </div>
+                <div className="font-normal font-metrophobic text-[18px] text-foreground dark:text-foreground">
+                    {productInfo.price}
+                </div>
             </div>
 
             <div className="py-2 px-6 border-b border-var(--foreground)/20 dark:border-var(--foreground)/20">
@@ -157,7 +167,7 @@ const InterestForm: React.FC = () => {
 
                 {/* Size Buttons */}
                 <div className="px-6 flex gap-6 items-center">
-                    <div className="text-foreground dark:text-foreground font-avenir text-[14px] font-normal">Size</div>
+                    <div className="text-foreground dark:text-foreground font-maven text-[14px] font-normal">Size</div>
                     <div className="flex gap-2">
                         {["S", "M", "L"].map((size) => (
                             <button
@@ -166,7 +176,7 @@ const InterestForm: React.FC = () => {
                                 className={`w-8 h-8 border rounded-[4px] cursor-pointer transition-all duration-200 ${form.size === size
                                         ? "bg-foreground dark:bg-foreground text-background dark:text-background border-foreground dark:border-foreground"
                                         : "bg-background dark:bg-background-dark text-foreground dark:text-foreground border-foreground/20 dark:border-foreground/20"
-                                    } font-avenir text-[14px] font-normal`}
+                                    } font-maven text-[14px] font-normal`}
                                 onClick={() => handleSize(size)}
                             >
                                 {size}
@@ -178,7 +188,7 @@ const InterestForm: React.FC = () => {
                 {/* Error Message */}
                 {formError && (
                     <div className="px-6">
-                        <p className="text-red-500 text-sm text-center m-0 p-0 font-avenir">{formError}</p>
+                        <p className="text-red-500 text-sm text-center m-0 p-0 font-maven">{formError}</p>
                     </div>
                 )}
 

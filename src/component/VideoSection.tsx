@@ -5,15 +5,17 @@ import Image from 'next/image';
 
 interface VideoSectionProps {
   src: string;
-  heightClass?: string;
   showArrow?: boolean;
   nextSectionId?: string;
+  isHomePage?: boolean;
 }
 
-const VideoSection = ({ src, showArrow = true, heightClass, nextSectionId }: VideoSectionProps) => {
+const VideoSection = ({ src, showArrow = true, nextSectionId, isHomePage = false }: VideoSectionProps) => {
   const [isArrowVisible, setIsArrowVisible] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [sectionHeight, setSectionHeight] = useState('100vh');
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const scrollToNextSection = () => {
     if (window.scrollY === 0) {
@@ -36,6 +38,40 @@ const VideoSection = ({ src, showArrow = true, heightClass, nextSectionId }: Vid
       }
     }
   };
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (isHomePage) {
+        setSectionHeight('100vh');
+        return;
+      }
+
+      const header = document.querySelector('header');
+      const headerHeight = header?.offsetHeight || 0;
+      const viewportHeight = window.innerHeight;
+      const isMobile = window.innerWidth <= 768;
+      
+      // For mobile devices, ensure the video section takes up the full viewport
+      // minus the header height, with a small buffer to prevent content overlap
+      const height = isMobile 
+        ? `calc(${viewportHeight}px - ${headerHeight}px - 20px)`
+        : `calc(${viewportHeight}px - ${headerHeight}px)`;
+      
+      setSectionHeight(height);
+    };
+
+    // Initial calculation
+    updateHeight();
+
+    // Update on resize and orientation change
+    window.addEventListener('resize', updateHeight);
+    window.addEventListener('orientationchange', updateHeight);
+
+    return () => {
+      window.removeEventListener('resize', updateHeight);
+      window.removeEventListener('orientationchange', updateHeight);
+    };
+  }, [isHomePage]);
 
   useEffect(() => {
     // We want to show the arrow after 5 seconds of video playback
@@ -85,8 +121,9 @@ const VideoSection = ({ src, showArrow = true, heightClass, nextSectionId }: Vid
 
   return (
     <section
+      ref={sectionRef}
       className="w-full relative overflow-hidden"
-      style={heightClass ? { height: heightClass } : { height: '100vh' }}
+      style={{ height: sectionHeight }}
     >
       <div className="absolute inset-0 bg-black/30 z-10" />
       <video

@@ -162,8 +162,8 @@ export default function Home() {
         <VideoSection
           src="/dress-shop-ad.mov"
           showArrow
-          heightClass=""
           nextSectionId="story-section"
+          isHomePage={true}
         />
       </section>
       <section id="story-section" className="panel min-h-screen py-10 flex items-center justify-center max-w-[654px] mx-auto">
@@ -189,7 +189,9 @@ export default function Home() {
         </div>
       </section>
       <section className="panel h-screen flex items-center max-w-[654px] justify-center mx-auto">
-        <ShopSection id="drop-1" />
+        <div className="flex flex-col items-center gap-6">
+          <ShopSection id="drop-1" />
+        </div>
       </section>
       <section className="max-w-[654px] mx-auto">
         <Footer className="pt-10" />

@@ -33,13 +33,13 @@ const ShopSection = ({ id }: { id: string }) => {
 
                 <div className="relative z-10">
                     <h2
-                        className="text-[40px] uppercase text-center font-metrophobic text-[#000000]/64"
+                        className="text-[3rem] pb-[18px] font-normal uppercase text-center font-metrophobic text-[#000000]/64"
                         data-aos="fade-up"
                     >
                         Drop 01
                     </h2>
                     <h4
-                        className="text-[24px] leading-[39px] text-[#060606] text-center font-maven font-medium"
+                        className="text-[1.75rem] leading-[39px] text-[#060606] text-center font-maven font-normal"
                         data-aos="fade-up"
                     >
                         &ldquo;MONOCHROME MAGIC <br />
@@ -63,18 +63,18 @@ const ShopSection = ({ id }: { id: string }) => {
                     >
                         {/* Left Tee */}
                         <div className="flex flex-col justify-center items-center">
-                            <p className="text-sm leading-[20px] font-normal font-avenir text-black dark:text-white">Black Crew Tee</p>
-                            <Button onClick={() => router.push('/shop')}>
+                            <p className="text-sm text-[1rem] leading-[20px] font-normal font-maven text-[#060606]">Black Crew Tee</p>
+                            <Button onClick={() => router.push('/shop/him')}>
                                 Shop for HIM
                             </Button>
-                            <p className="text-sm p-4 text-center leading-[20px] font-normal font-avenir text-black dark:text-white">Structured. Refined. Essential.</p>
+                            <p className="text-sm p-4 text-center leading-[20px] font-normal font-maven text-[#060606]">Structured. Refined. Essential.</p>
                         </div>
                         <div className="flex flex-col justify-center items-center">
-                            <p className="text-sm leading-[20px] font-normal font-avenir text-black dark:text-white">White Drape Tee</p>
-                            <Button onClick={() => router.push('/shop')}>
+                            <p className="text-sm text-[1rem] leading-[20px] font-normal font-maven text-[#060606]">White Drape Tee</p>
+                            <Button onClick={() => router.push('/shop/her')}>
                                 Shop for HER
                             </Button>
-                            <p className="text-sm p-4 leading-[20px] text-center font-normal font-avenir text-black dark:text-white">Fluid. Feminine. Essential.</p>
+                            <p className="text-sm p-4 leading-[20px] text-center font-normal font-maven text-[#060606]">Fluid. Feminine. Essential.</p>
                         </div>
                     </div>
                 </div>
