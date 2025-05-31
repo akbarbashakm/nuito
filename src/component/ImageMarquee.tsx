@@ -97,7 +97,7 @@ const ImageMarqueeSection: React.FC<ImageMarqueeSectionProps> = ({ id, images, s
   }, [images, speed]);
 
   return (
-    <section ref={sectionRef} id={id} className="w-full pt-8 bg-lightbeige overflow-hidden">
+    <section ref={sectionRef} id={id} className="w-full bg-lightbeige overflow-hidden">
       <div className="w-full">
         <div
           ref={marqueeRef}

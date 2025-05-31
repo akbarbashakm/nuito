@@ -31,7 +31,7 @@ html {
 }
 
 :root {
-  --background: #f8f8f6;
+  --background: #f0f1e2;
   --header-bg: rgba(240, 241, 226, 0.80);
   --foreground: #000000;
   --secondary-textColor: #060606;
@@ -51,7 +51,7 @@ html {
 .dark {
   --background: #101820;
   --header-bg: rgba(26, 26, 26, 0.80);
-  --foreground: #ffffff;
+  --foreground: #f0f1e2;
   --secondary-textColor: #ffffff;
   --footer-bg: #1a1a1a;
   --footer-text: #ffffff;

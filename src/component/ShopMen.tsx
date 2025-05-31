@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '@/component/Header';
 import Footer from '@/component/Footer';
 import ImageMarqueeSection from '@/component/ImageMarquee';
-import InfoSection from '@/component/InfoSection';
+import InfoSectionAnimation from '@/component/InfoSectionAnimation';
 import VideoSection from '@/component/VideoSection';
 import Button from '@/component/Button';
 import { useModal } from '@/context/ModalContext';
@@ -71,7 +71,7 @@ export default function ShopMen() {
             </Button>
             <div className="max-w-2xl mx-auto lg:max-w-[806px] dark:bg-background-dark">
                 {SHOP_CONTENT_HIM.infoSections.map((section) => (
-                    <InfoSection
+                    <InfoSectionAnimation
                         key={section.id}
                         {...section}
                     />

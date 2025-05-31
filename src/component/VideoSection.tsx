@@ -59,20 +59,19 @@ const VideoSection = ({ src, showArrow = true, nextSectionId, isHomePage = false
       
       setSectionHeight(height);
     };
-
     // Initial calculation
     updateHeight();
-
+    
     // Update on resize and orientation change
     window.addEventListener('resize', updateHeight);
     window.addEventListener('orientationchange', updateHeight);
-
+    
     return () => {
       window.removeEventListener('resize', updateHeight);
       window.removeEventListener('orientationchange', updateHeight);
     };
   }, [isHomePage]);
-
+  
   useEffect(() => {
     // We want to show the arrow after 5 seconds of video playback
     const handleTimeUpdate = () => {

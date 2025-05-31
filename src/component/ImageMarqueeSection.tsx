@@ -4,15 +4,17 @@ interface ImageMarqueeSectionProps {
     images: string[];
     speed?: number;
     id?: string;
+    className?: string;
 }
 
 const ImageMarqueeSection: React.FC<ImageMarqueeSectionProps> = ({
     images,
     speed = 50,
-    id
+    id,
+    className = ''
 }) => {
     return (
-        <section id={id} className="w-full overflow-hidden bg-lightbeige">
+        <section id={id} className={`w-full overflow-hidden bg-lightbeige ${className}`}>
 // ... rest of the code ...
         </section>
     );

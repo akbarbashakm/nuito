@@ -225,11 +225,11 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           return (
             <div
               key={idx}
-              className="boxy mb-2 px-2 sm:px-6 md:mb-8 bg-[rgba(var(--typing-background),0.16)] rounded-[24px] mb-2 relative bottom-4 mt-0"
+              className="boxy mb-2 w-fit p-6 pr-0 sm:px-6 md:mb-8 bg-[rgba(var(--typing-background),0.16)] rounded-[24px] relative bottom-4 mt-0 text-center sm:text-left mr-auto sm:w-full"
               data-aos="fade-up"
             >
-              <h2 className="text-[2.5rem] sm:text-[2.5rem] font-metrophobic font-normal text-center mb-2 typing_text-heading text-[var(--foreground)]/64">
-                <span className="text-[2.5rem] font-metrophobic text-[var(--foreground)]">
+              <h2 className="text-[2.25rem] sm:text-[2.5rem] font-metrophobic font-normal text-left mb-2 typing_text-heading text-[var(--foreground)]/64">
+                <span className="text-[2rem] font-metrophobic text-[var(--foreground)]">
                   nu ito
                 </span>
                 <span className="text-[1.25rem] text-[var(--foreground)]">
@@ -237,7 +237,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                   •{" "}
                 </span>
                 <span className="text-[1.25rem] font-maven text-[var(--foreground)]/64">
-                  [nwi.toʊ]{" "}
+                  [nwi.toʊ]{""}
                 </span>
                 <span className="text-[1.25rem] text-[var(--foreground)]">
                   {" "}
@@ -255,7 +255,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                   <p
                     key={idx + nextIdx + 1}
                     ref={nextRefCallback}
-                    className="text-[1.75rem] font-maven font-normal leading-[1.5] tracking-[0.252px] text-center mb-2 text-black/64 dark:text-white/64"
+                    className="text-[1.25rem] font-maven font-normal leading-[1.5] tracking-[0.252px] text-left mb-2 text-black/64 dark:text-white/64"
                   >
                     {/* content gets injected by processText */}
                   </p>
@@ -279,7 +279,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             <h2
               key={idx}
               ref={refCallback}
-              className="text-[3rem] sm:text-[3rem] px-6 sm:px-6 md:mb-0 py-8 pt-0 sm:mb-8 font-metrophobic font-normal text-center mb-0 text-black/64 dark:text-white/64"
+              className="text-[3rem] sm:text-[3rem] block p-0 w-full md:mb-0 py-8 pt-0 sm:mb-8 font-metrophobic font-normal text-left mb-0 text-black/64 dark:text-white/64"
               data-aos="fade-up"
             >
               {parts.map((part, i) => (
@@ -297,7 +297,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             <h3
               key={idx}
               ref={refCallback}
-              className="text-[1.75rem] sm:text-[1.75rem] font-maven px-2 pt-6 pb-8 font-normal leading-[1.3] tracking-[0.252px] text-center mb-0 text-black dark:text-white"
+              className="text-[1.75rem] block w-full font-maven px-2 pt-6 pb-8 font-normal leading-[1.3] tracking-[0.252px] text-left mb-0 text-black dark:text-white"
               data-aos="fade-up"
             />
           );
@@ -308,7 +308,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             <p
               key={idx}
               ref={refCallback}
-              className="text-[1.75rem] sm:text-[1.75rem] px-2 font-maven font-normal leading-[1.5] tracking-[0.252px] text-center my-0 text-black/64 dark:text-white/64"
+              className="text-[1.75rem] sm:text-[1.75rem] px-2 font-maven font-normal leading-[1.5] tracking-[0.252px] text-left my-0 text-black/64 dark:text-white/64"
               data-aos="fade-up"
             />
           );

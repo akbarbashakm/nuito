@@ -4,9 +4,15 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const Footer = ({ className }: { className?: string }) => {
+interface FooterProps {
+    className?: string;
+    paddingY?: string;
+    paddingX?: string;
+}
+
+const Footer = ({ className = '', paddingY = 'py-14', paddingX = 'px-0' }: FooterProps) => {
     return (
-        <div className={`${className} flex flex-wrap justify-between items-center px-0 py-14 w-full bg-[var(--background)]`}>
+        <div className={`${className} flex flex-wrap justify-between items-center ${paddingX} ${paddingY} w-full bg-[var(--background)]`}>
             {/* Logo */}
             <div className="flex justify-center w-full md:w-auto md:mb-0">
                 <Link href="/">

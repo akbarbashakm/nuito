@@ -59,7 +59,7 @@ const ShopSection = ({ id }: { id: string }) => {
                         />
                     </div>
                     <div
-                        className="flex justify-center gap-0 items-center"
+                        className="flex justify-center gap-0 items-center w-full"
                     >
                         {/* Left Tee */}
                         <div className="flex flex-col justify-center items-center">

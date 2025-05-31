@@ -25,7 +25,7 @@ export const TYPING_CONTENT = {
   story: {
     light: [
       { type: "h2" as const, text: "*nu ito •* [nwi.toʊ] *•* (noun)" },
-      { type: "p" as const, text: "formed out of" },
+      // { type: "p" as const, text: "formed out of" },
       { type: "h3" as const, text: 'nu ie. *"New"* and *ito* ie. *"Thread."' },
       ...SHARED_STATUS_QUO
     ],
@@ -53,7 +53,7 @@ export const TYPING_CONTENT = {
     dark: [
       { type: "h2" as const, text: "THE NU ITO WAY" },
       { type: "h2" as const, text: "*nu ito •* [nwi.toʊ] *•* (noun)" },
-      { type: "p" as const, text: "formed out of" },
+      // { type: "p" as const, text: "formed out of" },
       { type: "h3" as const, text: 'nu ie. *"New"* and *ito* ie. *"Thread."' },
       {
         type: "p" as const,
@@ -74,12 +74,12 @@ export const SHOP_CONTENT_HIM = {
       id: "story-section",
       title: "OUR STORY",
       content: "*The Black Crew Tee had to come first.* Every man owns black tees  The one piece you'll never outgrow or overthink. No effort. No question. *Always essential.*",
-      image: "/story-asset.webp",
+      // image: "/story-asset.webp",
     },
     {
       id: "fabric-section",
       title: "FABRIC",
-      content: "*A precise blend of bamboo, charcoal, Supima cotton, and spandex* creates a fabric that's not only breathable and stretchy but also features exceptional moisture-wicking and antibacterial properties.\n\n*This ensures you stay fresh and comfortable all day*",
+      content: "*A precise blend of bamboo, charcoal, Supima cotton, and spandex* creates a fabric that's not only breathable and stretchy but also features exceptional moisture-wicking and antibacterial properties.",
       image: "/fabric-asset.webp",
       icon: "/thread_1.svg",
       reverse: true
@@ -134,7 +134,7 @@ export const SHOP_CONTENT_HER = {
     {
       id: "fabric-section",
       title: "FABRIC",
-      content: "*A precise blend of bamboo, charcoal, Supima cotton, and spandex* creates a fabric that's not only breathable and stretchy but also features exceptional moisture-wicking and antibacterial properties.\n\n*This ensures you stay fresh and comfortable all day*",
+      content: "*A precise blend of bamboo, charcoal, Supima cotton, and spandex* creates a fabric that's not only breathable and stretchy but also features exceptional moisture-wicking and antibacterial properties.",
       image: "/fabric-asset.webp",
       icon: "/thread_1.svg",
       reverse: true

@@ -9,11 +9,13 @@ import { HOME_NAV_LINKS, SHOP_NAV_LINKS, NavLink } from "@/constants/navigation"
 interface HeaderProps {
     maxWidthClass?: string;
     scrolledEffect?: boolean;
+    onHomeClick?: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({
     maxWidthClass = "lg:max-w-[654px]",
     scrolledEffect = true,
+    onHomeClick,
 }) => {
     const [scrolled, setScrolled] = useState(false);
     const [logoLoaded, setLogoLoaded] = useState(false);
@@ -41,7 +43,7 @@ const Header: React.FC<HeaderProps> = ({
 
     // Smooth scroll behavior
     const handleSectionClick = async (link: NavLink) => {
-        const headerHeight = 30;
+        const headerHeight = 0;
 
         const scrollToElement = (id: string) => {
             const el = document.getElementById(id);
@@ -115,7 +117,7 @@ const Header: React.FC<HeaderProps> = ({
                         effectiveScrolled ? "transform translate-x-0" : "mx-auto"
                     }`}
                 >
-                    <Link href="/">
+                    <Link href="/" onClick={onHomeClick}>
                         <Image
                             src={effectiveScrolled ? "/logo-black.svg" : "/white-logo.svg"}
                             alt="Logo"

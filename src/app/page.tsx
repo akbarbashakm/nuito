@@ -18,14 +18,15 @@ export default function Home() {
   const currentIndex = useRef(0)
   const [isClient, setIsClient] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const { resolvedTheme } = useTheme()
+  const { resolvedTheme, setTheme } = useTheme()
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     setIsClient(true)
     setMounted(true)
     setIsMobile(window.innerWidth < 767)
-  }, [])
+    // setTheme('dark')
+  }, [setTheme])
 
   useEffect(() => {
     if (!isClient) return
