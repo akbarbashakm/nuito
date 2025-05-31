@@ -1,44 +1,35 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Button from "./Button";
 import { isValidEmail, isValidPhone } from "@/constants/validation";
 import { SHOP_CONTENT_HER, SHOP_CONTENT_HIM } from "@/constants/content";
-
-type FormData = {
-    name: string;
-    email: string;
-    mobile: string;
-    size: string;
-};
-
-const sendToGoogleSheets = async (formData: unknown) => {
-    try {
-        const response = await fetch('https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec', {
-            method: 'POST',
-            body: JSON.stringify(formData),
-            headers: { 'Content-Type': 'application/json' },
-        });
-
-        if (!response.ok) throw new Error('Failed to submit form data');
-        return await response.json();
-    } catch (error) {
-        console.error('Error submitting to Google Sheets:', error);
-        throw error;
-    }
-};
+import { writeToGoogleSheets, isGoogleAPILoaded, type FormData } from "@/lib/googleSheets";
 
 const InterestForm: React.FC = () => {
     const router = useRouter();
     const pathname = usePathname();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formError, setFormError] = useState("");
+    const [isGapiLoaded, setIsGapiLoaded] = useState(false);
     const [form, setForm] = useState<FormData>({
         name: "",
         email: "",
         mobile: "",
         size: "",
     });
+
+    // Check if GAPI is loaded
+    useEffect(() => {
+        const checkGapi = () => {
+            if (isGoogleAPILoaded()) {
+                setIsGapiLoaded(true);
+            } else {
+                setTimeout(checkGapi, 100);
+            }
+        };
+        checkGapi();
+    }, []);
 
     // Get product info based on current page
     const isHerPage = pathname === '/shop/her';
@@ -106,16 +97,26 @@ const InterestForm: React.FC = () => {
             return;
         }
 
+        if (!isGapiLoaded) {
+            setFormError("Google API is still loading. Please try again.");
+            return;
+        }
+
         try {
             setIsSubmitting(true);
             setFormError("");
-            await sendToGoogleSheets({
-                ...form,
-                timestamp: new Date().toISOString(),
-            });
+            await writeToGoogleSheets(form);
             router.push("/thank-you");
-        } catch {
-            setFormError("Failed to submit form. Please try again.");
+        } catch (error: unknown) {
+            console.error('Form submission error:', error);
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+            if (errorMessage.includes('API key')) {
+                setFormError("API configuration error. Please contact support.");
+            } else if (errorMessage.includes('permission')) {
+                setFormError("Permission denied. Please try again.");
+            } else {
+                setFormError("Failed to submit form. Please try again.");
+            }
         } finally {
             setIsSubmitting(false);
         }
