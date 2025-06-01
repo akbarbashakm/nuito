@@ -301,6 +301,7 @@ export default function WhiteShirt() {
                         id="style-section"
                         title="STYLING"
                         content=" This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to."
+                        className="pb-10"
                     />
                     <ImageMarqueeSection
                         id="styled-section"

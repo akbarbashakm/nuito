@@ -284,3 +284,15 @@ body {
 .dark .dark\:hover\:underline:hover {
   text-decoration: underline;
 }
+
+.typing-text-small {
+  font-size: 1.25rem;
+  font-family: 'Maven Pro', sans-serif;
+  color: var(--foreground);
+}
+
+.typing-text-small-2 {
+  font-size: 1.25rem;
+  font-family: 'Maven Pro', sans-serif;
+  color: var(--foreground);
+}

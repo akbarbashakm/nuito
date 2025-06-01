@@ -120,10 +120,23 @@ export default function Home() {
       }
     }
 
+    // Add scroll event listener to update currentIndex
+    const handleScroll = () => {
+      const currentPanel = panels.findIndex(panel => {
+        const rect = panel.getBoundingClientRect()
+        return rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2
+      })
+
+      if (currentPanel !== -1 && currentPanel !== currentIndex.current) {
+        currentIndex.current = currentPanel
+      }
+    }
+
     window.addEventListener('wheel', handleWheel, { passive: false })
     window.addEventListener('touchstart', handleTouchStart, { passive: false })
     window.addEventListener('touchend', handleTouchEnd, { passive: false })
     window.addEventListener('touchmove', handleTouchMove, { passive: false })
+    window.addEventListener('scroll', handleScroll)
 
     panels.forEach((panel) => {
       gsap.from(panel.children, {
@@ -144,6 +157,7 @@ export default function Home() {
       window.removeEventListener('touchstart', handleTouchStart)
       window.removeEventListener('touchend', handleTouchEnd)
       window.removeEventListener('touchmove', handleTouchMove)
+      window.removeEventListener('scroll', handleScroll)
       document.removeEventListener('touchstart', cancelTouch)
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
     }

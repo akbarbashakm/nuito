@@ -55,7 +55,7 @@ const ShopSection = ({ id }: { id: string }) => {
                             height={274}
                             alt="t-shirt"
                             data-aos="fade-up"
-                            className="w-full py-8 sm:w-[500px] md:w-[415px] max-w-full h-auto mx-auto"
+                            className="w-full py-4 sm:w-[500px] md:w-[415px] max-w-full h-auto mx-auto"
                         />
                     </div>
                     <div

@@ -142,7 +142,7 @@ const VideoSection = ({ src, showArrow = true, nextSectionId, isHomePage = false
       <div className="relative z-20 h-full flex flex-col items-center justify-center">
         {showArrow && isArrowVisible && (
           <div 
-            className="absolute bottom-10 animate-bounce cursor-pointer"
+            className="absolute bottom-20 animate-bounce cursor-pointer"
             onClick={scrollToNextSection}
           >
             <Image

@@ -27,21 +27,15 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
     if (!containerRef.current || !mounted) return;
 
     const updateHeight = () => {
-      const container = containerRef.current;
-      if (container) {
-        const headerHeight = 96; // Header height in pixels
-        const viewportHeight = window.innerHeight;
-        const newHeight = viewportHeight - headerHeight;
-        setContainerHeight(newHeight);
-      }
+      const headerHeight = 96;
+      const viewportHeight = window.innerHeight;
+      const newHeight = viewportHeight - headerHeight;
+      setContainerHeight(newHeight);
     };
 
     updateHeight();
     window.addEventListener("resize", updateHeight);
-
-    return () => {
-      window.removeEventListener("resize", updateHeight);
-    };
+    return () => window.removeEventListener("resize", updateHeight);
   }, [mounted]);
 
   const processText = (text: string | undefined) => {
@@ -49,17 +43,13 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
     const lines = text.split("[* *]");
     return lines.map((line, lineIndex) => {
       if (line.includes("<p>")) {
-        return {
-          lineIndex,
-          isHtml: true,
-          content: line,
-        };
+        return { lineIndex, isHtml: true, content: line };
       }
-      const parts = line.split(/(\*.*?\*)/);
+      const parts = line.split(/(\*[^*]+\*)/);
       return {
         lineIndex,
         isHtml: false,
-        parts: parts.map((part) => {
+        parts: parts.filter(part => part !== "").map((part) => {
           if (part.startsWith("*") && part.endsWith("*")) {
             return { type: "strong", content: part.slice(1, -1) };
           }
@@ -97,49 +87,40 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           const pElement = tempDiv.querySelector("p");
           if (pElement) {
             const text = pElement.innerHTML;
-            const parts = text.split(/(\*.*?\*)/);
+            const parts = text.split(/(\*[^*]+\*)/);
             pElement.innerHTML = "";
 
-            parts.forEach((part, partIdx) => {
+            parts.filter(part => part !== "").forEach((part) => {
               if (part.startsWith("*") && part.endsWith("*")) {
                 const strong = document.createElement("strong");
                 strong.textContent = part.slice(1, -1);
                 strong.className = "font-semi-bold text-black dark:text-white";
-                strong.setAttribute(
-                  "data-key",
-                  `html-strong-${lineIdx}-${partIdx}`
-                );
                 pElement.appendChild(strong);
+                pElement.appendChild(document.createTextNode(" "));
               } else {
-                const textNode = document.createTextNode(part);
-                pElement.appendChild(textNode);
+                pElement.appendChild(document.createTextNode(part));
               }
             });
 
-            pElement.style.fontSize = "24px";
+            pElement.className = "text-[1.5rem] font-maven text-black/80 dark:text-white/80";
             pElement.style.display = "inline-block";
-            pElement.style.margin = "0 0.25em";
-            pElement.style.color = "var(--foreground)";
             lineDiv.appendChild(pElement);
           }
         } else {
-          line.parts?.forEach((part, partIdx) => {
-            const words = part.content.split(" ");
-            words.forEach((word, wordIdx) => {
+          line.parts?.forEach((part) => {
+            const tokens = part.content.split(/(\s+)/);
+            tokens.forEach((token, tokenIdx) => {
+              if (token === "") return;
+
               const span = document.createElement("span");
-              span.textContent = word + " ";
+              span.textContent = token;
               span.style.opacity = "0.1";
-              span.style.display = "inline-block";
-              span.style.marginRight = "0.25em";
+              span.style.display = token === " " ? "inline" : "inline-block";
               span.style.color = "var(--foreground)";
-              span.setAttribute(
-                "data-key",
-                `span-${lineIdx}-${partIdx}-${wordIdx}`
-              );
+              span.setAttribute("data-key", `span-${lineIdx}-${tokenIdx}`);
 
               if (part.type === "strong") {
                 span.style.fontWeight = "500";
-                span.style.color = "var(--foreground)";
               }
 
               lineDiv.appendChild(span);
@@ -150,8 +131,13 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
         element.appendChild(lineDiv);
       });
 
-      const spans = Array.from(element.querySelectorAll("span, p, h2, h3"));
-      spans.forEach((span) => {
+      const allSpans = Array.from(element.querySelectorAll("span"));
+      const spansToAnimate = allSpans.filter(span => {
+        const parent = span.parentElement;
+        return !(parent?.tagName === "H2" && parent.parentElement?.classList.contains("boxy"));
+      });
+
+      spansToAnimate.forEach((span) => {
         tl.to(
           span,
           {
@@ -173,11 +159,8 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
     if (!containerRef.current || !mounted) return;
 
     const updateHeight = () => {
-      const container = containerRef.current;
-      if (container) {
-        const height = container.scrollHeight;
-        container.style.height = `${height}px`;
-      }
+      const height = containerRef.current?.scrollHeight || 0;
+      if (containerRef.current) containerRef.current.style.height = `${height}px`;
     };
 
     updateHeight();
@@ -185,22 +168,17 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
     const observer = new ResizeObserver(updateHeight);
     observer.observe(containerRef.current);
 
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, [content, mounted]);
 
-  if (!mounted) {
-    return null;
-  }
+  if (!mounted) return null;
 
   return (
     <div
       ref={containerRef}
       style={{ height: containerHeight }}
-      className={`w-full border-[#868686] dark:border-gray-500 max-w-[654px] mx-auto bg-lightbeige dark:bg-background-dark pb-8 px-4 sm:px-4 flex flex-col items-center justify-center ${
-        className ?? ""
-      }`}
+      className={`w-full border-[#868686] dark:border-gray-500 max-w-[654px] mx-auto bg-lightbeige dark:bg-background-dark pb-8 px-4 sm:px-4 flex flex-col items-center justify-center ${className ?? ""
+        }`}
     >
       {content.map((item, idx) => {
         if (item.type === "divider") {
@@ -228,24 +206,12 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
               className="boxy mb-2 w-fit p-6 pr-0 sm:px-6 md:mb-8 bg-[rgba(var(--typing-background),0.16)] rounded-[24px] relative bottom-4 mt-0 text-center sm:text-left"
               data-aos="fade-up"
             >
-              <h2 className="text-[2.25rem] sm:text-[2.5rem] font-metrophobic font-normal text-left mb-2 typing_text-heading text-[var(--foreground)]/64">
-                <span className="text-[2rem] font-metrophobic text-[var(--foreground)]">
-                  nu ito
-                </span>
-                <span className="text-[1.25rem] text-[var(--foreground)]">
-                  {" "}
-                  •{" "}
-                </span>
-                <span className="text-[1.25rem] font-maven text-[var(--foreground)]/64">
-                  [nwi.toʊ]{""}
-                </span>
-                <span className="text-[1.25rem] text-[var(--foreground)]">
-                  {" "}
-                  •{" "}
-                </span>
-                <span className="text-[1.25rem] font-maven text-[var(--foreground)]">
-                  (noun)
-                </span>
+              <h2 className="font-metrophobic font-normal text-left mb-2 text-black dark:text-white">
+                <span className="text-[2rem]">nu ito</span>
+                <span className="text-[1.25rem]"> • </span>
+                <span className="text-[1rem]">[nwi.toʊ]</span>
+                <span className="text-[1.25rem]"> • </span>
+                <span className="text-[1rem]">(noun)</span>
               </h2>
               {content.slice(idx + 1, idx + 3).map((nextItem, nextIdx) => {
                 const nextRefCallback = (el: HTMLParagraphElement | null) => {
@@ -255,9 +221,9 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                   <p
                     key={idx + nextIdx + 1}
                     ref={nextRefCallback}
-                    className="text-[1.25rem] font-maven font-normal leading-[1.5] tracking-[0.252px] text-left mb-2 text-black/64 dark:text-white/64"
+                    className="text-[1.5rem] font-maven text-black/80 dark:text-white/80 leading-[1.5] tracking-[0.252px] text-left mb-2"
                   >
-                    {/* content gets injected by processText */}
+                    {/* Filled dynamically by GSAP */}
                   </p>
                 );
               })}
@@ -279,7 +245,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             <h2
               key={idx}
               ref={refCallback}
-              className="text-[3rem] sm:text-[3rem] block p-0 w-full md:mb-0 py-8 pt-0 sm:mb-0 font-metrophobic font-normal text-left mb-0 text-black/64 dark:text-white/64"
+              className="text-[3rem] block w-full py-8 pt-0 font-metrophobic font-normal text-left text-black/64 dark:text-white/64"
               data-aos="fade-up"
             >
               {parts.map((part, i) => (

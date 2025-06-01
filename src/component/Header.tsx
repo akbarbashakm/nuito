@@ -43,7 +43,7 @@ const Header: React.FC<HeaderProps> = ({
 
     // Smooth scroll behavior
     const handleSectionClick = async (link: NavLink) => {
-        const headerHeight = 50;
+        const headerHeight = HOME_NAV_LINKS ? 0 : 50;
 
         const scrollToElement = (id: string) => {
             const el = document.getElementById(id);
