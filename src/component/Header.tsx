@@ -43,12 +43,12 @@ const Header: React.FC<HeaderProps> = ({
 
     // Smooth scroll behavior
     const handleSectionClick = async (link: NavLink) => {
-        const headerHeight = 0;
+        const headerHeight = 50;
 
         const scrollToElement = (id: string) => {
             const el = document.getElementById(id);
             if (el) {
-                const y = el.offsetTop;
+                const y = el.getBoundingClientRect().top + window.pageYOffset;
                 window.scrollTo({
                     top: y - headerHeight,
                     behavior: "smooth",
@@ -102,7 +102,7 @@ const Header: React.FC<HeaderProps> = ({
         <header
             className={`fixed top-0 w-full flex items-center z-50 transition-all duration-500 ease-in-out ${
                 effectiveScrolled
-                    ? "h-[58px] shadow-md justify-between px-8 backdrop-blur-sm"
+                    ? "h-[58px] shadow-md justify-between px-4 backdrop-blur-sm"
                     : "h-[108px] justify-center"
             }`}
             style={{
@@ -142,7 +142,7 @@ const Header: React.FC<HeaderProps> = ({
                             onClick={() => handleSectionClick(link)}
                             className="relative text-foreground/64 dark:text-foreground/64 font-maven text-[14px] sm:text-[16px] md:text-[18px]
                                 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-foreground dark:after:bg-foreground
-                                after:w-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer"
+                                after:w-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer whitespace-nowrap"
                         >
                             {link.label}
                         </button>

@@ -124,25 +124,26 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           }
         } else {
           line.parts?.forEach((part, partIdx) => {
-            const partSpan = document.createElement("span");
-            partSpan.style.opacity = "0.1";
-            partSpan.style.display = "inline-block";
-            partSpan.style.color = "var(--foreground)";
-            partSpan.setAttribute(
-              "data-key",
-              `span-${lineIdx}-${partIdx}`
-            );
+            const words = part.content.split(" ");
+            words.forEach((word, wordIdx) => {
+              const span = document.createElement("span");
+              span.textContent = word + " ";
+              span.style.opacity = "0.1";
+              span.style.display = "inline-block";
+              span.style.marginRight = "0.25em";
+              span.style.color = "var(--foreground)";
+              span.setAttribute(
+                "data-key",
+                `span-${lineIdx}-${partIdx}-${wordIdx}`
+              );
 
-            if (part.type === "strong") {
-              partSpan.textContent = part.content;
-              partSpan.style.fontWeight = "500";
-              partSpan.style.color = "var(--foreground)";
-            } else {
-              partSpan.textContent = part.content;
-              partSpan.style.marginRight = "0.25em";
-            }
+              if (part.type === "strong") {
+                span.style.fontWeight = "500";
+                span.style.color = "var(--foreground)";
+              }
 
-            lineDiv.appendChild(partSpan);
+              lineDiv.appendChild(span);
+            });
           });
         }
 
@@ -155,8 +156,8 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           span,
           {
             opacity: 1,
-            duration: 0.06,
-            ease: "power2.out",
+            duration: 0.15,
+            ease: "power3.out",
           },
           "+=0.05"
         );

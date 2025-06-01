@@ -180,47 +180,33 @@ export default function BlackShirt() {
             const children = panel.children;
         
             // Set initial state
-            gsap.set(children, { opacity: 0, y: 50 });
+            gsap.set(children, { y: 50 });
         
             ScrollTrigger.create({
                 trigger: panel,
                 start: 'top center',
                 onEnter: () => {
                     gsap.to(children, {
-                        opacity: 1,
                         y: 0,
                         duration: 0.5,
-                        stagger: 0.1,
-                        ease: 'power2.out',
-                        clearProps: 'all'
                     });
                 },
                 onEnterBack: () => {
                     gsap.to(children, {
-                        opacity: 1,
                         y: 0,
                         duration: 0.5,
-                        stagger: 0.1,
-                        ease: 'power2.out',
-                        clearProps: 'all'
                     });
                 },
                 onLeave: () => {
                     gsap.to(children, {
-                        opacity: 0,
                         y: 50,
                         duration: 0.3,
-                        stagger: 0.05,
-                        ease: 'power2.in'
                     });
                 },
                 onLeaveBack: () => {
                     gsap.to(children, {
-                        opacity: 0,
                         y: 50,
                         duration: 0.3,
-                        stagger: 0.05,
-                        ease: 'power2.in'
                     });
                 }
             });
@@ -243,7 +229,7 @@ export default function BlackShirt() {
             <Header maxWidthClass='lg:max-w-[806px]' onHomeClick={handleHomeNavigation} />
 
             {/* HERO SECTION */}
-            <section className="panel min-h-[100dvh] relative">
+            <section className="panel min-h-[100dvh] relative flex items-center justify-center">
                 <div className="absolute inset-0 h-full">
                     <VideoSection
                         src="/dress-shop-ad.mov"
@@ -268,16 +254,16 @@ export default function BlackShirt() {
             >
                 I am Interested
             </Button>
-            <section className="panel h-screen flex items-start sm:items-center justify-center mx-auto lg:max-w-[806px]">
+
+            <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]">
                 <InfoSection
                     id="story-section"
                     title="OUR STORY"
                     content="*The Black Crew Tee had to come first.* Every man owns black tees  The one piece you'll never outgrow or overthink. No effort. No question. *Always essential.*"
-                    // image="/story-asset.webp"
                 />
             </section>
 
-            <section className="panel h-screen flex items-start sm:items-center justify-center mx-auto lg:max-w-[806px]">
+            <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]">
                 <InfoSection
                     id="fabric-section"
                     title="FABRIC"
@@ -288,7 +274,7 @@ export default function BlackShirt() {
                 />
             </section>
 
-            <section className="panel h-screen flex items-start sm:items-center justify-center mx-auto lg:max-w-[806px]">
+            <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]">
                 <InfoSection
                     id="fit-section"
                     title="FIT"
@@ -298,7 +284,7 @@ export default function BlackShirt() {
                 />
             </section>
 
-            <section className="panel h-screen flex items-start sm:items-center justify-center mx-auto lg:max-w-[806px]">
+            <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]">
                 <InfoSection
                     id="design-section"
                     title="TIMELESS"
@@ -309,22 +295,24 @@ export default function BlackShirt() {
                 />
             </section>
 
-            <section className="panel h-screen flex items-start flex-col sm:items-center justify-start mx-auto lg:max-w-[806px]">
-                <InfoSection
-                    id="style-section"
-                    title="STYLING"
-                    content=" This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to."
-                />
-                <ImageMarqueeSection
-                    id="styled-section"
-                    images={SHOP_CONTENT_HIM.stylingImages}
-                    speed={100}
-                />
-            </section>
-                <div className="pb-[5rem] max-w-2xl mx-auto lg:max-w-[806px] dark:bg-background-dark">
-                    <Footer paddingY="py-0" />
+            <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]">
+                <div className="w-full flex flex-col items-center">
+                    <InfoSection
+                        id="style-section"
+                        title="STYLING"
+                        content=" This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to."
+                    />
+                    <ImageMarqueeSection
+                        id="styled-section"
+                        images={SHOP_CONTENT_HIM.stylingImages}
+                        speed={100}
+                    />
                 </div>
-            {/* </section> */}
+            </section>
+
+            <div className="max-w-2xl mx-auto lg:max-w-[806px] dark:bg-background-dark mb-10">
+                <Footer />
+            </div>
         </main>
     );
 }
