@@ -31,7 +31,7 @@ const ShopSection = ({ id }: { id: string }) => {
                     />
                 </div>
 
-                <div className="relative w-full z-10">
+                <div className="relative z-10 w-full">
                     <h2
                         className="text-[3rem] pb-[18px] font-normal uppercase text-center font-metrophobic text-[#000000]/64"
                         data-aos="fade-up"
@@ -62,19 +62,19 @@ const ShopSection = ({ id }: { id: string }) => {
                         className="flex justify-center gap-0 items-center w-full"
                     >
                         {/* Left Tee */}
-                        <div className="flex flex-col justify-center items-center">
+                        <div className="flex flex-col justify-center items-center w-full sm:w-auto">
                             <p className="text-sm text-[1rem] leading-[20px] font-normal font-maven text-[#060606]">Black Crew Tee</p>
                             <Button onClick={() => router.push('/shop/him')}>
                                 Shop for HIM
                             </Button>
                             <p className="text-sm p-4 text-center leading-[20px] font-normal font-maven text-[#060606]">Structured. Refined. Essential.</p>
                         </div>
-                        <div className="flex flex-col justify-center items-center">
+                        <div className="flex flex-col justify-center items-center w-full sm:w-auto sm:mt-0">
                             <p className="text-sm text-[1rem] leading-[20px] font-normal font-maven text-[#060606]">White Drape Tee</p>
                             <Button onClick={() => router.push('/shop/her')}>
                                 Shop for HER
                             </Button>
-                            <p className="text-sm p-4 leading-[20px] text-center font-normal font-maven text-[#060606]">Fluid. Feminine. Essential.</p>
+                            <p className="text-sm p-4 leading-[20px] text-center font-normal font-maven text-[#060606]">Fluid. Feminine.<br /> Essential.</p>
                         </div>
                     </div>
                 </div>
