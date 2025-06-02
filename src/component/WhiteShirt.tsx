@@ -229,95 +229,99 @@ export default function WhiteShirt() {
     }, [mounted, isMobile]);
 
     return (
-        <main ref={mainRef} className="w-full dark:bg-background-dark">
+        <main ref={mainRef} className="w-full dark:bg-background-dark min-h-screen flex flex-col">
             <Header maxWidthClass='lg:max-w-[806px]' onHomeClick={handleHomeNavigation} />
 
-            {/* HERO SECTION */}
-            <section className="panel min-h-[100dvh] relative flex items-center justify-center">
-                <div className="absolute inset-0 h-full">
-                    <VideoSection
-                        src="/dress-shop-ad.mov"
-                        showArrow={false}
-                    />
-                </div>
-                <div className="absolute bottom-[1.5rem] sm:bottom-[1.5rem] left-1/2 -translate-x-1/2 z-10 text-center px-4 w-full max-w-[806px]">
-                    <h1 className="text-foreground dark:text-foreground font-metrophobic tracking-wide text-[30px] font-normal leading-[39.5px] pb-2 whitespace-nowrap">
-                        {SHOP_CONTENT_HER.product.title}
-                    </h1>
-                    <div className="text-foreground dark:text-foreground tracking-wide text-[18px] font-normal leading-[23.2px] font-metrophobic">
-                        {SHOP_CONTENT_HER.product.price}
+            <div className="flex-1">
+                {/* HERO SECTION */}
+                <section className="panel min-h-[100dvh] relative flex items-center justify-center">
+                    <div className="absolute inset-0 h-full">
+                        <VideoSection
+                            src="/dress-shop-ad.mov"
+                            showArrow={false}
+                        />
                     </div>
-                </div>
-            </section>
+                    <div className="absolute bottom-[1.5rem] sm:bottom-[1.5rem] left-1/2 -translate-x-1/2 z-10 text-center px-4 w-full max-w-[806px]">
+                        <h1 className="text-foreground dark:text-foreground font-metrophobic tracking-wide text-[30px] font-normal leading-[39.5px] pb-2 whitespace-nowrap">
+                            {SHOP_CONTENT_HER.product.title}
+                        </h1>
+                        <div className="text-foreground dark:text-foreground tracking-wide text-[18px] font-normal leading-[23.2px] font-metrophobic">
+                            {SHOP_CONTENT_HER.product.price}
+                        </div>
+                    </div>
+                </section>
 
-            {/* BUTTON */}
-            <Button
-                position='fixed'
-                className={`${buttonPosition} left-1/2 -translate-x-1/2 z-50 transition-[bottom] duration-1000 ease-in-out`}
-                onClick={open}
-            >
-                I am Interested
-            </Button>
+                {/* BUTTON */}
+                <Button
+                    position='fixed'
+                    className={`${buttonPosition} left-1/2 -translate-x-1/2 z-50 transition-[bottom] duration-1000 ease-in-out`}
+                    onClick={open}
+                >
+                    I am Interested
+                </Button>
 
-            <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]">
-                <InfoSection
-                    id="story-section"
-                    title="OUR STORY"
-                    content="*The Black Crew Tee had to come first.* Every man owns black tees  The one piece you'll never outgrow or overthink. No effort. No question. *Always essential.*"
-                />
-            </section>
-
-            <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]">
-                <InfoSection
-                    id="fabric-section"
-                    title="FABRIC"
-                    content="*A precise blend of bamboo, charcoal, Supima cotton, and spandex* creates a fabric that's not only breathable and stretchy but also features exceptional moisture-wicking and antibacterial properties."
-                    image="/fabric-asset.webp"
-                    icon="/thread_1.svg"
-                    reverse
-                />
-            </section>
-
-            <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]">
-                <InfoSection
-                    id="fit-section"
-                    title="FIT"
-                    content="*We're creating a size matrix that acknowledges the diversity of male physiques.* This approach respects that a man's height and width don't necessarily scale proportionally, allowing customers to find their precise size."
-                    image="/fit-asset.webp"
-                    icon="/ruler.svg"
-                />
-            </section>
-
-            <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]">
-                <InfoSection
-                    id="design-section"
-                    title="TIMELESS"
-                    content=" This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to."
-                    image="/design-asset.webp"
-                    icon="/clock.svg"
-                    reverse
-                />
-            </section>
-
-            <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]">
-                <div className="w-full flex flex-col items-center">
+                <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]">
                     <InfoSection
-                        id="style-section"
-                        title="STYLING"
-                        content=" This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to."
-                        className="pb-10"
+                        id="story-section"
+                        title="OUR STORY"
+                        content="*The Black Crew Tee had to come first.* Every man owns black tees  The one piece you'll never outgrow or overthink. No effort. No question. *Always essential.*"
                     />
-                    <ImageMarqueeSection
-                        id="styled-section"
-                        images={SHOP_CONTENT_HER.stylingImages}
-                        speed={100}
-                    />
-                </div>
-            </section>
+                </section>
 
-            <div className="max-w-2xl mx-auto lg:max-w-[806px] dark:bg-background-dark mb-10">
-                <Footer />
+                <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]" data-aos="fade-up">
+                    <InfoSection
+                        id="fabric-section"
+                        title="FABRIC"
+                        content="*A precise blend of bamboo, charcoal, Supima cotton, and spandex* creates a fabric that's not only breathable and stretchy but also features exceptional moisture-wicking and antibacterial properties."
+                        image="/fabric-asset.webp"
+                        icon="/thread_1.svg"
+                        reverse
+                    />
+                </section>
+
+                <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]" data-aos="fade-up">
+                    <InfoSection
+                        id="fit-section"
+                        title="FIT"
+                        content="*We're creating a size matrix that acknowledges the diversity of male physiques.* This approach respects that a man's height and width don't necessarily scale proportionally, allowing customers to find their precise size."
+                        image="/fit-asset.webp"
+                        icon="/ruler.svg"
+                    />
+                </section>
+
+                <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]">
+                    <InfoSection
+                        id="design-section"
+                        title="TIMELESS"
+                        content=" This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to."
+                        image="/design-asset.webp"
+                        icon="/clock.svg"
+                        reverse
+                    />
+                </section>
+
+                <section className="panel min-h-[100dvh] flex items-start justify-start mx-auto lg:max-w-[806px]">
+                    <div className="w-full flex flex-col items-center">
+                        <InfoSection
+                            id="style-section"
+                            title="STYLING"
+                            content=" This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to."
+                            className="pb-10"
+                        />
+                        <ImageMarqueeSection
+                            id="styled-section"
+                            images={SHOP_CONTENT_HER.stylingImages}
+                            speed={100}
+                        />
+                    </div>
+                </section>
+            </div>
+
+            <div className="w-full bg-[var(--background)]">
+                <div className="max-w-2xl mx-auto lg:max-w-[806px] dark:bg-background-dark">
+                    <Footer />
+                </div>
             </div>
         </main>
-    );  
+    );
 }
