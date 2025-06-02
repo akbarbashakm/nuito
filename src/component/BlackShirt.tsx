@@ -31,15 +31,15 @@ export default function BlackShirt() {
         setMounted(true);
         setIsMobile(window.innerWidth < 767);
         document.documentElement.classList.remove('dark');
-        document.documentElement.classList.add('light');
-        localStorage.setItem('theme', 'light');
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
     }, []);
 
     // Handle theme change when navigating back to home
     const handleHomeNavigation = () => {
         document.documentElement.classList.remove('light');
-        document.documentElement.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
+        document.documentElement.classList.add('light');
+        localStorage.setItem('theme', 'light');
         router.push('/');
     };
 

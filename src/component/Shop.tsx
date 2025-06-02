@@ -39,7 +39,7 @@ const ShopSection = ({ id }: { id: string }) => {
                         Drop 01
                     </h2>
                     <h4
-                        className="text-[1.75rem] leading-[39px] text-[#060606] text-center font-maven font-normal"
+                        className="text-[1.75rem] px-2 leading-[39px] text-[#060606] text-center font-maven font-normal"
                         data-aos="fade-up"
                     >
                         &ldquo;MONOCHROME MAGIC <br />
@@ -59,22 +59,22 @@ const ShopSection = ({ id }: { id: string }) => {
                         />
                     </div>
                     <div
-                        className="flex justify-center gap-0 items-center w-full"
+                        className="flex justify-center sm:justify-evenly gap-0 items-center w-full"
                     >
                         {/* Left Tee */}
                         <div className="flex flex-col justify-center items-center w-full sm:w-auto">
-                            <p className="text-sm text-[1rem] leading-[20px] font-normal font-maven text-[#060606]">Black Crew Tee</p>
+                            <p className="text-sm text-[1rem] leading-[20px] font-normal font-maven text-[#060606]">White Drape Tee</p>
                             <Button onClick={() => router.push('/shop/him')}>
                                 Shop for HIM
                             </Button>
-                            <p className="text-sm p-4 text-center leading-[20px] font-normal font-maven text-[#060606]">Structured. Refined. Essential.</p>
+                            <p className="text-sm p-4 text-center leading-[20px] font-normal font-maven text-[#060606]">Fluid. Feminine.<br /> Essential.</p>
                         </div>
                         <div className="flex flex-col justify-center items-center w-full sm:w-auto sm:mt-0">
-                            <p className="text-sm text-[1rem] leading-[20px] font-normal font-maven text-[#060606]">White Drape Tee</p>
+                            <p className="text-sm text-[1rem] leading-[20px] font-normal font-maven text-[#060606]">Black Crew Tee</p>
                             <Button onClick={() => router.push('/shop/her')}>
                                 Shop for HER
                             </Button>
-                            <p className="text-sm p-4 leading-[20px] text-center font-normal font-maven text-[#060606]">Fluid. Feminine.<br /> Essential.</p>
+                            <p className="text-sm p-4 leading-[20px] text-center font-normal font-maven text-[#060606]">Structured. <br />Refined. Essential.</p>
                         </div>
                     </div>
                 </div>
