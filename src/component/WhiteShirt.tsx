@@ -188,25 +188,29 @@ export default function WhiteShirt() {
                 onEnter: () => {
                     gsap.to(children, {
                         y: 0,
-                        duration: 0.5,
+                        opacity: 1,
+                        duration: 0.2,
                     });
                 },
                 onEnterBack: () => {
                     gsap.to(children, {
                         y: 0,
-                        duration: 0.5,
+                        opacity: 1,
+                        duration: 0.2,
                     });
                 },
                 onLeave: () => {
                     gsap.to(children, {
                         y: 50,
-                        duration: 0.3,
+                        opacity: 0,
+                        duration: 0.2,
                     });
                 },
                 onLeaveBack: () => {
                     gsap.to(children, {
                         y: 50,
-                        duration: 0.3,
+                        opacity: 0,
+                        duration: 0.2,
                     });
                 }
             });

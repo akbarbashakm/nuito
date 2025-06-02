@@ -142,7 +142,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           span,
           {
             opacity: 1,
-            duration: 0.15,
+            duration: 0.025,
             ease: "power3.out",
           },
           "+=0.05"
@@ -203,15 +203,15 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           return (
             <div
               key={idx}
-              className="boxy mb-2 w-fit p-6 pr-0 sm:px-6 md:mb-8 bg-[rgba(var(--typing-background),0.16)] rounded-[24px] relative bottom-4 mt-0 text-center sm:text-left"
+              className="boxy mb-2 w-full p-6 pr-0 sm:px-6 md:mb-8 bg-[rgba(var(--typing-background),0.16)] rounded-[24px] relative bottom-4 mt-0 text-center sm:text-left"
               data-aos="fade-up"
             >
               <h2 className="font-metrophobic font-normal text-left mb-2 text-black dark:text-white">
-                <span className="text-[2rem]">nu ito</span>
-                <span className="text-[1.25rem]"> • </span>
-                <span className="text-[1rem]">[nwi.toʊ]</span>
-                <span className="text-[1.25rem]"> • </span>
-                <span className="text-[1rem]">(noun)</span>
+                <span className="text-[2rem] text-[var(--foreground)]">nu ito</span>
+                <span className="text-[1.25rem] text-[var(--foreground)]"> • </span>
+                <span className="text-[1.25rem] text-[var(--foreground)]">[nwi.toʊ]</span>
+                <span className="text-[1.25rem] text-[var(--foreground)]"> • </span>
+                <span className="text-[1.25rem] text-[var(--foreground)]">(noun)</span>
               </h2>
               {content.slice(idx + 1, idx + 3).map((nextItem, nextIdx) => {
                 const nextRefCallback = (el: HTMLParagraphElement | null) => {
@@ -221,7 +221,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                   <p
                     key={idx + nextIdx + 1}
                     ref={nextRefCallback}
-                    className="text-[1.5rem] font-maven text-black/80 dark:text-white/80 leading-[1.5] tracking-[0.252px] text-left mb-2"
+                    className="text-[1.25rem] font-maven text-black/80 dark:text-white/80 leading-[1.5] tracking-[0.252px] text-left mb-2"
                   >
                     {/* Filled dynamically by GSAP */}
                   </p>

@@ -16,7 +16,7 @@ const SHARED_STATUS_QUO = [
     { type: "h2" as const, text: "THE STATUS QUO" },
     {
       type: "p" as const,
-      text: "**We wear our essentials the most—yet they're the most overlooked. *The world offers a false choice:* cheap basics or luxury pieces that offer little beyond their label."
+      text: "**We wear our essentials the most—yet they're the most overlooked. *The world offers a false choice: cheap basics or luxury pieces that offer little beyond their label."
     },
     { type: "h3" as const, text: "Nu ITO exists to challenge that." }
   ];
@@ -26,7 +26,7 @@ export const TYPING_CONTENT = {
     light: [
       { type: "h2" as const, text: "*nu ito •* [nwi.toʊ] *•* (noun)" },
       // { type: "p" as const, text: "formed out of" },
-      { type: "h3" as const, text: 'nu ie. *"New"* and *ito* ie. *"Thread."' },
+      { type: "h3" as const, text: 'nu ie. *"New"* and *ito* ie. *"Thread."*' },
       ...SHARED_STATUS_QUO
     ],
     dark: [...SHARED_STATUS_QUO]

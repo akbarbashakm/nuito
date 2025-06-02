@@ -188,25 +188,29 @@ export default function BlackShirt() {
                 onEnter: () => {
                     gsap.to(children, {
                         y: 0,
-                        duration: 0.5,
+                        opacity: 1,
+                        duration: 0.2,
                     });
                 },
                 onEnterBack: () => {
                     gsap.to(children, {
                         y: 0,
-                        duration: 0.5,
+                        opacity: 1,
+                        duration: 0.2,
                     });
                 },
                 onLeave: () => {
                     gsap.to(children, {
                         y: 50,
-                        duration: 0.3,
+                        opacity: 0,
+                        duration: 0.2,
                     });
                 },
                 onLeaveBack: () => {
                     gsap.to(children, {
                         y: 50,
-                        duration: 0.3,
+                        opacity: 0,
+                        duration: 0.2,
                     });
                 }
             });
@@ -264,7 +268,7 @@ export default function BlackShirt() {
                     />
                 </section>
 
-                <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]">
+                <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]" data-aos="fade-up">
                     <InfoSection
                         id="fabric-section"
                         title="FABRIC"
@@ -275,7 +279,7 @@ export default function BlackShirt() {
                     />
                 </section>
 
-                <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]">
+                <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]" data-aos="fade-up">
                     <InfoSection
                         id="fit-section"
                         title="FIT"
@@ -296,7 +300,7 @@ export default function BlackShirt() {
                     />
                 </section>
 
-                <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]">
+                <section className="panel min-h-[100dvh] flex items-start justify-start mx-auto lg:max-w-[806px]">
                     <div className="w-full flex flex-col items-center">
                         <InfoSection
                             id="style-section"
