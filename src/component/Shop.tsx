@@ -19,7 +19,7 @@ const ShopSection = ({ id }: { id: string }) => {
     return (
         <main className="w-full min-h-[100dvh] flex items-center justify-center" id={id}>
             <div
-                className="space-y-6 max-w-2xl w-full mx-4 flex items-center justify-center py-8 px-4 lg:mx-auto rounded-[24px] block lg:max-w-[806px] dark:bg-background-dark relative"
+                className="space-y-6 max-w-2xl w-full mx-4 flex items-center justify-center pt-2 py-8 px-4 lg:mx-auto rounded-[24px] block lg:max-w-[806px] dark:bg-background-dark relative"
             >
                 {/* Background Image */}
                 <div className="absolute inset-0 z-0">
@@ -58,7 +58,7 @@ const ShopSection = ({ id }: { id: string }) => {
                         />
                     </div>
                     <div
-                        className="flex justify-center sm:justify-evenly gap-0 items-center w-full"
+                        className="flex justify-center gap-0 sm:gap-12 items-center w-full"
                     >
                         {/* Left Tee */}
                         <div className="flex flex-col justify-center items-center w-full sm:w-auto">
