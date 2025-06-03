@@ -58,18 +58,18 @@ const ShopSection = ({ id }: { id: string }) => {
                         />
                     </div>
                     <div
-                        className="flex justify-center gap-0 sm:gap-12 items-center w-full"
+                        className="flex justify-center gap-0 sm:gap-12 items-center w-full max-xs: items-start"
                     >
                         {/* Left Tee */}
                         <div className="flex flex-col justify-center items-center w-full sm:w-auto">
-                            <p className="text-sm text-[1rem] leading-[20px] font-normal font-maven text-[#060606]">White Drape Tee</p>
+                            <p className="text-sm text-[1rem] mobile-sm text-center leading-[20px] font-normal font-maven text-[#060606]">White Drape Tee</p>
                             <Button onClick={() => router.push('/shop/him')}>
                                 Shop for HIM
                             </Button>
                             <p className="text-sm p-4 text-center leading-[20px] font-normal font-maven text-[#060606]">Fluid. Feminine.<br /> Essential.</p>
                         </div>
                         <div className="flex flex-col justify-center items-center w-full sm:w-auto sm:mt-0">
-                            <p className="text-sm text-[1rem] leading-[20px] font-normal font-maven text-[#060606]">Black Crew Tee</p>
+                            <p className="text-sm text-[1rem] mobile-sm text-center leading-[20px] font-normal font-maven text-[#060606]">Black Crew Tee</p>
                             <Button onClick={() => router.push('/shop/her')}>
                                 Shop for HER
                             </Button>

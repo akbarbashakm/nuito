@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Metrophobic:wght@400;500;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Metrophobic:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&display=swap");
 @import "tailwindcss";
 
 html {
@@ -7,24 +7,24 @@ html {
 }
 
 @font-face {
-  font-family: 'Avenir Next';
-  src: url('/fonts/AvenirNext-Regular.otf') format('otf');
+  font-family: "Avenir Next";
+  src: url("/fonts/AvenirNext-Regular.otf") format("otf");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Avenir Next';
-  src: url('/fonts/AvenirNext-Medium.otf') format('otf');
+  font-family: "Avenir Next";
+  src: url("/fonts/AvenirNext-Medium.otf") format("otf");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Avenir Next';
-  src: url('/fonts/AvenirNext-Bold.otf') format('otf');
+  font-family: "Avenir Next";
+  src: url("/fonts/AvenirNext-Bold.otf") format("otf");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -32,12 +32,12 @@ html {
 
 :root {
   --background: #f0f1e2;
-  --header-bg: rgba(240, 241, 226, 0.80);
+  --header-bg: rgba(240, 241, 226, 0.8);
   --foreground: #000000;
   --secondary-textColor: #060606;
-  --font-maven: 'Avenir Next', sans-serif;
-  --font-maven: 'Maven Pro', sans-serif;
-  --font-metrophobic: 'Metrophobic', sans-serif;
+  --font-maven: "Avenir Next", sans-serif;
+  --font-maven: "Maven Pro", sans-serif;
+  --font-metrophobic: "Metrophobic", sans-serif;
   --footer-bg: #f8f8f6;
   --footer-text: #000000;
   --footer-link: #000000;
@@ -45,12 +45,11 @@ html {
   --typing-bg-light: rgba(164, 164, 164, 0.16);
   --typing-bg-dark: rgba(31, 41, 55, 0.3);
   --typing-background: 164, 164, 164;
-
 }
 
 .dark {
   --background: #101820;
-  --header-bg: rgba(26, 26, 26, 0.80);
+  --header-bg: rgba(26, 26, 26, 0.8);
   --foreground: #f0f1e2;
   --secondary-textColor: #ffffff;
   --footer-bg: #1a1a1a;
@@ -100,8 +99,13 @@ body {
   animation: animate1 1.2s linear infinite;
 }
 @keyframes animate1 {
-  0% { left: -100%; }
-  50%,100% { left: 100%; }
+  0% {
+    left: -100%;
+  }
+  50%,
+  100% {
+    left: 100%;
+  }
 }
 
 .right-line {
@@ -114,8 +118,13 @@ body {
   animation-delay: 0.3s;
 }
 @keyframes animate2 {
-  0% { top: -100%; }
-  50%,100% { top: 100%; }
+  0% {
+    top: -100%;
+  }
+  50%,
+  100% {
+    top: 100%;
+  }
 }
 
 .bottom-line {
@@ -128,8 +137,13 @@ body {
   animation-delay: 0.6s;
 }
 @keyframes animate3 {
-  0% { right: -100%; }
-  50%,100% { right: 100%; }
+  0% {
+    right: -100%;
+  }
+  50%,
+  100% {
+    right: 100%;
+  }
 }
 
 .left-line {
@@ -142,8 +156,13 @@ body {
   animation-delay: 0.9s;
 }
 @keyframes animate4 {
-  0% { bottom: -100%; }
-  50%,100% { bottom: 100%; }
+  0% {
+    bottom: -100%;
+  }
+  50%,
+  100% {
+    bottom: 100%;
+  }
 }
 
 .logo-oval-animated-border {
@@ -170,8 +189,13 @@ body {
   border-radius: 50%;
 }
 @keyframes animate1 {
-  0% { left: -100%; }
-  50%,100% { left: 100%; }
+  0% {
+    left: -100%;
+  }
+  50%,
+  100% {
+    left: 100%;
+  }
 }
 
 .right-line {
@@ -185,8 +209,13 @@ body {
   border-radius: 50%;
 }
 @keyframes animate2 {
-  0% { top: -100%; }
-  50%,100% { top: 100%; }
+  0% {
+    top: -100%;
+  }
+  50%,
+  100% {
+    top: 100%;
+  }
 }
 
 .bottom-line {
@@ -200,8 +229,13 @@ body {
   border-radius: 50%;
 }
 @keyframes animate3 {
-  0% { right: -100%; }
-  50%,100% { right: 100%; }
+  0% {
+    right: -100%;
+  }
+  50%,
+  100% {
+    right: 100%;
+  }
 }
 
 .left-line {
@@ -215,8 +249,13 @@ body {
   border-radius: 50%;
 }
 @keyframes animate4 {
-  0% { bottom: -100%; }
-  50%,100% { bottom: 100%; }
+  0% {
+    bottom: -100%;
+  }
+  50%,
+  100% {
+    bottom: 100%;
+  }
 }
 
 .header-logo {
@@ -287,12 +326,20 @@ body {
 
 .typing-text-small {
   font-size: 1.25rem;
-  font-family: 'Maven Pro', sans-serif;
+  font-family: "Maven Pro", sans-serif;
   color: var(--foreground);
 }
 
 .typing-text-small-2 {
   font-size: 1.25rem;
-  font-family: 'Maven Pro', sans-serif;
+  font-family: "Maven Pro", sans-serif;
   color: var(--foreground);
+}
+
+@media (max-width: 379px) {
+  .mobile-sm {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    font-size: 14px;
+  }
 }

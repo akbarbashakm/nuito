@@ -121,10 +121,10 @@ export default function ThankYouPage() {
       <Header scrolledEffect={false} />
       <main
         ref={contentRef}
-        className="lg:max-w-[806px] mx-auto flex-1 flex flex-col items-center justify-center pt-30 bg-background dark:bg-background-dark"
+        className="lg:max-w-[806px] mx-auto flex-1 flex flex-col items-center justify-center pt-26 bg-background dark:bg-background-dark"
       >
-        <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-3xl mb-8">
-          <div className="py-28 flex-1 flex flex-col items-center justify-center">
+        <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-3xl">
+          <div className="py-6 flex-1 flex flex-col items-center justify-center">
             <div className="relative md:right-[60px] md:translate-x-1 md:transform bg-green-400 rounded-full transition-all duration-500 ease-in-out w-24 h-24 flex items-center justify-center mb-6">
               <svg
                 ref={tickRef}

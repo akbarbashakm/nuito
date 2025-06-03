@@ -18,6 +18,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
   const lineRefs = useRef<(HTMLElement | null)[]>([]);
   const [mounted, setMounted] = useState(false);
   const [containerHeight, setContainerHeight] = useState(0);
+  const [fontSize, setFontSize] = useState(1.75); // Base font size in rem
 
   useEffect(() => {
     setMounted(true);
@@ -26,17 +27,41 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
   useEffect(() => {
     if (!containerRef.current || !mounted) return;
 
+    const calculateFontSize = () => {
+      const headerHeight = 96; // Header height in pixels
+      const viewportHeight = window.innerHeight;
+      const availableHeight = viewportHeight - headerHeight;
+      const contentLength = content.reduce((acc, item) => {
+        if (item.text) {
+          return acc + item.text.length;
+        }
+        return acc;
+      }, 0);
+
+      // Calculate base font size based on content length and available height
+      let baseSize = Math.min(
+        availableHeight / (contentLength * 0.8), // Adjust multiplier as needed
+        1.75 // Maximum font size
+      );
+
+      // Ensure minimum font size
+      baseSize = Math.max(baseSize, 1);
+      
+      setFontSize(baseSize);
+    };
+
     const updateHeight = () => {
       const headerHeight = 96;
       const viewportHeight = window.innerHeight;
       const newHeight = viewportHeight - headerHeight;
       setContainerHeight(newHeight);
+      calculateFontSize();
     };
 
     updateHeight();
     window.addEventListener("resize", updateHeight);
     return () => window.removeEventListener("resize", updateHeight);
-  }, [mounted]);
+  }, [mounted, content]);
 
   const processText = (text: string | undefined) => {
     if (!text) return [];
@@ -176,9 +201,11 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
   return (
     <div
       ref={containerRef}
-      style={{ height: containerHeight }}
-      className={`w-full border-[#868686] dark:border-gray-500 max-w-[654px] mx-auto bg-lightbeige dark:bg-background-dark pb-8 px-4 sm:px-4 flex flex-col items-center justify-center ${className ?? ""
-        }`}
+      style={{ 
+        height: containerHeight,
+        fontSize: `${fontSize}rem`
+      }}
+      className={`w-full border-[#868686] dark:border-gray-500 max-w-[654px] mx-auto bg-lightbeige dark:bg-background-dark pb-8 px-4 sm:px-0 flex flex-col items-center justify-center ${className ?? ""}`}
     >
       {content.map((item, idx) => {
         if (item.type === "divider") {
@@ -203,15 +230,15 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           return (
             <div
               key={idx}
-              className="boxy mb-2 w-full p-6 pr-0 sm:px-6 md:mb-8 bg-[rgba(var(--typing-background),0.16)] rounded-[24px] relative bottom-4 mt-0 text-center sm:text-left"
+              className="boxy mb-2 w-full sm:w-fit p-4 sm:p-6 pr-0 sm:px-6 md:mb-8 bg-[rgba(var(--typing-background),0.16)] rounded-[24px] relative bottom-4 mt-0 text-center sm:text-left sm:mr-auto"
               data-aos="fade-up"
             >
               <h2 className="font-metrophobic font-normal text-left mb-2 text-black dark:text-white">
-                <span className="text-[2rem] text-[var(--foreground)]">nu ito</span>
-                <span className="text-[1.25rem] text-[var(--foreground)]"> • </span>
-                <span className="text-[1.25rem] text-[var(--foreground)]">[nwi.toʊ]</span>
-                <span className="text-[1.25rem] text-[var(--foreground)]"> • </span>
-                <span className="text-[1.25rem] text-[var(--foreground)]">(noun)</span>
+                <span className="text-[1.2em] text-[var(--foreground)]">nu ito</span>
+                <span className="text-[0.8em] text-[var(--foreground)]"> • </span>
+                <span className="text-[0.8em] text-[var(--foreground)]">[nwi.toʊ]</span>
+                <span className="text-[0.8em] text-[var(--foreground)]"> • </span>
+                <span className="text-[0.8em] text-[var(--foreground)]">(noun)</span>
               </h2>
               {content.slice(idx + 1, idx + 3).map((nextItem, nextIdx) => {
                 const nextRefCallback = (el: HTMLParagraphElement | null) => {
@@ -221,7 +248,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                   <p
                     key={idx + nextIdx + 1}
                     ref={nextRefCallback}
-                    className="text-[1.25rem] font-maven text-black/80 dark:text-white/80 leading-[1.5] tracking-[0.252px] text-left mb-2"
+                    className="text-[0.8em] font-maven text-black/80 dark:text-white/80 leading-[1.5] tracking-[0.252px] text-left mb-2"
                   >
                     {/* Filled dynamically by GSAP */}
                   </p>
@@ -245,7 +272,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             <h2
               key={idx}
               ref={refCallback}
-              className="text-[3rem] block w-full py-8 pt-0 font-metrophobic font-normal text-left text-black/64 dark:text-white/64"
+              className="text-[1.5em] block w-full py-6 sm:py-8 pt-0 font-metrophobic font-normal text-left text-black/64 dark:text-white/64"
               data-aos="fade-up"
             >
               {parts.map((part, i) => (
@@ -263,7 +290,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             <h3
               key={idx}
               ref={refCallback}
-              className="text-[1.75rem] block w-full font-maven px-2 pt-6 pb-8 font-normal leading-[1.3] tracking-[0.252px] text-left mb-0 text-black dark:text-white"
+              className="text-[1.2em] block w-full font-maven px-2 sm:px-0 pt-4 sm:pt-6 pb-6 sm:pb-8 font-normal leading-[1.3] tracking-[0.252px] text-left mb-0 text-black dark:text-white"
               data-aos="fade-up"
             />
           );
@@ -274,7 +301,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             <p
               key={idx}
               ref={refCallback}
-              className="text-[1.75rem] sm:text-[1.75rem] px-2 font-maven font-normal leading-[1.5] tracking-[0.252px] text-left my-0 text-black/64 dark:text-white/64"
+              className="text-[1em] px-2 sm:px-0 font-maven font-normal leading-[1.5] tracking-[0.252px] text-left my-0 text-black/64 dark:text-white/64"
               data-aos="fade-up"
             />
           );
