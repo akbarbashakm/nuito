@@ -28,15 +28,15 @@ const InfoSection: React.FC<InfoSectionProps> = ({
     <section
       id={id}
       className={`
-        w-full flex flex-col md:flex-row items-end justify-between
-        gap-10 md:gap-0 py-17 px-4 md:px-8 lg:px-0 transition-all duration-700 dark:bg-background-dark
+        w-full flex flex-col md:flex-row items-end justify-end
+        gap-10 md:gap-0 py-17 px-2 md:px-0 lg:px-0 transition-all duration-700 dark:bg-background-dark
         ${reverse ? "md:flex-row-reverse" : ""}
         ${className}
       `}
     >
       <div
         className={`
-          w-full md:w-${image ? "1/2" : "full"} px-4 md:px-0
+          w-full md:w-${image ? "1/2" : "full"} px-2 md:px-0
           ${reverse ? "md:pl-8" : "md:pr-8"}
         `}
       >
@@ -86,7 +86,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
       {image && (
         <div
           className={`
-            w-full md:w-1/2 flex justify-center items-center px-4 md:px-8
+            w-full md:w-1/2 flex justify-center items-center px-2 md:px-0
             ${reverse ? "md:pr-8" : "md:pl-8"}
           `}
         >

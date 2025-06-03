@@ -22,8 +22,9 @@ const Button: React.FC<ButtonProps> = ({
     onClick={onClick}
     disabled={disabled}
     className={`
-      ${position} inline-block font-maven text-[1.125rem] leading-normal
-      text-black font-normal py-2 px-4 rounded-[8px] mt-2
+      mobile-sm
+      ${position} inline-block font-maven text-[1.125rem] max-sm: text[1rem] leading-normal
+      text-black font-normal py-2 px-4 max-sm: px-2 rounded-[8px] mt-2
       border border-[#868686] bg-[#e7cd4b]
       hover:bg-[#d6bc3f] hover:border-[#d6bc3f] hover:text-white
       hover:scale-[1.001]

@@ -28,6 +28,21 @@ export default function Home() {
     // setTheme('dark')
   }, [setTheme])
 
+  // Set viewport height
+  useEffect(() => {
+    const setViewportHeight = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+
+    window.addEventListener('resize', setViewportHeight);
+    setViewportHeight();
+
+    return () => {
+      window.removeEventListener('resize', setViewportHeight);
+    };
+  }, []);
+
   useEffect(() => {
     if (!isClient) return
 
@@ -172,7 +187,7 @@ export default function Home() {
 
   return (
     <main>
-      <section className="panel min-h-[100dvh] flex items-center justify-center">
+      <section className="panel h-[calc(var(--vh,1vh)*100)] flex items-center justify-center">
         <Header />
         <VideoSection
           src="/dress-shop-ad.mov"
@@ -181,34 +196,39 @@ export default function Home() {
           isHomePage={true}
         />
       </section>
-      <section id="story-section" className="panel min-h-[100dvh] py-10 flex items-center justify-center max-w-[654px] mx-auto">
+      <section id="story-section" className="panel h-[calc(var(--vh,1vh)*100)] py-0 flex items-center justify-center max-w-[654px] mx-auto">
         <div className="w-full">
           {mounted && resolvedTheme === 'light' ? (
-            <TypingText content={TYPING_CONTENT.story.light} />
+            <TypingText 
+              content={TYPING_CONTENT.story.light} 
+            />
           ) : (
-            <TypingText content={TYPING_CONTENT.story.dark} />
+            <TypingText 
+              content={TYPING_CONTENT.story.dark} 
+            />
           )}
         </div>
       </section>
-      <section className="panel min-h-[100dvh] flex items-center justify-center max-w-[654px] mx-auto">
-        <TypingText content={TYPING_CONTENT.newStandard} />
+      <section className="panel h-[calc(var(--vh,1vh)*100)] flex items-center justify-center max-w-[654px] mx-auto">
+        <TypingText 
+          content={TYPING_CONTENT.newStandard} 
+        />
       </section>
-      <section className="panel min-h-[100dvh] flex items-center justify-center max-w-[654px] mx-auto">
+      <section className="panel h-[calc(var(--vh,1vh)*100)] flex items-center justify-center max-w-[654px] mx-auto">
         <div className="w-full h-full flex items-center justify-center">
           <div className="w-full">
             <TypingText
               content={mounted && resolvedTheme === 'light' ? TYPING_CONTENT.nuItoWay.light : TYPING_CONTENT.nuItoWay.dark}
-              className="mt-8"
             />
           </div>
         </div>
       </section>
-      <section className="panel min-h-[100dvh] flex items-center justify-center max-w-[654px] mx-auto">
-        <div className="flex flex-col items-center gap-6 w-full">
+      <section className="panel h-[calc(var(--vh,1vh)*100)] flex items-center justify-center max-w-[654px] mx-auto">
+        <div className="flex flex-col items-center justify-center gap-6 w-full">
           <ShopSection id="drop-1" />
         </div>
       </section>
-      <section className="max-w-[654px] mx-auto mb-10">
+<section className="max-w-[654px] mx-auto mb-10">             
         <Footer />
       </section>
     </main>

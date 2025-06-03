@@ -18,6 +18,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
   const lineRefs = useRef<(HTMLElement | null)[]>([]);
   const [mounted, setMounted] = useState(false);
   const [containerHeight, setContainerHeight] = useState(0);
+  const [fontSize, setFontSize] = useState(1.75); // Base font size in rem
 
   useEffect(() => {
     setMounted(true);
@@ -26,17 +27,41 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
   useEffect(() => {
     if (!containerRef.current || !mounted) return;
 
+    const calculateFontSize = () => {
+      const headerHeight = 96; // Header height in pixels
+      const viewportHeight = window.innerHeight;
+      const availableHeight = viewportHeight - headerHeight;
+      const contentLength = content.reduce((acc, item) => {
+        if (item.text) {
+          return acc + item.text.length;
+        }
+        return acc;
+      }, 0);
+
+      // Calculate base font size based on content length and available height
+      let baseSize = Math.min(
+        availableHeight / (contentLength * 0.8), // Adjust multiplier as needed
+        1.75 // Maximum font size
+      );
+
+      // Ensure minimum font size
+      baseSize = Math.max(baseSize, 1);
+      
+      setFontSize(baseSize);
+    };
+
     const updateHeight = () => {
       const headerHeight = 96;
       const viewportHeight = window.innerHeight;
       const newHeight = viewportHeight - headerHeight;
       setContainerHeight(newHeight);
+      calculateFontSize();
     };
 
     updateHeight();
     window.addEventListener("resize", updateHeight);
     return () => window.removeEventListener("resize", updateHeight);
-  }, [mounted]);
+  }, [mounted, content]);
 
   const processText = (text: string | undefined) => {
     if (!text) return [];
@@ -176,9 +201,11 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
   return (
     <div
       ref={containerRef}
-      style={{ height: containerHeight }}
-      className={`w-full border-[#868686] dark:border-gray-500 max-w-[654px] mx-auto bg-lightbeige dark:bg-background-dark pb-8 px-4 sm:px-4 flex flex-col items-center justify-center ${className ?? ""
-        }`}
+      style={{ 
+        height: containerHeight,
+        fontSize: `${fontSize}rem`
+      }}
+      className={`w-full border-[#868686] dark:border-gray-500 max-w-[654px] mx-auto bg-lightbeige dark:bg-background-dark pb-8 px-4 sm:px-0 flex flex-col items-center justify-center ${className ?? ""}`}
     >
       {content.map((item, idx) => {
         if (item.type === "divider") {
@@ -203,7 +230,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           return (
             <div
               key={idx}
-              className="boxy mb-2 w-full p-6 pr-0 sm:px-6 md:mb-8 bg-[rgba(var(--typing-background),0.16)] rounded-[24px] relative bottom-4 mt-0 text-center sm:text-left"
+              className="boxy mb-2 w-full sm:w-fit p-4 sm:p-6 pr-0 sm:px-6 md:mb-8 bg-[rgba(var(--typing-background),0.16)] rounded-[24px] relative bottom-4 mt-0 text-center sm:text-left sm:mr-auto"
               data-aos="fade-up"
             >
               <h2 className="font-metrophobic font-normal text-left mb-2 text-black dark:text-white">

@@ -26,6 +26,9 @@ const config: Config = {
         }
       }
     },
+    screens: {
+      'max-xs': {'max': '379'},
+    }
   },
   plugins: [],
 }
