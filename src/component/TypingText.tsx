@@ -145,7 +145,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
               span.setAttribute("data-key", `span-${lineIdx}-${tokenIdx}`);
 
               if (part.type === "strong") {
-                span.style.fontWeight = "500";
+                span.style.fontWeight = "600";
               }
 
               lineDiv.appendChild(span);
@@ -272,7 +272,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             <h2
               key={idx}
               ref={refCallback}
-              className="text-[3rem] md:text-[3rem] leading-[1.2] block w-full py-8 pt-18 font-metrophobic font-normal text-left text-black/64 dark:text-white/64"
+              className="text-[3rem] md:text-[3rem] line-height-mobile block w-full py-8 pt-18 font-metrophobic font-normal text-left text-black/64 dark:text-white/64"
               data-aos="fade-up"
             >
               {parts.map((part, i) => (
@@ -290,7 +290,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             <h3
               key={idx}
               ref={refCallback}
-              className="text-[1.625rem] md:text-[1.75rem] block w-full font-maven px-2 pt-2 pb-0 font-normal leading-[1.3] tracking-[0.252px] text-left mb-0 text-black dark:text-white"
+              className="text-[1.625rem] md:text-[1.75rem] block w-full font-maven px-2 pt-2 pb-0 font-semibold leading-[1.3] tracking-[0.252px] text-left mb-0 text-black dark:text-white"
               data-aos="fade-up"
             />
           );

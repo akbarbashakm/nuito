@@ -348,4 +348,11 @@ body {
   .custom-height {
     height: 280px;
   }
+  .line-height-mobile {
+    line-height: 1.2;
+  }
+  .padding-sm {
+    padding-top: 5rem;
+    padding-bottom: 0px;
+  }
 }

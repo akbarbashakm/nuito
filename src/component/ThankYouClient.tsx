@@ -121,7 +121,7 @@ export default function ThankYouPage() {
       <Header scrolledEffect={false} />
       <main
         ref={contentRef}
-        className="lg:max-w-[806px] mx-auto flex-1 flex flex-col items-center justify-center pt-26 bg-background dark:bg-background-dark"
+        className="lg:max-w-[806px] mx-auto flex-1 flex flex-col items-center justify-center pt-26 padding-sm bg-background dark:bg-background-dark"
       >
         <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-3xl">
           <div className="py-6 flex-1 flex flex-col items-center justify-center">
@@ -162,7 +162,7 @@ export default function ThankYouPage() {
           >
             <h2
               ref={titleRef}
-              className="text-[32px] px-6 font-normal font-metrophobic tracking-[1px] pt-4 pb-6 text-foreground dark:text-foreground mb-2"
+              className="text-[32px] px-6 font-normal font-metrophobic tracking-[1px] pt-0 pb-6 text-foreground dark:text-foreground mb-2"
             >
               {"Thank you for your".split("").map((letter, index) => (
                 <span
@@ -205,7 +205,7 @@ export default function ThankYouPage() {
             </div>
             <p
               ref={descriptionRef}
-              className="font-normal font-metrophobic text-foreground dark:text-foreground text-[18px] mt-2 pt-8 p-4"
+              className="font-normal font-metrophobic text-foreground dark:text-foreground text-[18px] mt-2 pt-0 p-4"
             >
               We will get back to you shortly with the next steps.
             </p>
