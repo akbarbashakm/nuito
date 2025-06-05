@@ -106,14 +106,16 @@ const ImageMarqueeSection: React.FC<ImageMarqueeSectionProps> = ({ id, images, s
           {[...images, ...images, ...images].map((img, idx) => (
             <div 
               key={idx} 
-              className="w-[274px] h-[342px] relative rounded-[24px] overflow-hidden"
+              className="custom-height
+w-[274px] h-[342px] relative rounded-[24px] overflow-hidden"
             >
               <Image
                 src={img}
                 alt={`marquee-img-${idx}`}
                 width={274}
                 height={342}
-                className="rounded-lg shadow-md object-cover w-full h-full"
+                className="            aspect-ratio-mobile
+ rounded-lg aspect-[16/4] max-xs:aspect-[4/3] shadow-md object-cover w-full h-full"
                 style={{
                   objectFit: 'cover',
                   objectPosition: 'center'

@@ -19,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <Script 
           src="https://apis.google.com/js/api.js" 
           strategy="beforeInteractive"

@@ -22,14 +22,14 @@ const InfoSection: React.FC<InfoSectionProps> = ({
   reverse = false,
   icon,
   id,
-  className = '',
+  className = "",
 }) => {
   return (
     <section
       id={id}
       className={`
-        w-full flex flex-col md:flex-row items-end justify-end
-        gap-10 md:gap-0 py-17 px-2 md:px-0 lg:px-0 transition-all duration-700 dark:bg-background-dark
+        w-full flex flex-col md:flex-row item-end sm:items-start justify-end sm:justify-start md:items-end md:justify-end
+        gap-10 md:gap-0 pt-14 max-sm390: pt-0 pb-10 px-2 md:px-0 lg:px-0 transition-all duration-700 dark:bg-background-dark
         ${reverse ? "md:flex-row-reverse" : ""}
         ${className}
       `}
@@ -57,25 +57,34 @@ const InfoSection: React.FC<InfoSectionProps> = ({
             if (part.startsWith("*") && part.endsWith("*")) {
               const text = part.slice(1, -1);
               return (
-                <strong key={index} className="font-semibold text-foreground dark:text-foreground">
+                <strong
+                  key={index}
+                  className="font-semibold text-foreground dark:text-foreground"
+                >
                   {text}
                 </strong>
               );
             } else if (part.startsWith("[") && part.endsWith("]")) {
               const text = part.slice(1, -1);
               return (
-                <span key={index} className="font-normal text-foreground dark:text-foreground">
+                <span
+                  key={index}
+                  className="font-normal text-foreground dark:text-foreground"
+                >
                   {text}
                 </span>
               );
             } else {
               // Process the text to handle line breaks properly
               const processedText = part
-                .replace(/\\n\\n/g, '\n\n') // Replace literal \n\n with actual newlines
-                .replace(/\\n/g, '\n');     // Replace literal \n with actual newlines
-              
+                .replace(/\\n\\n/g, "\n\n") // Replace literal \n\n with actual newlines
+                .replace(/\\n/g, "\n"); // Replace literal \n with actual newlines
+
               return (
-                <span key={index} className="font-normal text-secondary-textColor dark:text-secondary-textColor whitespace-pre-line">
+                <span
+                  key={index}
+                  className="font-normal text-secondary-textColor dark:text-secondary-textColor whitespace-pre-line"
+                >
                   {processedText}
                 </span>
               );
@@ -94,8 +103,16 @@ const InfoSection: React.FC<InfoSectionProps> = ({
             src={image}
             alt={title}
             width={412}
-            height={431}
-            className="rounded-lg shadow-lg object-cover w-full max-w-[412px]"
+            height={242}
+            className="
+            aspect-ratio-mobile
+    rounded-lg shadow-md object-cover w-full
+          "
+            style={{
+              width: "100%",
+              objectFit: "cover",
+              objectPosition: "center",
+            }}
           />
         </div>
       )}

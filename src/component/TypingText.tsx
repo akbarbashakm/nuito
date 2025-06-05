@@ -91,7 +91,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top center",
-        toggleActions: "play reverse play reverse",
+        toggleActions: "restart none none none",
       },
     });
 
@@ -230,15 +230,15 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           return (
             <div
               key={idx}
-              className="boxy mb-2 w-full sm:w-fit p-4 sm:p-6 pr-0 sm:px-6 md:mb-8 bg-[rgba(var(--typing-background),0.16)] rounded-[24px] relative bottom-4 mt-0 text-center sm:text-left sm:mr-auto"
+              className="boxy mb-2 w-full sm:w-fit p-4 sm:p-6 pt-0 pr-0 sm:px-6 md:mb-8 bg-[rgba(var(--typing-background),0.16)] rounded-[24px] relative bottom-4 mt-0 text-center sm:text-left sm:mr-auto"
               data-aos="fade-up"
             >
               <h2 className="font-metrophobic font-normal text-left mb-2 text-black dark:text-white">
                 <span className="text-[2rem] text-[var(--foreground)]">nu ito</span>
                 <span className="text-[1.25rem] text-[var(--foreground)]"> • </span>
-                <span className="text-[1.25rem] text-[var(--foreground)]">[nwi.toʊ]</span>
+                <span className="text-[1.5rem] text-[var(--foreground)]">[nwi.toʊ]</span>
                 <span className="text-[1.25rem] text-[var(--foreground)]"> • </span>
-                <span className="text-[1.25rem] text-[var(--foreground)]">(noun)</span>
+                <span className="text-[1.5rem] text-[var(--foreground)]">(noun)</span>
               </h2>
               {content.slice(idx + 1, idx + 3).map((nextItem, nextIdx) => {
                 const nextRefCallback = (el: HTMLParagraphElement | null) => {
@@ -248,7 +248,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                   <p
                     key={idx + nextIdx + 1}
                     ref={nextRefCallback}
-                    className="text-[1.25rem] font-maven text-black/80 dark:text-white/80 leading-[1.5] tracking-[0.252px] text-left mb-2"
+                    className="text-[1.25rem] font-maven text-black/80 dark:text-white/80 leading-[1] tracking-[0.252px] text-left mb-2"
                   >
                     {/* Filled dynamically by GSAP */}
                   </p>
@@ -272,7 +272,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             <h2
               key={idx}
               ref={refCallback}
-              className="text-[3rem] block w-full py-8 pt-0 font-metrophobic font-normal text-left text-black/64 dark:text-white/64"
+              className="text-[3rem] md:text-[3rem] leading-[1.2] block w-full py-8 pt-18 font-metrophobic font-normal text-left text-black/64 dark:text-white/64"
               data-aos="fade-up"
             >
               {parts.map((part, i) => (
@@ -290,7 +290,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             <h3
               key={idx}
               ref={refCallback}
-              className="text-[1.75rem] block w-full font-maven px-2 pt-6 pb-8 font-normal leading-[1.3] tracking-[0.252px] text-left mb-0 text-black dark:text-white"
+              className="text-[1.625rem] md:text-[1.75rem] block w-full font-maven px-2 pt-2 pb-0 font-normal leading-[1.3] tracking-[0.252px] text-left mb-0 text-black dark:text-white"
               data-aos="fade-up"
             />
           );
@@ -301,7 +301,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             <p
               key={idx}
               ref={refCallback}
-              className="text-[1.75rem] sm:text-[1.75rem] px-2 font-maven font-normal leading-[1.5] tracking-[0.252px] text-left my-0 text-black/64 dark:text-white/64"
+              className="text-[1.625rem] md:text-[1.75rem] px-2 font-maven font-normal leading-[1.5] tracking-[0.252px] text-left my-0 text-black/64 dark:text-white/64"
               data-aos="fade-up"
             />
           );

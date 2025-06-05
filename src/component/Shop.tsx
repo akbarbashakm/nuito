@@ -17,9 +17,9 @@ const ShopSection = ({ id }: { id: string }) => {
         });
     }, []);
     return (
-        <main className="w-full min-h-[100dvh] flex items-center justify-center" id={id}>
+        <main className="w-full flex items-center justify-center" id={id}>
             <div
-                className="space-y-6 max-w-2xl w-full mx-4 flex items-center justify-center pt-2 py-8 px-4 lg:mx-auto rounded-[24px] block lg:max-w-[806px] dark:bg-background-dark relative"
+                className="w-full mx-4 flex items-center justify-center mt-6 md:mt-16 px-4 py-1 lg:mx-auto rounded-[24px] block lg:max-w-[806px] dark:bg-background-dark relative"
             >
                 {/* Background Image */}
                 <div className="absolute inset-0 z-0">
@@ -33,20 +33,20 @@ const ShopSection = ({ id }: { id: string }) => {
 
                 <div className="relative z-10 w-full">
                     <h2
-                        className="text-[3rem] pb-[18px] font-normal uppercase text-center font-metrophobic text-[#000000]/64"
+                        className="text-[2.75rem] md:text-[3rem] pb-[1rem] font-medium uppercase text-center font-metrophobic text-[#000000]/64"
                         data-aos="fade-up"
                     >
                         Drop 01
                     </h2>
                     <h4
-                        className="text-[1.75rem] px-2 leading-[39px] text-[#060606] text-center font-maven font-normal"
+                        className="text-[1.75rem] px-0 leading-[1.3] text-[#060606] text-center font-maven font-normal"
                         data-aos="fade-up"
                     >
-                        &ldquo;MONOCHROME MAGIC <br />
-                        – 50 pieces. Black, <br /> white, and gone&rdquo; .
+                        &ldquo;MONOCHROME MAGIC
+                        – 50 pieces. Black, white, and gone&rdquo; .
                     </h4>
                     <div
-                        className="w-full"
+                        className="w-full h-auto"
                         data-aos="fade-up"
                     >
                         <Image
@@ -54,7 +54,7 @@ const ShopSection = ({ id }: { id: string }) => {
                             width={348}
                             height={274}
                             alt="t-shirt"
-                            className="w-full py-4 sm:w-[500px] md:w-[415px] max-w-full h-auto mx-auto"
+                            className="w-full py-4 max-w-full h-auto md:h-[333px] object-contain mx-auto"
                         />
                     </div>
                     <div

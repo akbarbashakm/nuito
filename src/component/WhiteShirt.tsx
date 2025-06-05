@@ -241,7 +241,7 @@ export default function WhiteShirt() {
                             showArrow={false}
                         />
                     </div>
-                    <div className="absolute bottom-[1.5rem] sm:bottom-[1.5rem] left-1/2 -translate-x-1/2 z-10 text-center px-4 w-full max-w-[806px]">
+                    <div className="absolute bottom-[2.5rem] sm:bottom-[1.5rem] left-1/2 -translate-x-1/2 z-10 text-center px-4 w-full max-w-[806px]">
                         <h1 className="text-foreground dark:text-foreground font-metrophobic tracking-wide text-[30px] font-normal leading-[39.5px] pb-2 whitespace-nowrap">
                             {SHOP_CONTENT_HER.product.title}
                         </h1>
@@ -260,7 +260,7 @@ export default function WhiteShirt() {
                     I am Interested
                 </Button>
 
-                <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]">
+                <section className="panel min-h-[100vh] lg:min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px] px-0 md:px-4">
                     <InfoSection
                         id="story-section"
                         title="OUR STORY"
@@ -268,7 +268,7 @@ export default function WhiteShirt() {
                     />
                 </section>
 
-                <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]" data-aos="fade-up">
+                <section className="panel h-[100vh] flex items-start justify-start mx-auto lg:max-w-[806px] px-0 md:px-4" data-aos="fade-up">
                     <InfoSection
                         id="fabric-section"
                         title="FABRIC"
@@ -279,7 +279,7 @@ export default function WhiteShirt() {
                     />
                 </section>
 
-                <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]" data-aos="fade-up">
+                <section className="panel min-h-[100vh] lg:min-h-[100dvh] flex items-start justify-center mx-auto lg:max-w-[806px] px-0 md:px-4" data-aos="fade-up">
                     <InfoSection
                         id="fit-section"
                         title="FIT"
@@ -289,7 +289,7 @@ export default function WhiteShirt() {
                     />
                 </section>
 
-                <section className="panel min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px]">
+                <section className="panel h-[100vh] flex items-start justify-center mx-auto lg:max-w-[806px] px-0 md:px-4">
                     <InfoSection
                         id="design-section"
                         title="TIMELESS"
@@ -300,7 +300,7 @@ export default function WhiteShirt() {
                     />
                 </section>
 
-                <section className="panel min-h-[100dvh] flex items-start justify-start mx-auto lg:max-w-[806px]">
+                <section className="panel h-[100dvh] flex items-start justify-start mx-auto lg:max-w-[806px] px-0 md:px-4">
                     <div className="w-full flex flex-col items-center">
                         <InfoSection
                             id="style-section"

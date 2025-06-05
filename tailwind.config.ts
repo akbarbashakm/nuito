@@ -27,7 +27,8 @@ const config: Config = {
       }
     },
     screens: {
-      'max-xs': {'max': '379'},
+      'max-xs': {'max': '390'},
+      'max-sm390': {'max': '390px'},
     }
   },
   plugins: [],

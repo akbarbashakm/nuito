@@ -196,7 +196,7 @@ export default function Home() {
           isHomePage={true}
         />
       </section>
-      <section id="story-section" className="panel h-[calc(var(--vh,1vh)*100)] py-0 flex items-center justify-center max-w-[654px] mx-auto">
+      <section id="story-section" className="panel h-[100dvh] py-0 flex items-center justify-center max-w-[654px] mx-auto">
         <div className="w-full">
           {mounted && resolvedTheme === 'light' ? (
             <TypingText 
@@ -209,12 +209,12 @@ export default function Home() {
           )}
         </div>
       </section>
-      <section className="panel h-[calc(var(--vh,1vh)*100)] flex items-center justify-center max-w-[654px] mx-auto">
+      <section className="panel h-[100dvh] flex items-center justify-center max-w-[654px] mx-auto">
         <TypingText 
           content={TYPING_CONTENT.newStandard} 
         />
       </section>
-      <section className="panel h-[calc(var(--vh,1vh)*100)] flex items-center justify-center max-w-[654px] mx-auto">
+      <section className="panel h-[100dvh] flex items-center justify-center max-w-[654px] mx-auto">
         <div className="w-full h-full flex items-center justify-center">
           <div className="w-full">
             <TypingText
@@ -223,12 +223,12 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="panel h-[calc(var(--vh,1vh)*100)] flex items-center justify-center max-w-[654px] mx-auto">
-        <div className="flex flex-col items-center justify-center gap-6 w-full">
+      <section className="panel h-[100dvh] flex items-center justify-center max-w-[654px] mx-auto">
+        <div className="flex flex-col items-center justify-center w-full">
           <ShopSection id="drop-1" />
         </div>
       </section>
-<section className="max-w-[654px] mx-auto mb-10">             
+      <section className="max-w-[654px] mx-auto mb-10">             
         <Footer />
       </section>
     </main>
