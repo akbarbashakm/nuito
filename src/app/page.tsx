@@ -6,7 +6,7 @@ import ScrollTrigger from 'gsap/ScrollTrigger'
 import ScrollToPlugin from 'gsap/ScrollToPlugin'
 import TypingText from '@/component/TypingText'
 import VideoSection from '@/component/VideoSection'
-import ShopSection from '@/component/Shop'
+import DropSection from '@/component/DropSection'
 import Footer from '@/component/Footer'
 import Header from '@/component/Header'
 import { useTheme } from 'next-themes'
@@ -225,7 +225,7 @@ export default function Home() {
       </section>
       <section className="panel h-[100dvh] flex items-center justify-center max-w-[654px] mx-auto">
         <div className="flex flex-col items-center justify-center w-full">
-          <ShopSection id="drop-1" />
+          <DropSection id="drop-1" />
         </div>
       </section>
       <section className="max-w-[654px] mx-auto mb-10">             

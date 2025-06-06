@@ -25,7 +25,6 @@ export const TYPING_CONTENT = {
   story: {
     light: [
       { type: "h2" as const, text: "*nu ito •* [nwi.toʊ] *•* (noun)" },
-      // { type: "p" as const, text: "formed out of" },
       { type: "h3" as const, text: 'nu ie. *"New"* and *ito* ie. *"Thread."*' },
       ...SHARED_STATUS_QUO
     ],
@@ -54,7 +53,6 @@ export const TYPING_CONTENT = {
       { type: "h2" as const, text: "THE NU ITO WAY" },
       { type: "p" as const, text: "**" },
       { type: "h2" as const, text: "*nu ito •* [nwi.toʊ] *•* (noun)" },
-      // { type: "p" as const, text: "formed out of" },
       { type: "h3" as const, text: 'nu ie. *"New"* and *ito* ie. *"Thread."' },
       {
         type: "p" as const,
@@ -80,7 +78,7 @@ export const SHOP_CONTENT_HIM = {
     {
       id: "fabric-section",
       title: "FABRIC",
-      content: "*A precise blend of bamboo, charcoal, Supima cotton, and spandex* creates a fabric that's not only breathable and stretchy but also features exceptional moisture-wicking and antibacterial properties.",
+      content: "*A precise blend of bamboo, charcoal, Supima cotton, and spandex* creates a fabric that's not only breathable and stretchy exceptional moisture-wicking and antibacterial properties.",
       image: "/fabric-asset.webp",
       icon: "/thread_1.svg",
       reverse: true
@@ -88,14 +86,14 @@ export const SHOP_CONTENT_HIM = {
     {
       id: "fit-section",
       title: "FIT",
-      content: "*We're creating a size matrix that acknowledges the diversity of male physiques.* This approach respects that a man's height and width don't necessarily scale proportionally, allowing customers to find their precise size rather than settling for the closest approximation.",
+      content: "This approach respects that a man's height and width don't necessarily scale proportionally, allowing customers to find their precise size rather than settling for the closest approximation.",
       image: "/fit-asset.webp",
       icon: "/ruler.svg"
     },
     {
       id: "design-section",
-      title: "TIMELESS DESIGN",
-      content: "*A piece of timeless design that you own, that will be ubiquitous anytime, anywhere on anyone.* This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to.",
+      title: "TIMELESS",
+      content: "This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to.",
       image: "/design-asset.webp",
       icon: "/clock.svg",
       reverse: true
@@ -103,7 +101,7 @@ export const SHOP_CONTENT_HIM = {
     {
       id: "style-section",
       title: "STYLING",
-      content: "*A piece of timeless design that you own, that will be ubiquitous anytime, anywhere on anyone.* This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to.",
+      content: "*This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to.",
     }
   ],
   stylingImages: [
@@ -135,7 +133,7 @@ export const SHOP_CONTENT_HER = {
     {
       id: "fabric-section",
       title: "FABRIC",
-      content: "*A precise blend of bamboo, charcoal, Supima cotton, and spandex* creates a fabric that's not only breathable and stretchy but also features exceptional moisture-wicking and antibacterial properties.",
+      content: "*A precise blend of bamboo, charcoal, Supima cotton, and spandex* creates a fabric that's not only breathable and stretchy exceptional moisture-wicking and antibacterial properties.",
       image: "/fabric-asset.webp",
       icon: "/thread_1.svg",
       reverse: true
@@ -143,14 +141,14 @@ export const SHOP_CONTENT_HER = {
     {
       id: "fit-section",
       title: "FIT",
-      content: "*We're creating a size matrix that acknowledges the diversity of male physiques.* This approach respects that a man's height and width don't necessarily scale proportionally, allowing customers to find their precise size rather than settling for the closest approximation.",
+      content: "This approach respects that a man's height and width don't necessarily scale proportionally, allowing customers to find their precise size rather than settling for the closest approximation.",
       image: "/fit-asset.webp",
       icon: "/ruler.svg"
     },
     {
       id: "design-section",
-      title: "TIMELESS DESIGN",
-      content: "*A piece of timeless design that you own, that will be ubiquitous anytime, anywhere on anyone.* This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to.",
+      title: "TIMELESS",
+      content: "This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to.",
       image: "/design-asset.webp",
       icon: "/clock.svg",
       reverse: true
@@ -158,7 +156,7 @@ export const SHOP_CONTENT_HER = {
     {
       id: "style-section",
       title: "STYLING",
-      content: "*A piece of timeless design that you own, that will be ubiquitous anytime, anywhere on anyone.* This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to.",
+      content: "*This helps you effortlessly chose what you were that blends into any occasion no matter when you were it. But still maintaining the comfort that you are always used to.",
     }
   ],
   stylingImages: [
