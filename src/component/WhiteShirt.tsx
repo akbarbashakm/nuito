@@ -15,13 +15,6 @@ import ScrollToPlugin from "gsap/ScrollToPlugin";
 import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-
-if (typeof document !== "undefined") {
-    document.documentElement.classList.remove("dark");
-    document.documentElement.classList.add("light");
-    localStorage.setItem("theme", "light");
-  }
-
   
 export default function WhiteShirt() {
   const { open } = useModal();
@@ -40,6 +33,31 @@ export default function WhiteShirt() {
     document.documentElement.classList.remove("dark");
     document.documentElement.classList.add("light");
     localStorage.setItem("theme", "light");
+    // Add a mutation observer to ensure theme stays light
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.attributeName === 'class') {
+            const element = mutation.target as HTMLElement;
+            if (element.classList.contains('dark')) {
+              element.classList.remove('dark');
+              element.classList.add('light');
+              localStorage.setItem("theme", "light");
+            }
+          }
+        });
+      });
+  
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class']
+      });
+  
+      return () => {
+        observer.disconnect();
+        document.documentElement.classList.remove('light');
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      };
   }, []);
 
   // Handle theme change when navigating back to home
