@@ -272,7 +272,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             <h2
               key={idx}
               ref={refCallback}
-              className="text-[3rem] md:text-[3rem] line-height-mobile block w-full py-8 pt-18 font-metrophobic font-normal text-left text-black/64 dark:text-white/64"
+              className="text-[3rem] md:text-[3rem] line-height-mobile block w-full py-8 pt-0 font-metrophobic font-normal text-left text-black/64 dark:text-white/64"
               data-aos="fade-up"
             >
               {parts.map((part, i) => (

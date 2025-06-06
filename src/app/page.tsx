@@ -196,7 +196,7 @@ export default function Home() {
           isHomePage={true}
         />
       </section>
-      <section id="story-section" className="panel h-[100dvh] py-0 flex items-center justify-center max-w-[654px] mx-auto">
+      <section id="story-section" className="panel h-[100dvh] py-0 flex items-start md:items-center justify-start md:justify-center max-w-[654px] mx-auto">
         <div className="w-full">
           {mounted && resolvedTheme === 'light' ? (
             <TypingText 
@@ -209,13 +209,13 @@ export default function Home() {
           )}
         </div>
       </section>
-      <section className="panel h-[100dvh] flex items-center justify-center max-w-[654px] mx-auto">
+      <section className="panel h-[100dvh] flex items-start md:items-center justify-start md:justify-center max-w-[654px] mx-auto">
         <TypingText 
           content={TYPING_CONTENT.newStandard} 
         />
       </section>
-      <section className="panel h-[100dvh] flex items-center justify-center max-w-[654px] mx-auto">
-        <div className="w-full h-full flex items-center justify-center">
+      <section className="panel h-[100dvh] flex items-start md:items-center justify-start md:justify-center max-w-[654px] mx-auto">
+        <div className="w-full h-full flex items-start md:items-center justify-start md:justify-center">
           <div className="w-full">
             <TypingText
               content={mounted && resolvedTheme === 'light' ? TYPING_CONTENT.nuItoWay.light : TYPING_CONTENT.nuItoWay.dark}
