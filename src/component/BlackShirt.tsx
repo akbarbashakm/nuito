@@ -225,8 +225,7 @@ export default function BlackShirt() {
         {SHOP_CONTENT_HIM.infoSections.map((section) => (
           <section
             key={section.id}
-            className="panel min-h-[100vh] lg:min-h-[100dvh] flex items-center justify-center mx-auto lg:max-w-[806px] px-0 md:px-4"
-            data-aos="fade-up"
+            className="panel min-h-[100vh] lg:min-h-[100dvh] flex items-start md:items-center justify-start md:justify-center mx-auto lg:max-w-[806px] px-0 md:px-4"
           >
             <div className="w-full flex flex-col items-start">
               <InfoSection
