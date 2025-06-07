@@ -222,10 +222,11 @@ export default function BlackShirt() {
         </Button>
 
         {/* INFO SECTIONS */}
-        {SHOP_CONTENT_HIM.infoSections.map((section) => (
+        {SHOP_CONTENT_HIM.infoSections.map((section, i) => (
           <section
             key={section.id}
-            className="panel min-h-[100vh] lg:min-h-[100dvh] flex items-start md:items-center justify-start md:justify-center mx-auto lg:max-w-[806px] px-0 md:px-4"
+            className={`panel min-h-[100vh] lg:min-h-[100dvh] flex justify-start md:justify-center mx-auto lg:max-w-[806px] px-0 md:px-4 ${i === 0 ? "items-center md:items-center" : "items-start"
+              }`}
           >
             <div className="w-full flex flex-col items-start">
               <InfoSection
