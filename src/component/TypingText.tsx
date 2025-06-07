@@ -18,7 +18,6 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
   const lineRefs = useRef<(HTMLElement | null)[]>([]);
   const [mounted, setMounted] = useState(false);
   const [containerHeight, setContainerHeight] = useState(0);
-  const [fontSize, setFontSize] = useState(1.75); // Base font size in rem
 
   useEffect(() => {
     setMounted(true);
@@ -27,41 +26,17 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
   useEffect(() => {
     if (!containerRef.current || !mounted) return;
 
-    const calculateFontSize = () => {
-      const headerHeight = 96; // Header height in pixels
-      const viewportHeight = window.innerHeight;
-      const availableHeight = viewportHeight - headerHeight;
-      const contentLength = content.reduce((acc, item) => {
-        if (item.text) {
-          return acc + item.text.length;
-        }
-        return acc;
-      }, 0);
-
-      // Calculate base font size based on content length and available height
-      let baseSize = Math.min(
-        availableHeight / (contentLength * 0.8), // Adjust multiplier as needed
-        1.75 // Maximum font size
-      );
-
-      // Ensure minimum font size
-      baseSize = Math.max(baseSize, 1);
-      
-      setFontSize(baseSize);
-    };
-
     const updateHeight = () => {
       const headerHeight = 96;
       const viewportHeight = window.innerHeight;
       const newHeight = viewportHeight - headerHeight;
       setContainerHeight(newHeight);
-      calculateFontSize();
     };
 
     updateHeight();
     window.addEventListener("resize", updateHeight);
     return () => window.removeEventListener("resize", updateHeight);
-  }, [mounted, content]);
+  }, [mounted]);
 
   const processText = (text: string | undefined) => {
     if (!text) return [];
@@ -120,6 +95,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                 const strong = document.createElement("strong");
                 strong.textContent = part.slice(1, -1);
                 strong.className = "font-bold text-black dark:text-white";
+                strong.style.fontSize = "32px"; // ← Only <strong> inside <p>
                 pElement.appendChild(strong);
                 pElement.appendChild(document.createTextNode(" "));
               } else {
@@ -146,6 +122,9 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
 
               if (part.type === "strong") {
                 span.style.fontWeight = "700";
+                if (item.type === "p") {
+                  span.style.fontSize = "32px"; // ← Only <strong> in <p>
+                }
               }
 
               lineDiv.appendChild(span);
@@ -201,10 +180,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
   return (
     <div
       ref={containerRef}
-      style={{ 
-        height: containerHeight,
-        fontSize: `${fontSize}rem`
-      }}
+      style={{ height: containerHeight }}
       className={`w-full border-[#868686] dark:border-gray-500 max-w-[654px] mx-auto bg-lightbeige dark:bg-background-dark pb-8 px-4 sm:px-0 flex flex-col items-center justify-center ${className ?? ""}`}
     >
       {content.map((item, idx) => {
@@ -224,8 +200,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
           lineRefs.current[idx] = el;
         };
 
-        const isFirstSpecialText =
-          item.text === "*nu ito •* [nwi.toʊ] *•* (noun)";
+        const isFirstSpecialText = item.text === "*nu ito •* [nwi.toʊ] *•* (noun)";
         if (isFirstSpecialText) {
           return (
             <div
@@ -249,9 +224,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                     key={idx + nextIdx + 1}
                     ref={nextRefCallback}
                     className="text-[1.25rem] font-maven text-black/80 dark:text-white/80 leading-[1] tracking-[0.252px] text-left mb-2"
-                  >
-                    {/* Filled dynamically by GSAP */}
-                  </p>
+                  />
                 );
               })}
             </div>
@@ -272,7 +245,6 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             <h2
               key={idx}
               ref={refCallback}
-              
               className="text-[3rem] md:text-[3rem] line-height-mobile block w-full py-8 pt-0 font-metrophobic font-normal text-left text-black/64 dark:text-white/64"
               data-aos="fade-up"
             >
@@ -291,7 +263,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             <h3
               key={idx}
               ref={refCallback}
-              className="text-[1.625rem] md:text-[1.75rem] block w-full font-maven px-2 pt-2 pb-0 font-bold tracking-[0.252px] text-left mb-0 text-black dark:text-white"
+              className="text-[2rem] md:text-[2rem] block w-full font-maven px-2 pt-2 pb-0 font-bold tracking-[0.252px] text-left mb-0 text-black dark:text-white"
               data-aos="fade-up"
             />
           );

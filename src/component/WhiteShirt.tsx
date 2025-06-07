@@ -15,7 +15,7 @@ import ScrollToPlugin from "gsap/ScrollToPlugin";
 import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-  
+
 export default function WhiteShirt() {
   const { open } = useModal();
   const router = useRouter();
@@ -35,29 +35,29 @@ export default function WhiteShirt() {
     localStorage.setItem("theme", "light");
     // Add a mutation observer to ensure theme stays light
     const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          if (mutation.attributeName === 'class') {
-            const element = mutation.target as HTMLElement;
-            if (element.classList.contains('dark')) {
-              element.classList.remove('dark');
-              element.classList.add('light');
-              localStorage.setItem("theme", "light");
-            }
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          const element = mutation.target as HTMLElement;
+          if (element.classList.contains('dark')) {
+            element.classList.remove('dark');
+            element.classList.add('light');
+            localStorage.setItem("theme", "light");
           }
-        });
+        }
       });
-  
-      observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['class']
-      });
-  
-      return () => {
-        observer.disconnect();
-        document.documentElement.classList.remove('light');
-        document.documentElement.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-      };
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
+    return () => {
+      observer.disconnect();
+      document.documentElement.classList.remove('light');
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    };
   }, []);
 
   // Handle theme change when navigating back to home
@@ -292,10 +292,10 @@ export default function WhiteShirt() {
         </Button>
 
         {/* INFO SECTIONS */}
-        {SHOP_CONTENT_HER.infoSections.map((section) => (
+        {SHOP_CONTENT_HER.infoSections.map((section, i) => (
           <section
             key={section.id}
-            className="panel min-h-[100vh] lg:min-h-[100dvh] flex items-start md:items-center justify-start md:justify-center mx-auto lg:max-w-[806px] px-0 md:px-4"
+            className={`panel min-h-[100vh] lg:min-h-[100dvh] flex ${i === 0 ? "items-center md:items-center" : "items-start"} justify-start md:justify-center mx-auto lg:max-w-[806px] px-0 md:px-4`}
           >
             <div className="w-full flex flex-col items-start">
               <InfoSection
