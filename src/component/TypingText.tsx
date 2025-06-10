@@ -95,7 +95,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
                 const strong = document.createElement("strong");
                 strong.textContent = part.slice(1, -1);
                 strong.className = "font-bold text-black dark:text-white";
-                strong.style.fontSize = "32px"; // ← Only <strong> inside <p>
+                strong.style.fontSize = "28px"; // ← Only <strong> inside <p>
                 pElement.appendChild(strong);
                 pElement.appendChild(document.createTextNode(" "));
               } else {
@@ -121,9 +121,9 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
               span.setAttribute("data-key", `span-${lineIdx}-${tokenIdx}`);
 
               if (part.type === "strong") {
-                span.style.fontWeight = "700";
+                span.style.fontWeight = "600";
                 if (item.type === "p") {
-                  span.style.fontSize = "32px"; // ← Only <strong> in <p>
+                  span.style.fontSize = "28px"; // ← Only <strong> in <p>
                 }
               }
 
@@ -263,7 +263,7 @@ const TypingText: React.FC<TypingTextProps> = ({ content, className }) => {
             <h3
               key={idx}
               ref={refCallback}
-              className="text-[2rem] md:text-[2rem] block w-full font-maven px-2 pt-2 pb-0 font-bold tracking-[0.252px] text-left mb-0 text-black dark:text-white"
+              className="text-[1.625rem] md:text-[1.75rem] block w-full font-maven px-2 pt-2 pb-0 font-bold tracking-[0.252px] text-left mb-0 text-black dark:text-white"
               data-aos="fade-up"
             />
           );

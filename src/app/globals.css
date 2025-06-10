@@ -336,7 +336,7 @@ body {
   color: var(--foreground);
 }
 
-@media (max-width: 379px) {
+@media (max-width: 411px) {
   .mobile-sm {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
