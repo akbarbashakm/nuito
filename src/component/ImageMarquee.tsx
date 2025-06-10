@@ -9,9 +9,10 @@ interface ImageMarqueeSectionProps {
   id: string;
   images: string[];
   speed?: number;
+  className?: string;
 }
 
-const ImageMarqueeSection: React.FC<ImageMarqueeSectionProps> = ({ id, images, speed = 20 }) => {
+const ImageMarqueeSection: React.FC<ImageMarqueeSectionProps> = ({ id, className, images, speed = 20 }) => {
   const marqueeRef = useRef<HTMLDivElement | null>(null);
   const sectionRef = useRef<HTMLDivElement | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -97,7 +98,7 @@ const ImageMarqueeSection: React.FC<ImageMarqueeSectionProps> = ({ id, images, s
   }, [images, speed]);
 
   return (
-    <section ref={sectionRef} id={id} className="w-full bg-lightbeige overflow-hidden">
+    <section ref={sectionRef} id={id} className={`${className} w-full bg-lightbeige overflow-hidden`}>
       <div className="w-full">
         <div
           ref={marqueeRef}
